@@ -1,4 +1,4 @@
-name: Deploy
+name: Build smart-admin-web-typescript
 on:
   workflow_dispatch: {}
   push:
