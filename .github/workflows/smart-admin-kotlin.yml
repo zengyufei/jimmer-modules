@@ -54,5 +54,5 @@ jobs:
     - name: Build with Gradle Wrapper
       run: |
         cd ./smart-admin-jimmer/smart-admin-kotlin
-        ./gradlew build
+        gradlew build
 
