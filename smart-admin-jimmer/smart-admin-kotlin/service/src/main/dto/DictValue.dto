@@ -1,0 +1,26 @@
+export com.zyf.support.DictValue
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+
+input DictValueAddForm {
+    #allScalars(this)
+    dictKeyId
+}
+
+input DictValueUpdateForm {
+    #allScalars(this)
+    dictKeyId
+}
+
+DictValueQueryForm {
+    dictKeyId
+    searchWord: String?
+}
+
+DictValueVO {
+    #allScalars(this)
+    dictKeyId
+}

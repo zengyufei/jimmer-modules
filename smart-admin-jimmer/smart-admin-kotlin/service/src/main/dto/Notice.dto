@@ -1,0 +1,259 @@
+export com.zyf.oa.Notice
+    -> package com.zyf.service.dto
+
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import com.alibaba.excel.annotation.ExcelProperty
+import org.hibernate.validator.constraints.Length
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.zyf.cfg.json.deserializer.FileKeyVoDeserializer
+import com.zyf.cfg.json.serializer.FileKeyVoSerializer
+import com.zyf.oa.domain.NoticeVisibleRangeVO
+import com.zyf.oa.domain.NoticeVisibleRangeForm
+
+import org.springframework.format.annotation.DateTimeFormat
+import com.fasterxml.jackson.annotation.JsonFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+
+
+input NoticeAddForm {
+
+    /** 发布时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @NotNull(message = "发布时间不能为空")
+    publishTime
+
+    /** 标题 */
+    @NotBlank(message = "标题不能为空")
+    @Length(max = 200, message = "标题最多200字符")
+    title
+
+    /** 分类 */
+    @NotNull(message = "分类不能为空")
+    noticeTypeId
+
+    /** 是否全部可见 */
+    @NotNull(message = "是否全部可见不能为空")
+    allVisibleFlag
+
+    /** 是否定时发布 */
+    @NotNull(message = "是否定时发布不能为空")
+    scheduledPublishFlag
+
+    /** 纯文本内容 */
+    @NotNull(message = "文本内容不能为空")
+    contentText
+
+    /** html内容 */
+    @NotNull(message = "html内容不能为空")
+    contentHtml
+
+    /** 附件,多个英文逗号分隔|可选 */
+    @Length(max = 1000, message = "最多1000字符")
+    @JsonDeserialize(using = FileKeyVoDeserializer.class)
+    attachment
+
+    /** 作者 */
+    @NotBlank(message = "作者不能为空")
+    author
+
+    /** 来源 */
+    @NotBlank(message = "标题不能为空")
+    source
+
+    /** 文号 */
+    documentNumber
+
+    /** 可见范围设置|可选 */
+    @Valid
+    visibleRangeList: List<NoticeVisibleRangeForm>
+}
+specification NoticeEmployeeQueryForm {
+
+    /** 标题、作者、来源、文号 */
+    like/i(title, author, source, documentNumber) as keywords
+
+    /** 分类 */
+    noticeTypeId
+
+    /** 发布-开始时间 */
+    ge(publishTime) as publishTimeBegin
+
+    /** 发布-截止时间 */
+    le(publishTime) as publishTimeEnd
+
+    notViewFlag: Boolean?
+}
+
+specification NoticeQueryForm {
+
+    /** 分类 */
+    noticeTypeId
+
+    /** 标题、作者、来源 */
+    like/i(title, author, source) as keywords
+
+    /** 文号 */
+    documentNumber
+
+    /** 创建人 */
+    createId as createUserId
+
+    /** 创建-开始时间 */
+    gt(createTime) as createTimeBegin
+
+    /** 创建-截止时间 */
+    lt(createTime) as createTimeEnd
+
+    /** 发布-开始时间 */
+    gt(publishTime) as publishTimeBegin
+
+    /** 发布-截止时间 */
+    lt(publishTime) as publishTimeEnd
+
+}
+
+
+input NoticeUpdateForm {
+
+    /** 标题 */
+    @NotBlank(message = "标题不能为空")
+    @Length(max = 200, message = "标题最多200字符")
+    title
+
+    /** 分类 */
+    @NotNull(message = "分类不能为空")
+    noticeTypeId
+
+    /** 是否全部可见 */
+    @NotNull(message = "是否全部可见不能为空")
+    allVisibleFlag
+
+    /** 是否定时发布 */
+    @NotNull(message = "是否定时发布不能为空")
+    scheduledPublishFlag
+
+    /** 发布时间 */
+    @NotNull(message = "发布时间不能为空")
+    publishTime
+
+    /** 纯文本内容 */
+    @NotNull(message = "文本内容不能为空")
+    contentText
+
+    /** html内容 */
+    @NotNull(message = "html内容不能为空")
+    contentHtml
+
+    /** 附件,多个英文逗号分隔|可选 */
+    @Length(max = 1000, message = "最多1000字符")
+    @JsonDeserialize(using = FileKeyVoDeserializer.class)
+    attachment
+
+    /** 作者 */
+    @NotBlank(message = "作者不能为空")
+    author
+
+    /** 来源 */
+    @NotBlank(message = "标题不能为空")
+    source
+
+    /** 文号 */
+    documentNumber
+
+    /** 可见范围设置|可选 */
+    @Valid
+    visibleRangeList: List<NoticeVisibleRangeForm>
+
+
+    @NotNull(message = "通知id不能为空")
+    noticeId!
+
+}
+
+
+NoticeUpdateFormVO {
+    #allScalars
+    publishFlag
+
+    flat(noticeType) {
+        noticeTypeName
+    }
+    flat(create) {
+        actualName
+        flat(department) {
+            departmentName
+        }
+    }
+    /** 可见范围 */
+    visibleRangeList: List<NoticeVisibleRangeVO>
+    /** 创建时间 */
+    createTime
+
+    /** 更新时间 */
+    updateTime
+}
+NoticeDetailVO {
+
+    #allScalars
+    publishFlag
+
+    flat(noticeType) {
+        noticeTypeName
+    }
+    flat(create) {
+        actualName
+        flat(department) {
+            departmentName
+        }
+    }
+
+    /** 创建时间 */
+    createTime
+
+    /** 更新时间 */
+    updateTime
+
+}
+NoticeEmployeeVO {
+    #allScalars
+    publishFlag
+
+    flat(noticeType) {
+        noticeTypeName
+    }
+    flat(create) {
+        actualName
+        flat(department) {
+            departmentName
+        }
+    }
+    
+    /** 是否查看 */
+    viewFlag: Int
+
+    /** 发布日期 */
+    publishDate: LocalDate?
+}
+NoticeVO {
+    #allScalars
+    publishFlag
+
+    flat(noticeType) {
+        noticeTypeName
+    }
+    flat(create) {
+        actualName
+        flat(department) {
+            departmentName
+        }
+    }
+    /** 创建时间 */
+    createTime
+    /** 更新时间 */
+    updateTime
+}

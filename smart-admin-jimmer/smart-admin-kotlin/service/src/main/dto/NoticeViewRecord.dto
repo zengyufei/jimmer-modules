@@ -1,0 +1,45 @@
+export com.zyf.oa.NoticeViewRecord
+    -> package com.zyf.service.dto
+
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import com.alibaba.excel.annotation.ExcelProperty
+import org.hibernate.validator.constraints.Length
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.zyf.cfg.json.deserializer.FileKeyVoDeserializer
+import com.zyf.cfg.json.serializer.FileKeyVoSerializer
+import com.zyf.oa.domain.NoticeVisibleRangeVO
+import com.zyf.oa.domain.NoticeVisibleRangeForm
+
+import org.springframework.format.annotation.DateTimeFormat
+import com.fasterxml.jackson.annotation.JsonFormat
+
+
+specification NoticeViewRecordQueryForm {
+
+    /** 通知公告id */
+    @NotNull(message = "通知公告id不能为空")
+    noticeId
+
+    flat(employee) {
+//        like/i(actualName) as keywords
+        flat(department) {
+            /** 部门id */
+            eq(departmentId)
+        }
+    }
+
+//    like/i(firstIp, firstUserAgent, lastIp, lastUserAgent) as keywords
+
+}
+NoticeViewRecordVO {
+    #allScalars
+    flat(employee) {
+        actualName as employeeName
+        flat(department) {
+            departmentName
+        }
+    }
+}

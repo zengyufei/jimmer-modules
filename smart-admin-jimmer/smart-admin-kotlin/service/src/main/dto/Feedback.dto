@@ -1,0 +1,50 @@
+export com.zyf.support.Feedback
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+import com.zyf.common.valid.CheckEnum
+import com.zyf.common.enums.ChangeLogTypeEnum
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.zyf.cfg.json.deserializer.FileKeyVoDeserializer
+import com.zyf.cfg.json.serializer.FileKeyVoSerializer
+
+input FeedbackAddForm {
+
+    /** 反馈内容 */
+    @NotBlank(message = "反馈内容不能为空")
+    feedbackContent
+
+    /** 反馈图片 */
+    @JsonSerialize(using = FileKeyVoSerializer.class)
+    @JsonDeserialize(using = FileKeyVoDeserializer.class)
+    feedbackAttachment
+
+}
+specification FeedbackQueryForm {
+
+    /** 搜索词 */
+    @Length(max = 25, message = "搜索词最多25字符")
+    like/i(feedbackContent, userName) as searchWord
+
+    /** 开始时间", example = "2021-02-14 */
+    ge(createTime) as startDate
+
+    /** 截止时间", example = "2022-10-15 */
+    le(createTime) as endDate
+
+    // order by create_time desc
+}
+
+FeedbackVO {
+    #allScalars
+    flat(create) {
+        createId as userId
+    }
+    createTime
+    updateTime
+}

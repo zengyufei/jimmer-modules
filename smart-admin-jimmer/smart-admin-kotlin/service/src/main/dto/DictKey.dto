@@ -1,0 +1,26 @@
+export com.zyf.support.DictKey
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+
+input DictKeyUpdateForm {
+
+    #allScalars(this)
+}
+
+input DictKeyAddForm {
+
+    #allScalars(this)
+}
+
+specification DictKeyQueryForm {
+
+    searchWord: String?
+}
+
+DictKeyVO {
+
+    #allScalars(this)
+}

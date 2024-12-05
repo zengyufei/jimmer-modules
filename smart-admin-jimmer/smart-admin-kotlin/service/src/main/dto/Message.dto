@@ -1,0 +1,67 @@
+export com.zyf.support.Message
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+import com.zyf.common.valid.CheckEnum
+import com.zyf.common.enums.ChangeLogTypeEnum
+import com.zyf.common.enums.MessageTypeEnum
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.zyf.cfg.json.deserializer.FileKeyVoDeserializer
+import com.zyf.cfg.json.serializer.FileKeyVoSerializer
+
+input MessageSendForm {
+
+    @NotNull(message = "消息类型不能为空")
+    messageType
+
+    @NotNull(message = "接收者类型不能为空")
+    receiverUserType
+
+    /** 接收者id */
+    @NotNull(message = "接收者id不能为空")
+    receiverUserId
+
+    /** 标题 */
+    @NotBlank(message = "标题")
+    title
+
+    /** 内容 */
+    @NotBlank(message = "内容")
+    content
+
+    dataId
+
+}
+specification MessageQueryForm {
+
+    /** 搜索词 */
+    @Length(max = 50, message = "搜索词最多50字符")
+    like/i(title, content) as searchWord
+
+    @CheckEnum(value = MessageTypeEnum.class, message = "消息类型")
+    messageType
+
+    /** 是否已读 */
+    readFlag
+
+    /** 查询开始时间 */
+    ge(createTime) as startDate
+
+    /** 查询结束时间 */
+    le(createTime) as endDate
+
+    receiverUserId
+
+    receiverUserType
+    // ORDER BY message_id DESC
+}
+
+MessageVO {
+    #allScalars
+    createTime
+}

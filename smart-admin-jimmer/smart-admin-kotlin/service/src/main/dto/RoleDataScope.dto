@@ -1,0 +1,45 @@
+export com.zyf.system.RoleDataScope
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+
+
+RoleDataScopeVO {
+
+    /** 数据范围id */
+    dataScopeType
+
+    /** 可见范围 */
+    viewType
+}
+
+
+DataScopeViewTypeVO {
+
+    /** 可见范围 */
+    viewType: Int?
+
+    /** 可见范围名称 */
+    viewTypeName: String?
+
+    /** 级别,用于表示范围大小 */
+    viewTypeLevel: Int?
+}
+
+
+DataScopeDTO {
+    /** 数据范围类型 */
+    dataScopeType
+
+    /** 数据范围名称 */
+    dataScopeTypeName: String?
+
+    /** 描述 */
+    dataScopeTypeDesc: String?
+
+    /** 顺序 */
+    dataScopeTypeSort: Int?
+}

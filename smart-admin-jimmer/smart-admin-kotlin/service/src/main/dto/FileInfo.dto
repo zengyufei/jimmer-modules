@@ -1,0 +1,75 @@
+export com.zyf.support.FileInfo
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+import com.zyf.common.valid.CheckEnum
+import com.zyf.common.enums.FileFolderTypeEnum
+
+specification FileQueryForm {
+
+    @CheckEnum(value = FileFolderTypeEnum.class, message = "文件夹类型 错误")
+    folderType;
+
+    /** 文件名词 */
+    like/i(fileName)
+
+    /** 文件Key */
+    like/i(fileKey)
+
+    /** 文件类型 */
+    fileType
+
+    /** 创建人 */
+    like/i(creatorName)
+
+    /** 创建时间 */
+    gt(createTime) as createTimeBegin
+
+    /** 创建时间 */
+    lt(createTime) as createTimeEnd
+
+}
+
+
+input FileKeyVO {
+    
+    /** 文件路径 */
+    fileKey
+}
+
+FileVO {
+
+    /** 主键 */
+    fileId
+
+    /** 存储文件夹类型 */
+    folderType
+
+    /** 文件名称 */
+    fileName
+
+    /** 文件大小 */
+    fileSize
+
+    /** 文件类型 */
+    fileType
+
+    /** 文件路径 */
+    fileKey
+
+    /** 上传人 */
+    creatorId
+
+    /** 上传人 */
+    creatorName
+
+    creatorUserType
+
+    /** 文件展示url */
+    fileUrl: String?
+
+    /** 创建时间 */
+    createTime
+}

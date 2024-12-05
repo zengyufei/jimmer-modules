@@ -1,0 +1,192 @@
+export com.zyf.employee.Employee
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+import jakarta.validation.constraints.Size
+
+input EmployeeBatchUpdateDepartmentForm {
+
+    /** 员工id */
+    @NotEmpty(message = "员工id不能为空")
+    @Size(max = 99, message = "一次最多调整99个员工")
+    employeeIdList: List<String>
+
+    /** 部门ID */
+    @NotNull(message = "部门ID不能为空")
+    departmentId
+}
+
+
+input EmployeeUpdatePasswordForm {
+
+    employeeId;
+
+    /** 原密码 */
+    @NotBlank(message = "原密码不能为空哦")
+    oldPassword: String
+
+    /** 新密码 */
+    @NotBlank(message = "新密码不能为空哦")
+    newPassword: String
+}
+
+
+input EmployeeUpdateAvatarForm {
+    employeeId
+    @NotBlank(message = "头像不能为空哦")
+    avatar
+}
+
+
+input EmployeeUpdateForm {
+    @NotNull(message = "员工id不能为空")
+    employeeId
+
+    /** 姓名 */
+    @NotNull(message = "姓名不能为空")
+    @Length(max = 30, message = "姓名最多30字符")
+    actualName
+
+    /** 登录账号 */
+    @NotNull(message = "登录账号不能为空")
+    @Length(max = 30, message = "登录账号最多30字符")
+    loginName
+
+    gender
+
+    /** 部门id */
+    @NotNull(message = "部门id不能为空")
+    departmentId
+
+    /** 是否启用 */
+    @NotNull(message = "是否被禁用不能为空")
+    disabledFlag
+
+    /** 手机号 */
+    @NotNull(message = "手机号不能为空")
+    phone
+
+    /** 邮箱 */
+    email
+
+    /** 角色列表 */
+    roleIdList: List<Long>
+
+    /** 备注 */
+    @Length(max = 30, message = "备注最多200字符")
+    remark
+
+    /** 职务级别ID */
+    positionId
+
+}
+
+
+input EmployeeAddForm {
+
+    /** 姓名 */
+    @NotNull(message = "姓名不能为空")
+    @Length(max = 30, message = "姓名最多30字符")
+    actualName
+
+    /** 登录账号 */
+    @NotNull(message = "登录账号不能为空")
+    @Length(max = 30, message = "登录账号最多30字符")
+    loginName
+
+    gender
+
+    /** 部门id */
+    @NotNull(message = "部门id不能为空")
+    departmentId
+
+    /** 是否启用 */
+    @NotNull(message = "是否被禁用不能为空")
+    disabledFlag
+
+    /** 手机号 */
+    @NotNull(message = "手机号不能为空")
+    phone
+
+    /** 邮箱 */
+    email
+
+    /** 角色列表 */
+    roleIdList: List<Long>
+
+    /** 备注 */
+    @Length(max = 30, message = "备注最多200字符")
+    remark
+
+    /** 职务级别ID */
+    positionId
+
+}
+
+
+specification EmployeeQueryForm {
+
+    /** 搜索词 */
+    @Length(max = 20, message = "搜索词最多20字符")
+    like/i(actualName, phone, loginName) as keyword
+
+    /** 是否禁用 */
+    eq(disabledFlag)
+
+    /** 部门id */
+    departmentId
+
+}
+specification EnterpriseEmployeeQueryForm {
+
+    /** 搜索词 */
+    @Length(max = 20, message = "搜索词最多20字符")
+    like/i(actualName, phone, loginName) as keyword
+
+    /** 公司Id */
+    @NotNull(message = "公司id 不能为空")
+    eq(enterpriseId)
+
+}
+
+
+EnterpriseEmployeeVO {
+    #allScalars
+    actualName
+    flat(enterprise) {
+        enterpriseName
+    }
+    flat(department) {
+        departmentName
+    }
+}
+
+RoleEmployeeQueryForm {
+
+    /** 关键字 */
+    keywords: String?
+
+    /** 角色id */
+    roleId: String?
+}
+
+EmployeeVO {
+    #allScalars
+    flat(enterprise) {
+        enterpriseId
+        enterpriseName
+    }
+    flat(department) {
+        departmentId
+        departmentName
+    }
+    flat(position) {
+        positionId
+        positionName
+    }
+    roleIds as roleIdList
+    roleNameList
+}

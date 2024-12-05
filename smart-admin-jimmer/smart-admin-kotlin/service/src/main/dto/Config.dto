@@ -1,0 +1,27 @@
+export com.zyf.support.Config
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+
+input ConfigUpdateForm {
+    #allScalars(this)
+}
+
+input ConfigAddForm {
+    #allScalars(this)
+    -configId
+}
+
+input ConfigQueryForm {
+
+    @Length(max = 50, message = "参数Key最多50字符")
+    configKey: String?
+}
+
+
+ConfigVO {
+    #allScalars
+}

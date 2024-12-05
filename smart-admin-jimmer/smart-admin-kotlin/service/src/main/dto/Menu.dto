@@ -1,0 +1,65 @@
+export com.zyf.system.Menu
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+
+
+MenuSimpleTreeVO {
+    menuId
+    menuName
+    contextMenuId
+    menuType
+    parentId
+    children*
+}
+
+
+MenuTreeVO {
+    apiPerms
+    cacheFlag
+    children*
+    component
+    contextMenuId
+    createTime
+    createId
+    disabledFlag
+    frameFlag
+    frameUrl
+    icon
+    menuId
+    menuName
+    menuType
+    parentId
+    path
+    permsType
+    sort
+    updateTime
+    updateId
+    visibleFlag
+    webPerms
+}
+
+MenuVO {
+    menuName
+    menuType
+    parentId
+    sort
+    path
+    component
+    frameFlag
+    frameUrl
+    cacheFlag
+    visibleFlag
+    disabledFlag
+    permsType
+    webPerms
+    apiPerms
+    icon
+    contextMenuId
+    menuId
+    createTime
+    createId
+    updateTime
+    updateId
+}

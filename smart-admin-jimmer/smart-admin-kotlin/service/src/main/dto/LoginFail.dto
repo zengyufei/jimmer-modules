@@ -1,0 +1,23 @@
+export com.zyf.loginLog.LoginFail
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+
+specification LoginFailQueryForm {
+    /** 登录名 */
+    loginName
+    /** 锁定状态 */
+    lockFlag
+    /** 登录失败锁定时间 */
+    ge(loginLockBeginTime) as loginLockBeginTimeBegin
+    /** 登录失败锁定时间 */
+    le(loginLockBeginTime) as loginLockBeginTimeEnd
+}
+
+input LoginFailVO {
+    #allScalars
+    createTime
+    updateTime
+}

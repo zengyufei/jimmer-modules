@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  postgres:
+    privileged: true
+    user: root:root
+    container_name: "${POSTGRESQL_SERVICE_CONTAINER_NAME}"
+    hostname: "${POSTGRESQL_SERVICE_HOSTNAME}"
+    image: "postgres:${POSTGRESQL_SERVICE_VERSION}"
+    restart: always
+    ports:
+     - "5432:5432"
+    environment:
+      TZ: Asia/Shanghai
+      POSTGRES_DB: "${POSTGRESQL_SERVICE_DATABASE_NAME}"
+      POSTGRES_USER: "${POSTGRESQL_SERVICE_USER_NAME}"
+      POSTGRES_PASSWORD: "${POSTGRESQL_SERVICE_ROOT_PASSWORD}"
+    volumes: 
+      - ./data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 15432:8080

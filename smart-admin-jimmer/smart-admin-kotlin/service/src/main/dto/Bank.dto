@@ -1,0 +1,113 @@
+export com.zyf.oa.Bank
+    -> package com.zyf.service.dto
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+import com.zyf.common.valid.CheckEnum
+import com.alibaba.excel.annotation.ExcelProperty
+import com.zyf.common.enums.EnterpriseTypeEnum
+import com.zyf.common.valid.SmartVerificationUtil
+
+input BankUpdateForm {
+
+    /** 银行信息ID */
+    @NotNull(message = "银行信息ID不能为空")
+    bankId!
+
+    /** 开户银行 */
+    @NotBlank(message = "开户银行不能为空")
+    @Length(max = 200, message = "开户银行最多200字符")
+    bankName
+
+    /** 账户名称 */
+    @NotBlank(message = "账户名称不能为空")
+    @Length(max = 200, message = "账户名称最多200字符")
+    accountName
+
+    /** 账号 */
+    @NotBlank(message = "账号不能为空")
+    @Length(max = 200, message = "账号最多200字符")
+    accountNumber
+
+    /** 备注 */
+    @Length(max = 500, message = "备注最多500字符")
+    remark
+
+    /** 是否对公 */
+    @NotNull(message = "是否对公不能为空")
+    businessFlag
+
+    /** 企业 */
+    @NotNull(message = "企业不能为空")
+    enterpriseId
+
+    /** 禁用状态 */
+    @NotNull(message = "禁用状态不能为空")
+    disabledFlag
+}
+
+input BankCreateForm {
+
+    /** 开户银行 */
+    @NotBlank(message = "开户银行不能为空")
+    @Length(max = 200, message = "开户银行最多200字符")
+    bankName
+
+    /** 账户名称 */
+    @NotBlank(message = "账户名称不能为空")
+    @Length(max = 200, message = "账户名称最多200字符")
+    accountName
+
+    /** 账号 */
+    @NotBlank(message = "账号不能为空")
+    @Length(max = 200, message = "账号最多200字符")
+    accountNumber
+
+    /** 备注 */
+    @Length(max = 500, message = "备注最多500字符")
+    remark
+
+    /** 是否对公 */
+    @NotNull(message = "是否对公不能为空")
+    businessFlag
+
+    /** 企业 */
+    @NotNull(message = "企业不能为空")
+    enterpriseId
+
+    /** 禁用状态 */
+    @NotNull(message = "禁用状态不能为空")
+    disabledFlag
+}
+
+
+specification BankQueryForm {
+
+    /** 企业ID */
+    enterpriseId
+
+    /** 关键字 */
+    @Length(max = 200, message = "关键字最多200字符")
+    like/i(bankName, accountName, accountNumber) as keywords
+
+    ge(createTime) as startTime
+
+    le(createTime) as endTime
+
+}
+
+BankVO {
+    #allScalars
+    flat(enterprise) {
+        enterpriseName
+    }
+    flat(create) {
+        createId as createUserId
+        actualName as createUserName
+    }
+}

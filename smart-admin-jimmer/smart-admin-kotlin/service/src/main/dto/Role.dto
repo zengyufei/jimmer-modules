@@ -1,0 +1,84 @@
+export com.zyf.system.Role
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+
+RoleSelectedVO {
+    #allScalars
+    selected: Boolean
+}
+
+RoleEmployeeEntity {
+
+    roleId
+
+    employeeId: String
+}
+
+RoleEmployeeUpdateForm {
+
+    /** 角色id */
+    @NotNull(message = "角色id不能为空")
+    roleId
+
+    /** 员工id集合 */
+    @NotEmpty(message = "员工id不能为空")
+    employeeIdList: MutableList<String>
+
+}
+
+input RoleDataScopeUpdateForm {
+    @NotNull(message = "角色id不能为空")
+    roleId
+
+    roleDataScopes as dataScopeItemList{
+        @NotNull(message = "可见范围不能为空")
+        viewType
+        @NotNull(message = "数据范围类型不能为空")
+        dataScopeType
+    }
+}
+
+input RoleMenuUpdateForm {
+    @NotNull(message = "角色id不能为空")
+    roleId
+
+    @NotEmpty(message = "菜单ids不能为空")
+    menuIds as menuIdList
+}
+
+input RoleAddForm {
+    @NotNull(message = "角色编码 不能为空")
+    @Length(min = 1, max = 20, message = "角色编码(1-20)个字符")
+    roleCode
+
+    @NotNull(message = "角色名称不能为空")
+    @Length(min = 1, max = 20, message = "角色名称(1-20)个字符")
+    roleName
+
+    @Length(max = 255, message = "角色描述最多255个字符")
+    remark
+}
+
+input RoleUpdateForm {
+    @NotNull(message = "角色id不能为空")
+    roleId
+
+    @NotNull(message = "角色编码 不能为空")
+    @Length(min = 1, max = 20, message = "角色编码(1-20)个字符")
+    roleCode
+
+    @NotNull(message = "角色名称不能为空")
+    @Length(min = 1, max = 20, message = "角色名称(1-20)个字符")
+
+    roleName
+    @Length(max = 255, message = "角色描述最多255个字符")
+    remark
+}
+
+RoleVO {
+    #allScalars
+}

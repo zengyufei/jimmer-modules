@@ -1,0 +1,33 @@
+export com.zyf.employee.Position
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+
+input PositionAddForm{
+    @NotBlank(message = "职务名称 不能为空")
+    positionName
+    level
+    @NotNull(message = "排序不能为空")
+    sort
+    remark
+}
+input PositionUpdateForm{
+    @NotNull(message = "职务ID 不能为空")
+    positionId
+    @NotBlank(message = "职务名称 不能为空")
+    positionName
+    level
+    @NotNull(message = "排序不能为空")
+    sort
+    remark
+}
+
+PositionVO {
+    #allScalars
+}
+
+specification PositionSpecification {
+    like/i(positionName) as keywords
+    level
+}

@@ -1,0 +1,20 @@
+export com.zyf.support.TableColumn
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+
+input TableColumnItemForm {
+
+    @NotEmpty(message = "列不能为空")
+    columnKey: String
+
+    width: Int
+
+    @NotNull(message = "显示不能为空")
+    showFlag: Boolean
+
+    @NotNull(message = "排序不能为空")
+    sort: Int
+}

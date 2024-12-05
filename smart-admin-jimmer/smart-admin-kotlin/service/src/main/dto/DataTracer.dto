@@ -1,0 +1,112 @@
+export com.zyf.support.DataTracer
+    -> package com.zyf.service.dto
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+import com.zyf.common.valid.CheckEnum
+import com.alibaba.excel.annotation.ExcelProperty
+import com.zyf.common.enums.EnterpriseTypeEnum
+import com.zyf.common.valid.SmartVerificationUtil
+
+input DataTracerForm {
+
+    /**
+     * 业务id
+     */
+    dataId
+
+    /**
+     * 业务类型
+     */
+    type
+
+    /**
+     * 操作内容
+     */
+    content
+
+    /**
+     * diff 差异：旧的数据
+     */
+    diffOld
+
+    /**
+     * 差异：新的数据
+     */
+    diffNew
+
+    /**
+     * 扩展字段
+     */
+    extraData
+
+    ip
+    ipRegion
+    userAgent
+    userId
+    userType
+    userName
+
+}
+
+
+specification DataTracerQueryForm {
+
+    type
+
+    /** 业务id */
+    @NotNull(message = "业务id不能为空")
+    dataId
+
+    /** 关键字 */
+    like/i(content) as keywords
+}
+
+
+DataTracerVO {
+
+    /** 日志id */
+    dataTracerId
+
+    /** 单据id */
+    dataId
+
+    type
+
+    /** 操作内容 */
+    content
+
+    /** diff 差异：旧的数据 */
+    diffOld
+
+    /** 差异：新的数据 */
+    diffNew
+
+    /** 扩展字段 */
+    extraData
+
+    /** 操作人 */
+    userId
+
+    userType
+
+    /** 操作人名称 */
+    userName
+
+    /** userAgent */
+    userAgent
+
+    /** ip */
+    ip
+
+    /** ip地区 */
+    ipRegion
+
+    /** 操作时间 */
+    createTime
+}

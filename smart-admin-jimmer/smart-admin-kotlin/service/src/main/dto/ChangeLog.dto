@@ -1,0 +1,46 @@
+export com.zyf.support.ChangeLog
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+import com.zyf.common.valid.CheckEnum
+import com.zyf.common.enums.ChangeLogTypeEnum
+
+input ChangeLogUpdateForm{
+    #allScalars
+}
+input ChangeLogAddForm{
+    #allScalars
+    -changeLogId
+}
+
+specification ChangeLogQueryForm {
+
+    @CheckEnum(value = ChangeLogTypeEnum.class, message = "更新类型:[1:特大版本功能更新;2:功能更新;3:bug修复] 错误")
+    type
+
+    /** 关键字 */
+    like/i(version, publishAuthorId, content) as keyword
+
+    /** 发布日期 */
+    ge(publicDate) as publicDateBegin
+
+    /** 发布日期 */
+    le(publicDate) as publicDateEnd
+
+    /** 创建时间 */
+    eq(createTime)
+
+    /** 跳转链接 */
+    eq(link)
+
+    // version desc
+}
+
+ChangeLogVO {
+    #allScalars
+    createTime
+    updateTime
+}

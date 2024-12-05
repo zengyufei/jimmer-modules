@@ -1,0 +1,91 @@
+export com.zyf.oa.Invoice
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import com.alibaba.excel.annotation.ExcelProperty
+import org.hibernate.validator.constraints.Length
+
+input InvoiceUpdateForm {
+    /** 发票ID */
+    @NotNull(message = "发票ID不能为空")
+    invoiceId
+
+    /** 开票抬头 */
+    @NotBlank(message = "开票抬头不能为空")
+    @Length(max = 200, message = "开票抬头最多200字符")
+    invoiceHeads
+
+    /** 纳税人识别号 */
+    @NotBlank(message = "纳税人识别号不能为空")
+    @Length(max = 200, message = "纳税人识别号最多200字符")
+    taxpayerIdentificationNumber
+
+    /** 银行账户 */
+    @NotBlank(message = "银行账户不能为空")
+    @Length(max = 200, message = "银行账户最多200字符")
+    accountNumber
+
+    /** 开户行 */
+    @NotBlank(message = "开户行不能为空")
+    @Length(max = 200, message = "开户行最多200字符")
+    bankName
+
+    /** 备注 */
+    @Length(max = 500, message = "备注最多500字符")
+    remark
+
+    /** 企业ID */
+    @NotNull(message = "企业不能为空")
+    enterpriseId
+
+    /** 禁用状态 */
+    @NotNull(message = "禁用状态不能为空")
+    disabledFlag
+}
+
+input InvoiceAddForm {
+    /** 开票抬头 */
+    @NotBlank(message = "开票抬头不能为空")
+    @Length(max = 200, message = "开票抬头最多200字符")
+    invoiceHeads
+
+    /** 纳税人识别号 */
+    @NotBlank(message = "纳税人识别号不能为空")
+    @Length(max = 200, message = "纳税人识别号最多200字符")
+    taxpayerIdentificationNumber
+
+    /** 银行账户 */
+    @NotBlank(message = "银行账户不能为空")
+    @Length(max = 200, message = "银行账户最多200字符")
+    accountNumber
+
+    /** 开户行 */
+    @NotBlank(message = "开户行不能为空")
+    @Length(max = 200, message = "开户行最多200字符")
+    bankName
+
+    /** 备注 */
+    @Length(max = 500, message = "备注最多500字符")
+    remark
+
+    /** 企业ID */
+    @NotNull(message = "企业不能为空")
+    enterpriseId
+
+    /** 禁用状态 */
+    @NotNull(message = "禁用状态不能为空")
+    disabledFlag
+}
+
+specification InvoiceQueryForm {
+    like/i(invoiceHeads, accountNumber) as keywords
+    ge(createTime) as startTime
+    le(createTime) as endTime
+    eq(disabledFlag)
+    eq(enterpriseId)
+}
+
+InvoiceVO {
+    #allScalars
+}

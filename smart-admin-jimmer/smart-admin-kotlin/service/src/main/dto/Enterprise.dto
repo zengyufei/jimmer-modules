@@ -1,0 +1,214 @@
+export com.zyf.oa.Enterprise
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+import com.zyf.common.valid.CheckEnum
+import com.alibaba.excel.annotation.ExcelProperty
+import com.zyf.common.enums.EnterpriseTypeEnum
+import com.zyf.common.valid.SmartVerificationUtil
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.zyf.cfg.json.deserializer.FileKeyVoDeserializer
+import com.zyf.cfg.json.serializer.FileKeyVoSerializer
+
+input EnterpriseUpdateForm {
+
+    /** 企业ID */
+    @NotNull(message = "企业ID不能为空")
+    enterpriseId
+
+    /** 企业名称 */
+    @NotBlank(message = "企业名称不能为空")
+    @Length(max = 200, message = "企业名称最多200字符")
+    enterpriseName
+
+    /** 企业logo */
+    @JsonDeserialize(using = FileKeyVoDeserializer.class)
+    enterpriseLogo
+
+    /** 统一社会信用代码 */
+    @NotBlank(message = "统一社会信用代码不能为空")
+    @Length(max = 200, message = "统一社会信用代码最多200字符")
+    unifiedSocialCreditCode
+
+    /** 联系人 */
+    @NotBlank(message = "联系人不能为空")
+    @Length(max = 100, message = "联系人最多100字符")
+    contact
+
+    /** 联系人电话 */
+    @NotBlank(message = "联系人电话不能为空")
+    @Pattern(regexp = SmartVerificationUtil.PHONE_REGEXP, message = "手机号格式不正确")
+    contactPhone
+
+    @CheckEnum(message = "类型不正确", value = EnterpriseTypeEnum.class)
+    type
+
+    /** 邮箱 */
+    @Pattern(regexp = SmartVerificationUtil.EMAIL, message = "邮箱格式不正确")
+    email
+
+    /** 省份 */
+    province
+
+    /** 省份名称 */
+    provinceName
+
+    /** 城市 */
+    city
+
+    /** 城市名称 */
+    cityName
+
+    /** 区县 */
+    district
+
+    /** 区县名称 */
+    districtName
+
+    /** 详细地址 */
+    @Length(max = 500, message = "详细地址最多500字符")
+    address
+
+    /** 营业执照 */
+    @JsonDeserialize(using = FileKeyVoDeserializer.class)
+    businessLicense
+
+    /** 禁用状态 */
+    @NotNull(message = "禁用状态不能为空")
+    disabledFlag
+}
+input EnterpriseCreateForm {
+
+    /** 企业名称 */
+    @NotBlank(message = "企业名称不能为空")
+    @Length(max = 200, message = "企业名称最多200字符")
+    enterpriseName
+
+    /** 企业logo */
+    @JsonDeserialize(using = FileKeyVoDeserializer.class)
+    enterpriseLogo
+
+    /** 统一社会信用代码 */
+    @NotBlank(message = "统一社会信用代码不能为空")
+    @Length(max = 200, message = "统一社会信用代码最多200字符")
+    unifiedSocialCreditCode
+
+    /** 联系人 */
+    @NotBlank(message = "联系人不能为空")
+    @Length(max = 100, message = "联系人最多100字符")
+    contact
+
+    /** 联系人电话 */
+    @NotBlank(message = "联系人电话不能为空")
+    @Pattern(regexp = SmartVerificationUtil.PHONE_REGEXP, message = "手机号格式不正确")
+    contactPhone
+
+    @CheckEnum(message = "类型不正确", value = EnterpriseTypeEnum.class)
+    type
+
+    /** 邮箱 */
+    @Pattern(regexp = SmartVerificationUtil.EMAIL, message = "邮箱格式不正确")
+    email
+
+    /** 省份 */
+    province
+
+    /** 省份名称 */
+    provinceName
+
+    /** 城市 */
+    city
+
+    /** 城市名称 */
+    cityName
+
+    /** 区县 */
+    district
+
+    /** 区县名称 */
+    districtName
+
+    /** 详细地址 */
+    @Length(max = 500, message = "详细地址最多500字符")
+    address
+
+    /** 营业执照 */
+    @JsonDeserialize(using = FileKeyVoDeserializer.class)
+    businessLicense
+
+    /** 禁用状态 */
+    @NotNull(message = "禁用状态不能为空")
+    disabledFlag
+}
+
+
+input EnterpriseEmployeeForm {
+    /** 企业id */
+    enterpriseId!
+    /** 员工id集合 */
+    employeeIdList: List<String>
+}
+specification EnterpriseQueryForm {
+    like/i(enterpriseName, contact, contactPhone) as keywords
+    ge(createTime) as startTime
+    le(createTime) as endTime
+    eq(disabledFlag)
+}
+EnterpriseExcelVO {
+
+    @ExcelProperty("企业名称")
+    enterpriseName
+
+    @ExcelProperty("统一社会信用代码")
+    unifiedSocialCreditCode
+
+    @ExcelProperty("企业类型")
+    type as typeName
+
+    @ExcelProperty("联系人")
+    contact
+
+    @ExcelProperty("联系人电话")
+    contactPhone
+
+    @ExcelProperty("邮箱")
+    email
+
+    @ExcelProperty("省份名称")
+    provinceName
+
+    @ExcelProperty("城市名称")
+    cityName
+
+    @ExcelProperty("区县名称")
+    districtName
+
+    @ExcelProperty("详细地址")
+    address
+
+}
+EnterpriseListVO {
+    #allScalars
+    -enterpriseLogo
+    -businessLicense
+}
+EnterpriseVO {
+    #allScalars
+    -enterpriseLogo
+    -businessLicense
+}
+EnterpriseDetailVO {
+    #allScalars
+
+    @JsonSerialize(using = FileKeyVoSerializer.class)
+    enterpriseLogo
+
+    @JsonSerialize(using = FileKeyVoSerializer.class)
+    businessLicense
+
+}

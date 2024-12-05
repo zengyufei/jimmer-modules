@@ -1,0 +1,17 @@
+export com.zyf.helpDoc.HelpDoc
+    -> package com.zyf.service.dto
+
+HelpDocVo {
+    helpDocId
+    title
+    helpDocCatalogId
+    flat(helpDocCatalog) {
+        helpDocCatalogName
+    }
+    author
+    sort
+    pageViewCount
+    userViewCount
+    createTime
+    updateTime
+}

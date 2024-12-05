@@ -1,0 +1,81 @@
+
+# 项目端口和url根路径
+server:
+  port: 1024
+  servlet:
+    context-path: /
+
+spring:
+  profiles:
+    active: dev
+
+  # Disable redisson for default profile
+  autoconfigure:
+    exclude:
+      #如果自己定义multipartResolver，需要关闭springboot的文件上传的自动配置，否则接收不到文件或者报错
+#      - org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:jimmer-sql-kt;database_to_upper=true
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      enabled: true
+  http:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      enabled: true
+
+# You can open `http://localhost:8080/openapi.html` to view the jimmer-swagger
+# 
+# You can also download the typescript files generated for the client via
+#  http://localhost:8080/ts.zip.
+#
+# Unlike other solutions that automatically connects the front-end
+# team and the back-end team, jimmer allows the front-end team and
+# the back-end team to see different perspectives.
+#
+# The backend team uses jimmer's unified dynamic entity model instead
+# of defining DTO types for each business scenario.
+# For service providers, eliminating the DTO explosion problem will
+# bring great convenience.
+#
+# However, for service consumers, each business scenario has a
+# corresponding DTO definition to make the usage very clear. It needs DTO
+# definition explosion, because it only considers consumption, not providing.
+#
+# The annotation `@org.babyfish.jimmer.client.FetchBy` is used to make the
+# generated TypeScript code contain the DTO model hidden by jimmer backend
+
+jimmer:
+  language: kotlin
+  dialect: org.babyfish.jimmer.sql.dialect.H2Dialect
+  offset-optimizing-threshold: 10
+  id-only-target-checking-level: ALL
+  database-validation-mode: ERROR
+  show-sql: true
+  pretty-sql: true
+
+  client:
+    ts:
+      path: /ts.zip
+    openapi:
+      path: /openapi.yml
+      ui-path: /openapi.html
+      properties:
+        info:
+          title: REST Api
+          description: This is the OpenAPI UI
+          version: 0.8.64
+        securities:
+          - tenantHeader: [ ]
+        components:
+          securitySchemes:
+            tenantHeader:
+              type: apiKey
+              name: tenant
+              in: HEADER
