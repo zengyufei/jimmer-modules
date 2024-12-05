@@ -36,7 +36,7 @@ jobs:
           
           
       - name: Cache node modules
-        id: cache-modules
+        id: smart-admin-web-cache-modules
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
@@ -48,7 +48,7 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - if: ${{ steps.cache-modules.outputs.cache-hit != 'true' }}
+      - if: ${{ steps.smart-admin-web-cache-modules.outputs.cache-hit != 'true' }}
         name: Install dependencies
         run: |
           cd ./smart-admin-jimmer/smart-admin-web-typescript
