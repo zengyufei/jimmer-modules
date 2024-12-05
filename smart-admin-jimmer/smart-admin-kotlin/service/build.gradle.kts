@@ -63,3 +63,20 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+
+tasks.jar {
+
+    // 指定 JAR 文件的名称
+    archiveBaseName.set("smart-admin-kotlin") // JAR 文件的基本名称
+    archiveVersion.set("plan") // JAR 文件的版本
+    archiveClassifier.set("") // 可以设置分类器，例如 "all" 或 "sources"
+//    archiveFileName.set("smart-admin-kotlin.jar")
+}
+tasks.bootJar {
+    // 指定 JAR 文件的名称
+    archiveBaseName.set("smart-admin-kotlin") // JAR 文件的基本名称
+    archiveVersion.set("") // JAR 文件的版本
+    archiveClassifier.set("") // 可以设置分类器，例如 "all" 或 "sources"
+//    archiveFileName.set("smart-admin-kotlin.jar")
+}
