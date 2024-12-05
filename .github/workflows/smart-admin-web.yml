@@ -13,6 +13,7 @@ permissions:
   contents: write
   actions: read
   
+# /home/runner/work/jimmer-modules/jimmer-modules
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -25,8 +26,6 @@ jobs:
         with:
           fetch-depth: 0
         
-      - run: |
-          pwd
           
       - uses: actions/setup-node@v4
         with:
