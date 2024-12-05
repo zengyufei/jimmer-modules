@@ -61,8 +61,10 @@ jobs:
           
       - name: Zip
         run: |
-          cd ./smart-admin-jimmer/smart-admin-web-typescript
-          zip -r smart-admin-web.zip ./dist/*
+          cd ./smart-admin-jimmer/smart-admin-web-typescript/dist
+          zip -r smart-admin-web.zip ./*
+          cd ..
+          mv ./dist/smart-admin-web.zip ./
           ls
                 
       - name: Get release asset ID
