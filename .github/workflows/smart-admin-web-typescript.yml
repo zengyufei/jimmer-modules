@@ -1,0 +1,97 @@
+name: Build smart-admin-web-typescript
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+    paths:
+      - 'smart-admin-jimmer/smart-admin-web-typescript/**'
+      - '!.github/workflows/**'
+  pull_request:
+    branches:
+      - main
+      
+# 声明需要上传权限
+permissions:
+  contents: write
+  actions: read
+  
+# /home/runner/work/jimmer-modules/jimmer-modules
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+        
+          
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          
+          
+      - name: Cache node modules
+        id: smart-admin-web-cache-modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ./smart-admin-jimmer/smart-admin-web-typescript/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - if: ${{ steps.smart-admin-web-cache-modules.outputs.cache-hit != 'true' }}
+        name: Install dependencies
+        run: |
+          cd ./smart-admin-jimmer/smart-admin-web-typescript
+          npm install
+        
+      - run: |
+          cd ./smart-admin-jimmer/smart-admin-web-typescript
+          npm run build:pre
+            
+          
+      - name: Zip
+        run: |
+          cd ./smart-admin-jimmer/smart-admin-web-typescript/dist
+          zip -r smart-admin-web.zip ./*
+          cd ..
+          mv ./dist/smart-admin-web.zip ./
+          ls
+                
+      - name: Get release asset ID
+        id: get_asset_id
+        run: |
+          TAG_NAME=release
+          ASSET_NAME="smart-admin-web.zip"
+          ASSET_ID=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/tags/$TAG_NAME" | \
+            jq -r ".assets[] | select(.name == \"$ASSET_NAME\") | .id")
+          
+          echo "ASSET_ID=$ASSET_ID" >> $GITHUB_ENV
+          echo "Found asset ID: $ASSET_ID"
+
+      - name: Delete old release asset
+        if: env.ASSET_ID != ''
+        run: |
+          echo "Deleting asset with ID: $ASSET_ID"
+          curl -X DELETE \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/assets/$ASSET_ID"
+            
+      - name: Upload to Release
+        if: success()
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./smart-admin-jimmer/smart-admin-web-typescript/smart-admin-web.zip
+          asset_name: smart-admin-web.zip
+          tag: release
