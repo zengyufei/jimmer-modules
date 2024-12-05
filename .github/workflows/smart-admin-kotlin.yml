@@ -55,4 +55,32 @@ jobs:
       run: |
         cd ./smart-admin-jimmer/smart-admin-kotlin
         gradle build
+              
+    - name: Get release asset ID
+      id: get_asset_id
+      run: |
+        TAG_NAME=release
+        ASSET_NAME="smart-admin-kotlin.jar"
+        ASSET_ID=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          "https://api.github.com/repos/${{ github.repository }}/releases/tags/$TAG_NAME" | \
+          jq -r ".assets[] | select(.name == \"$ASSET_NAME\") | .id")
+        
+        echo "ASSET_ID=$ASSET_ID" >> $GITHUB_ENV
+        echo "Found asset ID: $ASSET_ID"
 
+    - name: Delete old release asset
+      if: env.ASSET_ID != ''
+      run: |
+        echo "Deleting asset with ID: $ASSET_ID"
+        curl -X DELETE \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          "https://api.github.com/repos/${{ github.repository }}/releases/assets/$ASSET_ID"
+          
+    - name: Upload to Release
+      if: success()
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ./smart-admin-jimmer/smart-admin-kotlin/service/build/libs/smart-admin-kotlin.jar
+        asset_name: smart-admin-kotlin.jar
+        tag: release
