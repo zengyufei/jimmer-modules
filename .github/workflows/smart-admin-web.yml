@@ -24,6 +24,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+        
+      - run: |
+          pwd
           
       - uses: actions/setup-node@v4
         with:
@@ -45,19 +48,25 @@ jobs:
 
       - if: ${{ steps.cache-modules.outputs.cache-hit != 'true' }}
         name: Install dependencies
-        run: npm install
+        run: |
+          cd ./smart-admin-jimmer/smart-admin-web-typescript
+          npm install
         
-      - run: npm run build:pre
+      - run: |
+          cd ./smart-admin-jimmer/smart-admin-web-typescript
+          npm run build:pre
             
           
       - name: Zip
         run: |
-          zip -r smart-admin-web.zip ./smart-admin-jimmer/smart-admin-web-typescript/dist/*
+          cd ./smart-admin-jimmer/smart-admin-web-typescript
+          zip -r smart-admin-web.zip ./dist/*
           ls
                 
       - name: Get release asset ID
         id: get_asset_id
         run: |
+          cd ./smart-admin-jimmer/smart-admin-web-typescript
           TAG_NAME=release
           ASSET_NAME="smart-admin-web.zip"
           ASSET_ID=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
@@ -70,6 +79,7 @@ jobs:
       - name: Delete old release asset
         if: env.ASSET_ID != ''
         run: |
+          cd ./smart-admin-jimmer/smart-admin-web-typescript
           echo "Deleting asset with ID: $ASSET_ID"
           curl -X DELETE \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
