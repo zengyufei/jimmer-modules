@@ -68,7 +68,6 @@ jobs:
       - name: Get release asset ID
         id: get_asset_id
         run: |
-          cd ./smart-admin-jimmer/smart-admin-web-typescript
           TAG_NAME=release
           ASSET_NAME="smart-admin-web.zip"
           ASSET_ID=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
@@ -81,7 +80,6 @@ jobs:
       - name: Delete old release asset
         if: env.ASSET_ID != ''
         run: |
-          cd ./smart-admin-jimmer/smart-admin-web-typescript
           echo "Deleting asset with ID: $ASSET_ID"
           curl -X DELETE \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
@@ -92,6 +90,6 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./smart-admin-web.zip
+          file: ./smart-admin-jimmer/smart-admin-web-typescript/smart-admin-web.zip
           asset_name: smart-admin-web.zip
           tag: release
