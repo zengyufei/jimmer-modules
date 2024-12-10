@@ -1,3 +1,7 @@
+# 本项目目的
+
+收集、改造 java 后台脚手架，以 kotlin + jimmer + postgresql 为核心强制性改造。
+
 # 脚手架列表
 
 ## 1、SmartAdmin
