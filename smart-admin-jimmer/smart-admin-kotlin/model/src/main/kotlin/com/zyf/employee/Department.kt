@@ -3,7 +3,6 @@ package com.zyf.employee
 import com.zyf.common.base.BaseEntity
 import com.zyf.common.base.SnowflakeIdGenerator
 import com.zyf.common.base.TenantAware
-import com.zyf.oa.Enterprise
 import com.zyf.oa.Notice
 import org.babyfish.jimmer.sql.*
 

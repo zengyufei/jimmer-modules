@@ -6,13 +6,13 @@ import com.zyf.common.code.UserErrorCode
 import com.zyf.common.constant.StringConst
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
+import com.zyf.common.domain.RequestUser
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.FileFolderTypeEnum
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
 import com.zyf.common.utils.SmartEnumUtil
-import com.zyf.common.domain.RequestUser
-import com.zyf.repository.FileRepository
+import com.zyf.repository.support.FileRepository
 import com.zyf.runtime.support.redis.RedisService
 import com.zyf.service.dto.FileQueryForm
 import com.zyf.service.dto.FileVO

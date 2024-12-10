@@ -1,6 +1,5 @@
 package com.zyf.oa.service
 
-import com.zyf.common.constant.StringConst
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
@@ -8,7 +7,6 @@ import com.zyf.common.enums.DataTracerTypeEnum
 import com.zyf.common.enums.NoticeVisibleRangeDataTypeEnum
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
-import com.zyf.common.utils.SmartBeanUtil
 import com.zyf.employee.addBy
 import com.zyf.oa.Notice
 import com.zyf.oa.by

@@ -2,8 +2,8 @@ package com.zyf.support.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.annotations.Slf4j
-import com.zyf.common.enums.UserTypeEnum
 import com.zyf.common.domain.RequestUser
+import com.zyf.common.enums.UserTypeEnum
 import com.zyf.support.TableColumn
 import com.zyf.support.columns
 import com.zyf.support.domain.TableColumnUpdateForm
@@ -41,7 +41,7 @@ class TableColumnService(
         }
 
         val tableId = updateForm.tableId
-        val oldTableColumn= getTableColumns(requestUser, tableId)
+        val oldTableColumn = getTableColumns(requestUser, tableId)
 
         if (oldTableColumn == null) {
             val tableColumn = TableColumn {
@@ -64,7 +64,7 @@ class TableColumnService(
      * 删除表格列
      */
     fun deleteTableColumn(requestUser: RequestUser, tableId: String) {
-         sql.createDelete(TableColumn::class) {
+        sql.createDelete(TableColumn::class) {
             where(table.tableId eq tableId)
             where(table.userId eq requestUser.userId)
         }.execute()

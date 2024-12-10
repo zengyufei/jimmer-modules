@@ -27,6 +27,7 @@ open class RequestEmployee : RequestUser {
     override var userName: String? = null
 
     var actualName: String? = null
+
     /** 头像 */
     var avatar: String? = null
 

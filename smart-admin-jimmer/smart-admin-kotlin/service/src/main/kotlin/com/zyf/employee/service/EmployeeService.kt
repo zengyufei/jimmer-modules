@@ -5,20 +5,21 @@ import com.zyf.common.annotations.Slf4j
 import com.zyf.common.code.UserErrorCode
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
+import com.zyf.common.domain.RequestUser
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
 import com.zyf.department.service.DepartmentService
 import com.zyf.employee.*
-import com.zyf.common.domain.RequestUser
 import com.zyf.login.service.LoginService
-import com.zyf.repository.DepartmentRepository
-import com.zyf.repository.EmployeeRepository
+import com.zyf.repository.employee.DepartmentRepository
+import com.zyf.repository.employee.EmployeeRepository
 import com.zyf.service.dto.*
 import com.zyf.support.service.SecurityPasswordService
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.babyfish.jimmer.sql.kt.ast.expression.`eq?`
+import org.babyfish.jimmer.sql.kt.ast.expression.ne
 import org.babyfish.jimmer.sql.kt.ast.expression.`valueIn?`
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -109,23 +110,25 @@ class EmployeeService(
         val employeeId = employeeUpdateForm.employeeId ?: return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
         val departmentId = employeeUpdateForm.departmentId ?: return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
 
-        val employeeEntity = employeeRepository.byId(employeeId)
-            ?: return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
+        if (employeeRepository.notExistsId(employeeId)) return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
 
         // 部门是否存在
-        val departmentEntity = departmentRepository.byId(departmentId)
-            ?: return ResponseDTO.userErrorParam("部门不存在")
+        if (departmentRepository.notExistsId(departmentId)) return ResponseDTO.userErrorParam("部门不存在")
 
-        val existEntity = employeeRepository.byLoginName(employeeUpdateForm.loginName)
-        if (existEntity != null && existEntity.employeeId != employeeId) {
+        val existEntity = employeeRepository.existsBy() {
+            where(table.loginName eq employeeUpdateForm.loginName)
+            where(table.employeeId ne employeeId)
+        }
+        if (existEntity) {
             return ResponseDTO.userErrorParam("登录名重复")
         }
 
         employeeUpdateForm.phone?.let { p ->
-            employeeRepository.byPhone(p)?.let { e ->
-                if (e.employeeId != employeeId) {
-                    return ResponseDTO.userErrorParam("手机号已存在")
-                }
+            if (employeeRepository.existsBy() {
+                    where(table.phone eq employeeUpdateForm.phone)
+                    where(table.employeeId ne employeeId)
+                }) {
+                return ResponseDTO.userErrorParam("手机号已存在")
             }
         }
 
@@ -135,7 +138,7 @@ class EmployeeService(
         sql.update(employeeUpdateForm);
 
         // 清除员工缓存
-       loginService.clearLoginEmployeeCache(employeeId)
+        loginService.clearLoginEmployeeCache(employeeId)
 
         return ResponseDTO.ok()
     }
@@ -144,7 +147,7 @@ class EmployeeService(
     fun updateAvatar(employeeUpdateAvatarForm: EmployeeUpdateAvatarForm): ResponseDTO<String?> {
         val inputEmployeeId = employeeUpdateAvatarForm.employeeId ?: return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
 
-        if (!employeeRepository.existsId(inputEmployeeId)) {
+        if (employeeRepository.notExistsId(inputEmployeeId)) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
         }
 
@@ -156,7 +159,7 @@ class EmployeeService(
         sql.update(updateEntity)
 
         // 清除员工缓存
-       loginService.clearLoginEmployeeCache(inputEmployeeId)
+        loginService.clearLoginEmployeeCache(inputEmployeeId)
         return ResponseDTO.ok()
     }
 

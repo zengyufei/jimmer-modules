@@ -24,5 +24,5 @@ class DepartmentTreeVO(base: Department) : DepartmentVO(base) {
     var children: MutableList<DepartmentTreeVO>? = null
 
     /** 自己和所有递归子部门的id集合  */
-    var selfAndAllChildrenIdList: MutableList <String>? = null
+    var selfAndAllChildrenIdList: MutableList<String>? = null
 }

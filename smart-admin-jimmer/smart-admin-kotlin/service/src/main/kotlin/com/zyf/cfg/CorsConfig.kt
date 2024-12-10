@@ -3,12 +3,8 @@ package com.zyf.cfg
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
-import org.springframework.web.service.invoker.RequestBodyArgumentResolver
 import org.springframework.web.servlet.config.annotation.CorsRegistry
-
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
-import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor
-import org.springframework.web.servlet.mvc.method.annotation.ServletModelAttributeMethodProcessor
 
 @Configuration
 class CorsConfig(

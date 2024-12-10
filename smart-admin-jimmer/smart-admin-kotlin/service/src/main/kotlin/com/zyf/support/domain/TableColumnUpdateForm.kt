@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull
 class TableColumnUpdateForm {
 
     @NotNull(message = "表id不能为空")
-    lateinit var tableId:String
+    lateinit var tableId: String
 
     @NotEmpty(message = "请上传列")
     val columnList: List<TableColumnItemForm>? = null

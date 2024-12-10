@@ -11,7 +11,6 @@ import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.ConfigKeyEnum
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
-import com.zyf.common.utils.SmartBeanUtil
 import com.zyf.service.dto.ConfigAddForm
 import com.zyf.service.dto.ConfigQueryForm
 import com.zyf.service.dto.ConfigUpdateForm
@@ -47,7 +46,7 @@ class ConfigService(
     @PostConstruct
     private fun loadConfigCache() {
         CONFIG_CACHE.clear()
-        val entityList = sql.createQuery(Config::class){
+        val entityList = sql.createQuery(Config::class) {
             select(table.fetch(ConfigVO::class))
         }.execute()
         if (entityList.isEmpty()) {
@@ -104,7 +103,7 @@ class ConfigService(
             select(count(table))
         }.fetchOne()
 
-        if (fetchOne>0) {
+        if (fetchOne > 0) {
             return UserErrorCode.ALREADY_EXIST
         }
 
@@ -160,7 +159,7 @@ class ConfigService(
 //
 
 
-//
+    //
 //    /**
 //     * 根据参数key查询 并转换为对象
 //     */

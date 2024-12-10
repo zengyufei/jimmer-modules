@@ -6,11 +6,8 @@ import com.zyf.common.domain.ResponseDTO
 import com.zyf.service.dto.MenuSimpleTreeVO
 import com.zyf.service.dto.MenuVO
 import com.zyf.service.dto.RoleMenuUpdateForm
-import com.zyf.system.Menu
+import com.zyf.system.*
 import com.zyf.system.domain.RoleMenuTreeVO
-import com.zyf.system.menuId
-import com.zyf.system.roleId
-import com.zyf.system.roles
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.babyfish.jimmer.sql.kt.ast.expression.valueIn
@@ -43,7 +40,9 @@ class RoleMenuService(
         // 管理员返回所有菜单
         administratorFlag?.let {
             if (administratorFlag) {
-                return sql.findAll(MenuVO::class)
+                return sql.findAll(MenuVO::class) {
+                    orderBy(table.sort)
+                }
             }
         }
         // 非管理员 无角色 返回空菜单
@@ -51,7 +50,8 @@ class RoleMenuService(
             return emptyList()
         }
         val menuVOS = sql.findAll(MenuVO::class) {
-            roleIdList.takeIf { it.isNotEmpty() } ?.let {
+            orderBy(table.sort)
+            roleIdList.takeIf { it.isNotEmpty() }?.let {
                 where += table.roles {
                     roleId valueIn roleIdList
                 }

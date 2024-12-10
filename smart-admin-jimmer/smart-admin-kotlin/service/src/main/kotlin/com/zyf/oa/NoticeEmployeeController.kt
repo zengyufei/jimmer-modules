@@ -3,6 +3,9 @@ package com.zyf.oa
 import cn.hutool.extra.servlet.JakartaServletUtil
 import com.zyf.common.annotations.Body
 import com.zyf.common.annotations.OperateLog
+import com.zyf.common.annotations.Operation
+import com.zyf.common.annotations.Tag
+import com.zyf.common.constant.AdminSwaggerTagConst
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.*
  */
 @RestController
 @OperateLog
+@Tag(name = AdminSwaggerTagConst.Business.OA_NOTICE)
 class NoticeEmployeeController(
     private val noticeService: NoticeService,
     private val noticeEmployeeService: NoticeEmployeeService,
@@ -33,26 +37,27 @@ class NoticeEmployeeController(
 
     // --------------------- 【员工】查看 通知公告 -------------------------
     /** 【员工】通知公告-查看详情 @author 卓大 */
+    @Operation(summary = "【员工】通知公告-查看详情 @author 卓大")
     @GetMapping("/oa/notice/employee/view/{noticeId}")
-    fun view(@PathVariable noticeId: String?, request: HttpServletRequest): ResponseDTO<NoticeDetailVO?> {
+    fun view(@PathVariable noticeId: String, request: HttpServletRequest): ResponseDTO<NoticeDetailVO?> {
         val requestUser = RequestEmployee()
         requestUser.userId = "1"
         requestUser.userName = "admin"
-        return noticeId?.let {
-            noticeEmployeeService.view(
-                requestUser.userId!!,
-                it,
-                JakartaServletUtil.getClientIP(request),
-                request.getHeader("User-Agent")
-            )
-        } ?: ResponseDTO.ok()
+        return noticeEmployeeService.view(
+            requestUser.userId!!,
+            noticeId,
+            JakartaServletUtil.getClientIP(request),
+            request.getHeader("User-Agent")
+        )
     }
 
     /** 【员工】通知公告-查询全部 @author 卓大 */
+    @Operation(summary = "【员工】通知公告-查询全部 @author 卓大")
     @PostMapping("/oa/notice/employee/query")
     fun queryEmployeeNotice(
         @Body pageBean: PageBean,
-        @RequestBody noticeEmployeeQueryForm: @Valid NoticeEmployeeQueryForm): ResponseDTO<PageResult<NoticeEmployeeVO>> {
+        @RequestBody noticeEmployeeQueryForm: @Valid NoticeEmployeeQueryForm
+    ): ResponseDTO<PageResult<NoticeEmployeeVO>> {
         val requestUser = RequestEmployee()
         requestUser.userId = "1"
         requestUser.userName = "admin"
@@ -60,6 +65,7 @@ class NoticeEmployeeController(
     }
 
     /** 【员工】通知公告-查询 查看记录 @author 卓大 */
+    @Operation(summary = "【员工】通知公告-查询 查看记录 @author 卓大")
     @PostMapping("/oa/notice/employee/queryViewRecord")
     fun queryViewRecord(
         @Body pageBean: PageBean,

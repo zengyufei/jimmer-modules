@@ -37,6 +37,7 @@ specification NoticeViewRecordQueryForm {
 NoticeViewRecordVO {
     #allScalars
     flat(employee) {
+        employeeId
         actualName as employeeName
         flat(department) {
             departmentName

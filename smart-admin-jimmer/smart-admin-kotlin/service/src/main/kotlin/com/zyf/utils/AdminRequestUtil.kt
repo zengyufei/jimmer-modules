@@ -1,6 +1,5 @@
 package com.zyf.utils
 
-import com.zyf.common.domain.RequestUser
 import com.zyf.common.utils.SmartRequestUtil
 import com.zyf.login.domain.RequestEmployee
 

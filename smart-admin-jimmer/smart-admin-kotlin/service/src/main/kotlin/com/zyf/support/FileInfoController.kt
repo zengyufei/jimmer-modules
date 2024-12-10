@@ -2,6 +2,7 @@ package com.zyf.support
 
 import cn.hutool.extra.servlet.JakartaServletUtil
 import com.zyf.common.annotations.Body
+import com.zyf.common.annotations.Operation
 import com.zyf.common.constant.RequestHeaderConst
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
@@ -13,7 +14,6 @@ import com.zyf.service.dto.FileQueryForm
 import com.zyf.service.dto.FileVO
 import com.zyf.support.domain.FileUploadVO
 import com.zyf.support.service.FileService
-import jakarta.annotation.Resource
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
@@ -36,6 +36,7 @@ class FileInfoController(
 ) {
 
     /** 分页查询 @author 1024创新实验室-主任-卓大 */
+    @Operation(summary = "分页查询 @author 1024创新实验室-主任-卓大")
     @PostMapping("/support/file/queryPage")
     fun queryPage(
         @Body pageBean: PageBean,
@@ -44,8 +45,9 @@ class FileInfoController(
         return ResponseDTO.ok(fileService.queryPage(pageBean, queryForm))
     }
 
-    
+
     /** 文件上传 @author 胡克 */
+    @Operation(summary = "文件上传 @author 胡克")
     @PostMapping("/support/file/upload")
     fun upload(@RequestParam(value = "file") file: MultipartFile, @RequestParam folder: Int): ResponseDTO<FileUploadVO?> {
         val requestUser = RequestEmployee()
@@ -56,12 +58,14 @@ class FileInfoController(
     }
 
     /** 获取文件URL：根据fileKey @author 胡克 */
+    @Operation(summary = "获取文件URL：根据fileKey @author 胡克")
     @GetMapping("/support/file/getFileUrl")
     fun getUrl(@RequestParam fileKey: String): ResponseDTO<String?> {
         return fileService.getFileUrl(fileKey)
     }
 
     /** 下载文件流（根据fileKey） @author 胡克 */
+    @Operation(summary = "下载文件流（根据fileKey） @author 胡克")
     @GetMapping("/support/file/downLoad")
     @Throws(IOException::class)
     fun downLoad(@RequestParam fileKey: String, request: HttpServletRequest, response: HttpServletResponse) {

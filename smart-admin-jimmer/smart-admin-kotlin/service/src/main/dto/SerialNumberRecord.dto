@@ -1,0 +1,40 @@
+export com.zyf.support.SerialNumberRecord
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+import com.zyf.common.valid.CheckEnum
+import com.alibaba.excel.annotation.ExcelProperty
+import com.zyf.common.convert.ExcelEnum
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+
+
+specification SerialNumberRecordQueryForm {
+    @NotNull(message = "单号id不能为空")
+    serialNumberId
+}
+input SerialNumberRecordUpdateParam {
+    #allScalars
+}
+input SerialNumberRecordAddParam {
+    #allScalars
+}
+SerialNumberRecordExcelVO {
+    #allScalars
+}
+SerialNumberRecordVO {
+    #allScalars
+    updateCount as count
+    createTime
+    updateTime
+}
+SerialNumberRecordDetailVO {
+    #allScalars
+    createTime
+    updateTime
+}

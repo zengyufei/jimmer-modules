@@ -5,6 +5,31 @@ import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotEmpty
 
-input LoginLogVO {
+specification LoginLogQueryForm {
+
+    /** 用户ID */
+    userId
+
+    /** 用户类型 */
+    userType
+
+    /** 开始日期 */
+    ge(createTime) as startDate
+
+    /** 结束日期 */
+    le(createTime) as endDate
+
+    /** 用户名称 */
+    like/i(userName)
+
+    /** ip */
+    like/i(loginIp) as ip
+
+}
+
+
+LoginLogVO {
     #allScalars
+    userId
+    createTime
 }

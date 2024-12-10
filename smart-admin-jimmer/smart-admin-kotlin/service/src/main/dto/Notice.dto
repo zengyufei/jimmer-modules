@@ -181,11 +181,13 @@ NoticeUpdateFormVO {
     publishFlag
 
     flat(noticeType) {
+        noticeTypeId
         noticeTypeName
     }
     flat(create) {
         actualName
         flat(department) {
+            departmentId
             departmentName
         }
     }
@@ -203,11 +205,13 @@ NoticeDetailVO {
     publishFlag
 
     flat(noticeType) {
+        noticeTypeId
         noticeTypeName
     }
     flat(create) {
         actualName
         flat(department) {
+            departmentId
             departmentName
         }
     }
@@ -224,11 +228,13 @@ NoticeEmployeeVO {
     publishFlag
 
     flat(noticeType) {
+        noticeTypeId
         noticeTypeName
     }
     flat(create) {
         actualName
         flat(department) {
+            departmentId
             departmentName
         }
     }
@@ -244,11 +250,13 @@ NoticeVO {
     publishFlag
 
     flat(noticeType) {
+        noticeTypeId
         noticeTypeName
     }
     flat(create) {
         actualName
         flat(department) {
+            departmentId
             departmentName
         }
     }

@@ -1,7 +1,6 @@
 package com.zyf.support.domain
 
 import org.babyfish.jimmer.meta.ImmutableProp
-import java.lang.reflect.Field
 
 /**
  * 变动内容

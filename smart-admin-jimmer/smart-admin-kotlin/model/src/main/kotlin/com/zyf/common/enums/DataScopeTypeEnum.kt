@@ -3,7 +3,9 @@ package com.zyf.common.enums
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonValue
 import com.zyf.common.base.BaseEnum
+import org.babyfish.jimmer.sql.EnumType
 
+@EnumType(EnumType.Strategy.ORDINAL)
 enum class DataScopeTypeEnum(
     @JsonValue override val value: Int,
     val sort: Int,

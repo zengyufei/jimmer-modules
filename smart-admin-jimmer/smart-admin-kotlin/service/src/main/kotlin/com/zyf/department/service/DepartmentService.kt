@@ -6,10 +6,9 @@ import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
-import com.zyf.common.utils.SmartBeanUtil
 import com.zyf.department.domain.DepartmentTreeVO
 import com.zyf.employee.*
-import com.zyf.repository.DepartmentRepository
+import com.zyf.repository.employee.DepartmentRepository
 import com.zyf.service.dto.DepartmentAddForm
 import com.zyf.service.dto.DepartmentUpdateForm
 import com.zyf.service.dto.DepartmentVO
@@ -19,7 +18,6 @@ import org.babyfish.jimmer.sql.kt.ast.expression.asc
 import org.babyfish.jimmer.sql.kt.ast.expression.count
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.springframework.stereotype.Service
-import java.util.stream.Collectors
 import kotlin.reflect.KClass
 
 @Slf4j

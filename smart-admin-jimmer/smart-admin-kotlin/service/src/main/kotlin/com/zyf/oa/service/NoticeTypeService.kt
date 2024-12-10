@@ -1,10 +1,7 @@
 package com.zyf.oa.service
 
-import cn.hutool.core.util.StrUtil
 import com.zyf.common.domain.ResponseDTO
-import com.zyf.common.utils.SmartBeanUtil
 import com.zyf.oa.NoticeType
-import com.zyf.oa.by
 import com.zyf.oa.noticeTypeId
 import com.zyf.oa.noticeTypeName
 import com.zyf.service.dto.NoticeTypeVO
@@ -12,7 +9,6 @@ import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.babyfish.jimmer.sql.kt.ast.expression.ne
 import org.babyfish.jimmer.sql.kt.exists
-import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

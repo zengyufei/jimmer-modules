@@ -1,6 +1,7 @@
 package com.zyf.support
 
 import com.zyf.common.annotations.Body
+import com.zyf.common.annotations.Operation
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
@@ -27,6 +28,7 @@ class DataTracerController(
 ) {
 
     /** 分页查询业务操作日志 - @author 卓大  */
+    @Operation(summary = "分页查询业务操作日志 - @author 卓大 ")
     @PostMapping("/support/dataTracer/query")
     fun query(
         @Body pageBean: PageBean,

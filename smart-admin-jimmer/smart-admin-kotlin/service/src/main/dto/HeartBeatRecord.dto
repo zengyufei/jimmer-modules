@@ -1,0 +1,40 @@
+export com.zyf.support.HeartBeatRecord
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+import com.zyf.common.valid.CheckEnum
+import com.alibaba.excel.annotation.ExcelProperty
+import com.zyf.common.convert.ExcelEnum
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+
+
+specification HeartBeatRecordQueryForm {
+    gt(heartBeatTime) as startDate
+    lt(heartBeatTime) as endDate
+    like/i(projectPath, serverIp, processNo) as keywords
+}
+input HeartBeatRecordUpdateParam {
+    #allScalars
+}
+input HeartBeatRecordAddParam {
+    #allScalars
+}
+HeartBeatRecordExcelVO {
+    #allScalars
+}
+HeartBeatRecordVO {
+    #allScalars
+    createTime
+    updateTime
+}
+HeartBeatRecordDetailVO {
+    #allScalars
+    createTime
+    updateTime
+}

@@ -1,18 +1,15 @@
 package com.zyf.system.service
 
-import cn.hutool.core.lang.Console.where
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.annotations.Slf4j
 import com.zyf.common.code.UserErrorCode
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.DataScopeTypeEnum
 import com.zyf.common.enums.DataScopeViewTypeEnum
-import com.zyf.common.utils.SmartBeanUtil
 import com.zyf.service.dto.DataScopeDTO
 import com.zyf.service.dto.DataScopeViewTypeVO
 import com.zyf.service.dto.RoleDataScopeUpdateForm
 import com.zyf.service.dto.RoleDataScopeVO
-import com.zyf.system.RoleDataScope
 import com.zyf.system.RoleProps
 import com.zyf.system.domain.DataScopeAndViewTypeVO
 import com.zyf.system.roleId

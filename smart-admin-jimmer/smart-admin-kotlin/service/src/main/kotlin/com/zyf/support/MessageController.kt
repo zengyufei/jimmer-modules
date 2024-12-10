@@ -1,6 +1,7 @@
 package com.zyf.support
 
 import com.zyf.common.annotations.Body
+import com.zyf.common.annotations.Operation
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
@@ -23,6 +24,7 @@ class MessageController(
 ) {
 
     /** 分页查询我的消息 @luoyi */
+    @Operation(summary = "分页查询我的消息 @luoyi")
     @PostMapping("/support/message/queryMyMessage")
     fun query(
         @Body pageBean: PageBean,
@@ -41,6 +43,7 @@ class MessageController(
     }
 
     /** 查询未读消息数量 @luoyi */
+    @Operation(summary = "查询未读消息数量 @luoyi")
     @GetMapping("/support/message/getUnreadCount")
     fun getUnreadCount(): ResponseDTO<Long?> {
         val user = SmartRequestUtil.requestUser ?: return ResponseDTO.userErrorParam("用户未登录")
@@ -50,6 +53,7 @@ class MessageController(
     }
 
     /** 更新已读 @luoyi */
+    @Operation(summary = "更新已读 @luoyi")
     @GetMapping("/support/message/read/{messageId}")
     fun updateReadFlag(@PathVariable messageId: String): ResponseDTO<String?> {
         val user = SmartRequestUtil.requestUser ?: return ResponseDTO.userErrorParam("用户未登录")

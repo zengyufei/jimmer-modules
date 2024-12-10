@@ -32,6 +32,8 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.21")
 
+	implementation("com.google.guava:guava:20.0")
+	implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
 	implementation("org.springframework.boot:spring-boot-starter-aop")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2")

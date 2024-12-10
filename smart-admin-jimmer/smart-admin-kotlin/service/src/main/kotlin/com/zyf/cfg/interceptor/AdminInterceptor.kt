@@ -20,7 +20,6 @@ import com.zyf.common.utils.SmartRequestUtil.requestUser
 import com.zyf.login.domain.RequestEmployee
 import com.zyf.login.service.LoginService
 import com.zyf.runtime.utils.SmartResponseUtil
-import jakarta.annotation.Resource
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.HttpMethod
@@ -44,6 +43,7 @@ class AdminInterceptor(
     val loginService: LoginService,
     val systemEnvironment: SystemEnvironment,
 ) : HandlerInterceptor {
+
 
     @Throws(Exception::class)
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {

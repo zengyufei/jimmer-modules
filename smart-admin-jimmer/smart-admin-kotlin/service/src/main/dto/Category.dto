@@ -1,0 +1,155 @@
+export com.zyf.goods.Category
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+import jakarta.validation.constraints.DecimalMin
+import com.zyf.common.enums.GoodsStatusEnum
+import com.zyf.common.valid.CheckEnum
+import com.zyf.common.enums.ChangeLogTypeEnum
+import com.alibaba.excel.annotation.ExcelProperty
+import com.zyf.common.enums.CategoryTypeEnum
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.zyf.cfg.json.deserializer.FileKeyVoDeserializer
+import com.zyf.cfg.json.serializer.FileKeyVoSerializer
+import com.zyf.cfg.json.deserializer.DictValueVoDeserializer
+import com.zyf.cfg.json.serializer.DictValueVoSerializer
+
+CategorySimpleDTO {
+
+    /** 类目id */
+    categoryId
+
+    /** 类目名称 */
+    categoryName
+
+    /** 类目层级全称 */
+    categoryFullName: String
+
+    /** 父级id */
+    parentId
+}
+
+
+CategoryBaseDTO {
+
+    /** 类目名称 */
+    @NotBlank(message = "类目名称不能为空")
+    @Length(max = 20, message = "类目名称最多20字符")
+    categoryName
+
+    /** 分类类型 */
+    @CheckEnum(value = CategoryTypeEnum.class, required = true, message = "分类错误")
+    categoryType
+
+    /** 父级类目id|可选 */
+    parentId
+
+    /** 排序|可选 */
+    sort
+
+    /** 备注|可选 */
+    @Length(max = 200, message = "备注最多200字符")
+    remark
+
+    /** 禁用状态 */
+    @NotNull(message = "禁用状态不能为空")
+    disabledFlag
+}
+
+specification CategoryTreeQueryForm {
+
+    /** 分类类型|可选 */
+    categoryType
+
+    /** 父级类目id|可选 */
+    parentId
+}
+
+
+input CategoryUpdateForm {
+
+    /** 类目名称 */
+    @NotBlank(message = "类目名称不能为空")
+    @Length(max = 20, message = "类目名称最多20字符")
+    categoryName
+
+    /** 分类类型 */
+    @CheckEnum(value = CategoryTypeEnum.class, required = true, message = "分类错误")
+    categoryType
+
+    /** 父级类目id|可选 */
+    parentId
+
+    /** 排序|可选 */
+    sort?
+
+    /** 备注|可选 */
+    @Length(max = 200, message = "备注最多200字符")
+    remark
+
+    /** 禁用状态 */
+    @NotNull(message = "禁用状态不能为空")
+    disabledFlag
+
+    /** 类目id */
+    @NotNull(message = "类目id不能为空")
+    categoryId
+}
+
+input CategoryAddForm {
+
+    /** 类目名称 */
+    @NotBlank(message = "类目名称不能为空")
+    @Length(max = 20, message = "类目名称最多20字符")
+    categoryName
+
+    /** 分类类型 */
+    @CheckEnum(value = CategoryTypeEnum.class, required = true, message = "分类错误")
+    categoryType
+
+    /** 父级类目id|可选 */
+    parentId
+
+    /** 排序|可选 */
+    sort?
+
+    /** 备注|可选 */
+    @Length(max = 200, message = "备注最多200字符")
+    remark
+
+    /** 禁用状态 */
+    @NotNull(message = "禁用状态不能为空")
+    disabledFlag
+
+}
+
+CategoryTreeVO {
+
+    /** 类目id */
+    categoryId
+
+    /** 分类类型 */
+    categoryType
+
+    /** 类目名称 */
+    categoryName
+
+    /** 父级id */
+    parentId
+
+    /** 子类 */
+    children*
+}
+
+
+CategoryVO {
+    #allScalars
+
+    createTime
+    updateTime
+}

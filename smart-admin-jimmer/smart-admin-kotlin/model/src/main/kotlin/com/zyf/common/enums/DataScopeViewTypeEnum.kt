@@ -3,6 +3,7 @@ package com.zyf.common.enums
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonValue
 import com.zyf.common.base.BaseEnum
+import org.babyfish.jimmer.sql.EnumType
 
 /**
  * 数据范围 种类
@@ -13,6 +14,7 @@ import com.zyf.common.base.BaseEnum
  * @Email lab1024@163.com
  * @Copyright  [1024创新实验室](https://1024lab.net)
  */
+@EnumType(EnumType.Strategy.ORDINAL)
 enum class DataScopeViewTypeEnum(
     @JsonValue override val value: Int,
     val level: Int,

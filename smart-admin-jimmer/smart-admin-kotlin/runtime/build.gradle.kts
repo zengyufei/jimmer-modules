@@ -7,9 +7,6 @@ plugins {
 
 val jimmerVersion: String by rootProject.extra
 val springBootVersion: String by rootProject.extra
-val easyExcelVersion: String by rootProject.extra
-val poiVersion: String by rootProject.extra
-val ooxmlVersion: String by rootProject.extra
 
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -23,14 +20,6 @@ dependencies {
 
 	implementation(project(":model"))
 	implementation(project(":repository"))
-
-	api("com.alibaba:easyexcel:${easyExcelVersion}"){
-		exclude("org.apache.poi", "poi-ooxml-schemas")
-	}
-	api("org.apache.poi:poi:${poiVersion}")
-	api("org.apache.poi:poi-ooxml:${poiVersion}")
-	api("org.apache.poi:poi-scratchpad:${poiVersion}")
-	api("org.apache.poi:ooxml-schemas:${ooxmlVersion}")
 
 	implementation("com.github.penggle:kaptcha:2.3.2"){
 		exclude("javax.servlet", "*")

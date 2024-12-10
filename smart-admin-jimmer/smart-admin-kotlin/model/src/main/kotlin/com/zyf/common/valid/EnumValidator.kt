@@ -46,6 +46,10 @@ class EnumValidator : ConstraintValidator<CheckEnum, Any?> {
             return this.checkList(value as List<Any>)
         }
 
+        if (value is BaseEnum) {
+            return enumValList!!.contains(value.value)
+        }
+
         // 校验是否为合法的枚举值
         return enumValList!!.contains(value)
     }

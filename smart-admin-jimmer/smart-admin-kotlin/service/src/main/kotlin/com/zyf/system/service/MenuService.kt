@@ -28,7 +28,7 @@ class MenuService(
         return sql.createQuery(Menu::class) {
             orderBy(table.parentId.desc(), table.sort.asc())
             where(table.disabledFlag `eq?` disabledFlag)
-            menuTypes?.takeIf { it.isNotEmpty() } ?.let {
+            menuTypes?.takeIf { it.isNotEmpty() }?.let {
                 where(table.menuType `valueIn?` menuTypes)
             }
             if (isRoot) {

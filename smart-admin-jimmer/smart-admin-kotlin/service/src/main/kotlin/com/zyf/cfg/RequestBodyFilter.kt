@@ -2,12 +2,10 @@ package com.zyf.cfg
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
-import jakarta.servlet.ServletRequest
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpMethod
-import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException

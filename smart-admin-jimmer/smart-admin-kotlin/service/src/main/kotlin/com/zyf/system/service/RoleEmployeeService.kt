@@ -7,15 +7,17 @@ import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
-import com.zyf.common.utils.SmartBeanUtil
 import com.zyf.employee.*
-import com.zyf.repository.EmployeeRepository
-import com.zyf.repository.RoleRepository
+import com.zyf.repository.employee.EmployeeRepository
+import com.zyf.repository.system.RoleRepository
 import com.zyf.service.dto.*
-import com.zyf.system.*
+import com.zyf.system.Role
+import com.zyf.system.roleId
 import org.babyfish.jimmer.sql.ast.tuple.Tuple2
 import org.babyfish.jimmer.sql.kt.KSqlClient
-import org.babyfish.jimmer.sql.kt.ast.expression.*
+import org.babyfish.jimmer.sql.kt.ast.expression.`eq?`
+import org.babyfish.jimmer.sql.kt.ast.expression.`ilike?`
+import org.babyfish.jimmer.sql.kt.ast.expression.or
 import org.springframework.stereotype.Service
 
 @Slf4j

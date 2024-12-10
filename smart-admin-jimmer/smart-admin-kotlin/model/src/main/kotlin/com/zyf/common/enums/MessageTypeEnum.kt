@@ -2,6 +2,7 @@ package com.zyf.common.enums
 
 import com.fasterxml.jackson.annotation.JsonValue
 import com.zyf.common.base.BaseEnum
+import org.babyfish.jimmer.sql.EnumType
 
 
 /**
@@ -10,6 +11,7 @@ import com.zyf.common.base.BaseEnum
  * @author luoyi
  * @date 2024/06/22 20:20
  */
+@EnumType(EnumType.Strategy.ORDINAL)
 enum class MessageTypeEnum (
     @JsonValue override val value: Int,
     override val desc: String,

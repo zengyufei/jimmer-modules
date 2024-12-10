@@ -157,9 +157,11 @@ EnterpriseEmployeeVO {
     #allScalars
     actualName
     flat(enterprise) {
+        enterpriseId
         enterpriseName
     }
     flat(department) {
+        departmentId
         departmentName
     }
 }

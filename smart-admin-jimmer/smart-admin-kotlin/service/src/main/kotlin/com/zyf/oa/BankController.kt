@@ -1,6 +1,9 @@
 package com.zyf.oa
 
 import com.zyf.common.annotations.Body
+import com.zyf.common.annotations.Operation
+import com.zyf.common.annotations.Tag
+import com.zyf.common.constant.AdminSwaggerTagConst
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
@@ -23,46 +26,54 @@ import org.springframework.web.bind.annotation.*
  * @Copyright [1024创新实验室](https://1024lab.net)
  */
 @RestController
+@Tag(name = AdminSwaggerTagConst.Business.OA_BANK)
 class BankController(
     val sql: KSqlClient,
     val bankService: BankService,
 ) {
 
     /** 分页查询银行信息 @author 善逸 */
+    @Operation(summary = "分页查询银行信息 @author 善逸")
     @PostMapping("/oa/bank/page/query")
     fun queryByPage(
         @Body pageBean: PageBean,
-        @RequestBody queryForm: @Valid BankQueryForm): ResponseDTO<PageResult<BankVO>> {
+        @RequestBody queryForm: @Valid BankQueryForm
+    ): ResponseDTO<PageResult<BankVO>> {
         return bankService.queryByPage(pageBean, queryForm)
     }
 
     /** 根据企业ID查询银行信息列表 @author 善逸 */
+    @Operation(summary = "根据企业ID查询银行信息列表 @author 善逸")
     @GetMapping("/oa/bank/query/list/{enterpriseId}")
-    fun queryList(@PathVariable enterpriseId: String?): ResponseDTO<List<BankVO>> {
+    fun queryList(@PathVariable enterpriseId: String): ResponseDTO<List<BankVO>> {
         return bankService.queryList(enterpriseId)
     }
 
     /** 查询银行信息详情 @author 善逸 */
+    @Operation(summary = "查询银行信息详情 @author 善逸")
     @GetMapping("/oa/bank/get/{bankId}")
-    fun getDetail(@PathVariable bankId: String?): ResponseDTO<BankVO?> {
+    fun getDetail(@PathVariable bankId: String): ResponseDTO<BankVO?> {
         return bankService.getDetail(bankId)
     }
 
     /** 新建银行信息 @author 善逸 */
+    @Operation(summary = "新建银行信息 @author 善逸")
     @PostMapping("/oa/bank/create")
     fun createBank(@RequestBody createVO: @Valid BankCreateForm): ResponseDTO<String?> {
         return bankService.createBank(createVO)
     }
 
     /** 编辑银行信息 @author 善逸 */
+    @Operation(summary = "编辑银行信息 @author 善逸")
     @PostMapping("/oa/bank/update")
     fun updateBank(@RequestBody updateVO: @Valid BankUpdateForm): ResponseDTO<String?> {
         return bankService.updateBank(updateVO)
     }
 
     /** 删除银行信息 @author 善逸 */
+    @Operation(summary = "删除银行信息 @author 善逸")
     @GetMapping("/oa/bank/delete/{bankId}")
-    fun deleteBank(@PathVariable bankId: String?): ResponseDTO<String?> {
+    fun deleteBank(@PathVariable bankId: String): ResponseDTO<String?> {
         return bankService.deleteBank(bankId)
     }
 }

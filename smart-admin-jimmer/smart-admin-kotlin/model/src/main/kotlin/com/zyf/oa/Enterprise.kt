@@ -38,7 +38,7 @@ Enterprise : TenantAware, BaseEntity {
     @Column(name = "type")
     @DataTracerFieldLabel("类型")
     @DataTracerFieldEnum(enumClass = EnterpriseTypeEnum::class)
-    val type: Int
+    val type: EnterpriseTypeEnum
 
     /** 统一社会信用代码 */
     @Column(name = "unified_social_credit_code")

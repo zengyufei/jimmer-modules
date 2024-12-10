@@ -87,10 +87,9 @@ class NoticeEmployeeService(
                 }
             }
 
-            val noticeId = table.noticeId
             val countSubQuery = subQuery(NoticeViewRecord::class) {
                 where(table.employeeId eq requestEmployeeId)
-                where(table.noticeId eq noticeId)
+                where(table.notice eq parentTable)
                 select(count(table))
             }
             if (noticeEmployeeQueryForm.notViewFlag == true) {

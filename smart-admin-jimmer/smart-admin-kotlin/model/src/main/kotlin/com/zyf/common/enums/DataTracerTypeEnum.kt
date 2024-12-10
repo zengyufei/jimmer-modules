@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonValue
 import com.zyf.common.base.BaseEnum
 import com.zyf.common.enums.EnterpriseTypeEnum.FOREIGN
 import com.zyf.common.enums.EnterpriseTypeEnum.NORMAL
+import org.babyfish.jimmer.sql.EnumType
 
+@EnumType(EnumType.Strategy.ORDINAL)
 enum class DataTracerTypeEnum(
     @JsonValue override val value: Int,
     override val desc: String

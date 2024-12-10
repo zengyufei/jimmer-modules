@@ -1,18 +1,18 @@
-package com.zyf.cfg//package org.babyfish.jimmer.sql.example.kt.cfg
+package com.zyf.cfg// package org.babyfish.jimmer.sql.example.kt.cfg
 //
-//import org.babyfish.jimmer.sql.kt.KSqlClient
-//import org.babyfish.jimmer.sql.kt.cfg.KInitializer
-//import org.springframework.beans.factory.annotation.Value
-//import org.springframework.stereotype.Component
-//import java.io.InputStreamReader
-//import java.sql.Connection
-//import javax.sql.DataSource
+// import org.babyfish.jimmer.sql.kt.KSqlClient
+// import org.babyfish.jimmer.sql.kt.cfg.KInitializer
+// import org.springframework.beans.factory.annotation.Value
+// import org.springframework.stereotype.Component
+// import java.io.InputStreamReader
+// import java.sql.Connection
+// import javax.sql.DataSource
 //
 ///*
 // * Initialize H2 in-memory database if the application is started by default profile.
 // */
 //@Component
-//class H2Initializer(
+// class H2Initializer(
 //    private val dataSource: DataSource,
 //    @Value("\${spring.datasource.url}") private val url: String
 //) : KInitializer {

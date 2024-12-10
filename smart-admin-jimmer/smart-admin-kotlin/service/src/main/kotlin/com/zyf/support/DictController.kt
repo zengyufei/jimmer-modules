@@ -1,6 +1,7 @@
 package com.zyf.support
 
 import com.zyf.common.annotations.Body
+import com.zyf.common.annotations.Operation
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
@@ -21,6 +22,7 @@ class DictController(
 ) {
 
     /** 分页查询数据字典KEY - @author 罗伊 */
+    @Operation(summary = "分页查询数据字典KEY - @author 罗伊")
     @PostMapping("/support/dict/key/query")
     fun keyQuery(
         @Body pageBean: PageBean,
@@ -30,6 +32,7 @@ class DictController(
     }
 
     /** 数据字典KEY-添加- @author 罗伊 */
+    @Operation(summary = "数据字典KEY-添加- @author 罗伊")
     @PostMapping("/support/dict/key/add")
     fun keyAdd(@Valid @RequestBody keyAddForm: DictKeyAddForm): ResponseDTO<String?> {
         val errorCode = dictService.keyAdd(keyAddForm)
@@ -41,6 +44,7 @@ class DictController(
     }
 
     /** 数据字典缓存-刷新- @author 罗伊 */
+    @Operation(summary = "数据字典缓存-刷新- @author 罗伊")
     @GetMapping("/support/dict/cache/refresh")
     fun cacheRefresh(): ResponseDTO<String?> {
         dictCacheService.cacheRefresh()
@@ -48,6 +52,7 @@ class DictController(
     }
 
     /** 数据字典Value-添加- @author 罗伊 */
+    @Operation(summary = "数据字典Value-添加- @author 罗伊")
     @PostMapping("/support/dict/value/add")
     fun valueAdd(@Valid @RequestBody valueAddForm: DictValueAddForm): ResponseDTO<String?> {
         val errorCode = dictService.valueAdd(valueAddForm)
@@ -59,6 +64,7 @@ class DictController(
     }
 
     /** 数据字典KEY-更新- @author 罗伊 */
+    @Operation(summary = "数据字典KEY-更新- @author 罗伊")
     @PostMapping("/support/dict/key/edit")
     fun keyEdit(@Valid @RequestBody keyUpdateForm: DictKeyUpdateForm): ResponseDTO<String?> {
         val errorCode = dictService.keyEdit(keyUpdateForm)
@@ -70,6 +76,7 @@ class DictController(
     }
 
     /** 数据字典Value-更新- @author 罗伊 */
+    @Operation(summary = "数据字典Value-更新- @author 罗伊")
     @PostMapping("/support/dict/value/edit")
     fun valueEdit(@Valid @RequestBody valueUpdateForm: DictValueUpdateForm): ResponseDTO<String?> {
         val errorCode = dictService.valueEdit(valueUpdateForm)
@@ -81,6 +88,7 @@ class DictController(
     }
 
     /** 数据字典KEY-删除- @author 罗伊 */
+    @Operation(summary = "数据字典KEY-删除- @author 罗伊")
     @PostMapping("/support/dict/key/delete")
     fun keyDelete(@RequestBody keyIdList: List<String>): ResponseDTO<String?> {
         dictService.keyDelete(keyIdList)
@@ -88,6 +96,7 @@ class DictController(
     }
 
     /** 数据字典Value-删除- @author 罗伊 */
+    @Operation(summary = "数据字典Value-删除- @author 罗伊")
     @PostMapping("/support/dict/value/delete")
     fun valueDelete(@RequestBody valueIdList: List<String>): ResponseDTO<String?> {
         dictService.valueDelete(valueIdList)
@@ -96,12 +105,14 @@ class DictController(
 
 
     /** 查询全部字典key - @author 卓大 */
+    @Operation(summary = "查询全部字典key - @author 卓大")
     @GetMapping("/support/dict/key/queryAll")
     fun queryAll(): ResponseDTO<List<DictKeyVO>> {
         return ResponseDTO.ok(dictService.queryAllKey())
     }
 
     /** 分页查询数据字典value - @author 罗伊 */
+    @Operation(summary = "分页查询数据字典value - @author 罗伊")
     @PostMapping("/support/dict/value/query")
     fun valueQuery(
         @Body pageBean: PageBean,
@@ -111,6 +122,7 @@ class DictController(
     }
 
     /** 数据字典-值列表- @author 罗伊 */
+    @Operation(summary = "数据字典-值列表- @author 罗伊")
     @GetMapping("/support/dict/value/list/{keyCode}")
     fun valueList(@PathVariable keyCode: String): ResponseDTO<List<DictValueVO>> {
         val dictValueVOList = dictCacheService.selectByKeyCode(keyCode)

@@ -1,29 +1,24 @@
 package com.zyf.oa.service
 
-import cn.hutool.core.lang.Console.where
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.annotations.Slf4j
-import com.zyf.common.code.UserErrorCode
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
 import com.zyf.oa.*
-import com.zyf.repository.RoleRepository
+import com.zyf.repository.system.RoleRepository
 import com.zyf.service.dto.BankCreateForm
 import com.zyf.service.dto.BankQueryForm
 import com.zyf.service.dto.BankUpdateForm
 import com.zyf.service.dto.BankVO
-import com.zyf.system.Role
-import com.zyf.system.roleId
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.ast.expression.desc
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.babyfish.jimmer.sql.kt.ast.expression.ne
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.*
 
 /**
  * OA办公-OA银行信息
@@ -62,7 +57,7 @@ class BankService(
     /**
      * 根据企业ID查询不分页的银行列表
      */
-    fun queryList(enterpriseId: String?): ResponseDTO<List<BankVO>> {
+    fun queryList(enterpriseId: String): ResponseDTO<List<BankVO>> {
         val bankList: List<BankVO> = sql.findAll(BankVO::class) {
             where(table.enterpriseId eq enterpriseId)
         }
@@ -72,9 +67,8 @@ class BankService(
     /**
      * 查询银行信息详情
      */
-    fun getDetail(bankId: String?): ResponseDTO<BankVO?> {
+    fun getDetail(bankId: String): ResponseDTO<BankVO?> {
         // 校验银行信息是否存在
-        bankId ?: return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
         val bankVO: BankVO? = sql.findById(BankVO::class, bankId)
         bankVO ?: return ResponseDTO.userErrorParam("银行信息不存在")
         return ResponseDTO.ok(bankVO)
@@ -131,8 +125,7 @@ class BankService(
      * 删除银行信息
      */
     @Transactional(rollbackFor = [Exception::class])
-    fun deleteBank(bankId: String?): ResponseDTO<String?> {
-        bankId ?: return ResponseDTO.ok()
+    fun deleteBank(bankId: String): ResponseDTO<String?> {
         sql.deleteById(Bank::class, bankId)
         // dataTracerService.addTrace(bankDetail.getEnterpriseId(), DataTracerTypeEnum.OA_ENTERPRISE, "删除银行:" + DataTracerConst.HTML_BR + dataTracerService.getChangeContent(bankDetail))
         return ResponseDTO.ok()

@@ -18,9 +18,9 @@ class NotUniqueExceptionTranslator() : ExceptionTranslator<NotUnique> {
 //        }
 //        return null
 
-            throw IllegalArgumentException(
-                ("The unique already exists")
-            )
+        throw IllegalArgumentException(
+            ("The unique already exists")
+        )
     }
 }
 

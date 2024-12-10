@@ -1,6 +1,7 @@
 package com.zyf.support
 
 import com.zyf.common.annotations.Body
+import com.zyf.common.annotations.Operation
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
@@ -29,14 +30,17 @@ class FeedbackController(
 ) {
 
     /** 意见反馈-分页查询 @author 开云 */
+    @Operation(summary = "意见反馈-分页查询 @author 开云")
     @PostMapping("/support/feedback/query")
     fun query(
         @Body pageBean: PageBean,
-        @RequestBody @Valid queryForm: FeedbackQueryForm): ResponseDTO<PageResult<FeedbackVO>> {
+        @RequestBody @Valid queryForm: FeedbackQueryForm
+    ): ResponseDTO<PageResult<FeedbackVO>> {
         return feedbackService.query(pageBean, queryForm)
     }
 
     /** 意见反馈-新增 @author 开云 */
+    @Operation(summary = "意见反馈-新增 @author 开云")
     @PostMapping("/support/feedback/add")
     fun add(@RequestBody @Valid addForm: FeedbackAddForm): ResponseDTO<String?> {
         val employee = SmartRequestUtil.requestUser

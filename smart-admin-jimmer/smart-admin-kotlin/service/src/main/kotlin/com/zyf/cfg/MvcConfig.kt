@@ -1,9 +1,13 @@
 package com.zyf.cfg
 
 import com.zyf.cfg.interceptor.AdminInterceptor
+import com.zyf.runtime.convert.IntEnumConvertorFactory
+import com.zyf.runtime.convert.StringEnumConvertorFactory
 import org.springframework.context.annotation.Configuration
+import org.springframework.format.FormatterRegistry
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+
 
 /**
  * web相关配置
@@ -19,5 +23,14 @@ class MvcConfig(val adminInterceptor: AdminInterceptor) : WebMvcConfigurer {
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry.addInterceptor(adminInterceptor)
             .addPathPatterns("/**")
+            .excludePathPatterns("/ts.zip")
+    }
+
+    /**
+     * 枚举类的转换器工厂 addConverterFactory
+     */
+    override fun addFormatters(registry: FormatterRegistry) {
+        registry.addConverterFactory(IntEnumConvertorFactory())
+        registry.addConverterFactory(StringEnumConvertorFactory())
     }
 }

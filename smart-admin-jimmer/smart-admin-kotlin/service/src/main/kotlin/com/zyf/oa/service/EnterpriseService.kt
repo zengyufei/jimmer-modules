@@ -1,6 +1,5 @@
 package com.zyf.oa.service
 
-import cn.hutool.core.lang.Console.where
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.annotations.Slf4j
 import com.zyf.common.code.UserErrorCode
@@ -8,6 +7,7 @@ import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.DataTracerTypeEnum
+import com.zyf.common.enums.EnterpriseTypeEnum
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
 import com.zyf.employee.Employee
@@ -143,7 +143,7 @@ class EnterpriseService(
     /**
      * 企业列表查询
      */
-    fun queryList(type: Int?): ResponseDTO<List<EnterpriseListVO>> {
+    fun queryList(type: EnterpriseTypeEnum?): ResponseDTO<List<EnterpriseListVO>> {
         val vos = sql.createQuery(Enterprise::class) {
             where(table.type `eq?` type)
             where(table.disabledFlag `eq?` false)

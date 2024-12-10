@@ -12,7 +12,7 @@
  Target Server Version : 140006
  File Encoding         : 65001
 
- Date: 05/12/2024 14:13:26
+ Date: 10/12/2024 14:15:04
 */
 
 
@@ -57,9 +57,12 @@ INSERT INTO "public"."t_category" VALUES ('352', '苹果', 1, '1', 0, 'f', NULL,
 INSERT INTO "public"."t_category" VALUES ('353', '华为', 1, '1', 0, 'f', NULL, NULL, '2022-09-14 21:39:32', '1', '1', NULL, 0);
 INSERT INTO "public"."t_category" VALUES ('354', 'IKBC', 1, '2', 0, 'f', NULL, NULL, '2022-09-14 21:39:38', '1', '1', NULL, 0);
 INSERT INTO "public"."t_category" VALUES ('355', '双飞燕', 1, '2', 0, 'f', NULL, NULL, '2022-09-14 21:39:47', '1', '1', NULL, 0);
-INSERT INTO "public"."t_category" VALUES ('356', '罗技', 1, '351', 0, 'f', NULL, NULL, '2022-09-14 21:39:57', '1', '1', NULL, 0);
 INSERT INTO "public"."t_category" VALUES ('357', '小米', 1, '1', 0, 'f', NULL, NULL, '2022-10-10 22:27:39', '1', '1', NULL, 0);
 INSERT INTO "public"."t_category" VALUES ('360', 'iphone', 1, '352', 0, 'f', NULL, NULL, '2023-12-01 19:54:22', '1', '1', NULL, 0);
+INSERT INTO "public"."t_category" VALUES ('1036422357357047809', '阿萨啊4444', 1, '356', 0, 'f', NULL, '2024-12-07 17:15:29.794777', '2024-12-07 17:15:00.68363', '1', '1', NULL, 1);
+INSERT INTO "public"."t_category" VALUES ('356', '罗技', 1, '351', 0, 'f', NULL, '2024-12-07 17:16:13.402633', '2022-09-14 21:39:57', '1', '1', NULL, 0);
+INSERT INTO "public"."t_category" VALUES ('1036422357357047810', 'aaa', 1, NULL, 0, 'f', NULL, '2024-12-07 17:16:24.705068', '2024-12-07 17:16:24.705068', '1', '1', NULL, 1);
+INSERT INTO "public"."t_category" VALUES ('1036422357357047811', 'aaa', 2, '3', 0, 'f', NULL, '2024-12-07 17:16:33.401304', '2024-12-07 17:16:33.40181', '1', '1', NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_change_log
@@ -268,7 +271,7 @@ INSERT INTO "public"."t_config" VALUES ('2', '三级等保', 'level3_protect_con
 	"regularChangePasswordNotAllowRepeatTimes":3,
 	"twoFactorLoginEnabled":false
 }', 'SmartJob Sample2 update', NULL, '2024-08-13 11:44:49', '1', '1', NULL, 0);
-INSERT INTO "public"."t_config" VALUES ('2270402271177285633', 'hhh', 'ggg', 'hhhh', '', '2024-11-19 16:18:15.462477', '2024-11-19 16:18:07.580508', '1', '1', NULL, 0);
+INSERT INTO "public"."t_config" VALUES ('2270402271177285633', 'ggg', 'ggg', 'ggg', '', '2024-12-05 15:54:07.60279', '2024-11-19 16:18:07.580508', '1', '1', NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_data_tracer
@@ -333,6 +336,10 @@ INSERT INTO "public"."t_data_tracer" VALUES ('2918924464009601025', '1', 3, '修
 INSERT INTO "public"."t_data_tracer" VALUES ('8440338624189919236', '8440338624189919233', 2, '新增', NULL, NULL, NULL, '1', 1, 'admin', '', NULL, NULL, '2024-12-03 10:07:50.382115', '2024-12-03 10:07:50.382115', '1', '1', NULL, 0);
 INSERT INTO "public"."t_data_tracer" VALUES ('1874090378163363842', '1874090378163363841', 2, '新增', NULL, NULL, NULL, '1', 1, 'admin', '', NULL, NULL, '2024-12-03 10:51:17.852134', '2024-12-03 10:51:17.852134', '1', '1', NULL, 0);
 INSERT INTO "public"."t_data_tracer" VALUES ('3297228221959815170', '1874090378163363841', 2, '删除', NULL, NULL, NULL, '1', 1, 'admin', '', NULL, NULL, '2024-12-04 11:25:17.299094', '2024-12-04 11:25:17.299094', '1', '1', NULL, 0);
+INSERT INTO "public"."t_data_tracer" VALUES ('3963761680960155651', '3963761680960155650', 3, '新增', NULL, NULL, NULL, '1', 1, 'admin', '', NULL, NULL, '2024-12-06 11:48:33.475617', '2024-12-06 11:48:33.475617', '1', '1', NULL, 0);
+INSERT INTO "public"."t_data_tracer" VALUES ('3963761680960155652', '3963761680960155650', 3, '修改企业信息', '企业名称:"asdas"<br/>类型:null<br/>统一社会信用代码:"asdasd"<br/>联系人:"asdasd"<br/>联系人电话:"13480555101"<br/>邮箱:"qq@qq.com"<br/>详细地址:"fdgsdfg"<br/>禁用状态:false', '企业名称:"asdas"<br/>类型:null<br/>统一社会信用代码:"asdasd"<br/>联系人:"asdasd"<br/>联系人电话:"13480555101"<br/>邮箱:"qq@qq.com"<br/>详细地址:"fdgsdfg"<br/>禁用状态:false', NULL, '1', 1, 'admin', '', NULL, NULL, '2024-12-06 11:59:19.799564', '2024-12-06 11:59:19.799564', '1', '1', NULL, 0);
+INSERT INTO "public"."t_data_tracer" VALUES ('1036422357357047813', '1036422357357047812', 1, '新增', NULL, NULL, NULL, '1', 1, 'admin', '', NULL, NULL, '2024-12-07 17:16:58.536592', '2024-12-07 17:16:58.536592', '1', '1', NULL, 0);
+INSERT INTO "public"."t_data_tracer" VALUES ('3603474741943963652', '3963761680960155650', 3, '修改企业信息', '企业名称:"asdas"<br/>类型:null<br/>统一社会信用代码:"asdasd"<br/>联系人:"asdasd"<br/>联系人电话:"13480555101"<br/>邮箱:"qq@qq.com"<br/>详细地址:"fdgsdfg"<br/>禁用状态:false', '企业名称:"asdas222"<br/>类型:null<br/>统一社会信用代码:"asdasd"<br/>联系人:"asdasd"<br/>联系人电话:"13480555101"<br/>邮箱:"qq@qq.com"<br/>详细地址:"fdgsdfg"<br/>禁用状态:false', NULL, '1', 1, 'admin', '', NULL, NULL, '2024-12-09 09:44:27.018732', '2024-12-09 09:44:27.018732', '1', '1', NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_department
@@ -490,12 +497,6 @@ COMMENT ON TABLE "public"."t_employee" IS '员工表';
 -- ----------------------------
 -- Records of t_employee
 -- ----------------------------
-INSERT INTO "public"."t_employee" VALUES ('1', 'admin', '40cc20b8891cd3fd1f008ea7f4ac17c3', '管理员', 'public/common/1eea469452484ffea4a42570c4072466_20240702220447.jpg', 0, '13500000000', '1', '3', NULL, 'f', 't', NULL, NULL, '2022-10-04 21:33:50', '1', '1', NULL, 0);
-INSERT INTO "public"."t_employee" VALUES ('2', 'huke', '40cc20b8891cd3fd1f008ea7f4ac17c3', '胡克', NULL, 0, '13123123121', '1', '4', NULL, 'f', 'f', NULL, NULL, '2022-10-04 21:33:50', '1', '1', NULL, 0);
-INSERT INTO "public"."t_employee" VALUES ('44', 'zhuoda', 'bf63cb6431d613acdee104f692845b22', '卓大', NULL, 1, '18637925892', '1', '6', NULL, 'f', 'f', NULL, NULL, '2022-10-04 21:33:50', '1', '1', NULL, 0);
-INSERT INTO "public"."t_employee" VALUES ('63', 'kaiyun', '0e5ec5746bf955f253fa747ab76cfa67', '开云', NULL, 0, '13112312346', '2', '5', NULL, 'f', 'f', NULL, NULL, '2022-10-04 21:33:50', '1', '1', NULL, 0);
-INSERT INTO "public"."t_employee" VALUES ('64', 'qingye', '40cc20b8891cd3fd1f008ea7f4ac17c3', '清野', NULL, 1, '13123123111', '2', '4', NULL, 'f', 'f', NULL, NULL, '2022-10-04 21:33:50', '1', '1', NULL, 0);
-INSERT INTO "public"."t_employee" VALUES ('65', 'feiye', '40cc20b8891cd3fd1f008ea7f4ac17c3', '飞叶', NULL, 1, '13123123112', '4', '3', NULL, 'f', 'f', NULL, NULL, '2022-10-04 21:33:50', '1', '1', NULL, 0);
 INSERT INTO "public"."t_employee" VALUES ('66', 'luoyi', '40cc20b8891cd3fd1f008ea7f4ac17c3', '罗伊', NULL, 1, '13123123142', '4', '2', NULL, 't', 'f', NULL, NULL, '2022-10-04 21:33:50', '1', '1', NULL, 0);
 INSERT INTO "public"."t_employee" VALUES ('67', 'chuxiao', '7287168489ed5598741362cbec2b0741', '初晓', NULL, 1, '13123123123', '1', '2', NULL, 't', 'f', NULL, NULL, '2022-10-04 21:33:50', '1', '1', NULL, 0);
 INSERT INTO "public"."t_employee" VALUES ('47', 'shanyi', 'ca405fddcb90ac2a71b33fe7126ed2a8', '善逸', 'public/common/f823b00873684f0a9d31f0d62316cc8e_20240630015141.jpg', 1, '13480555101', '3', '5', '312636208@qq.com', 't', 'f', '这个是备注', '2024-11-26 21:53:38.631981', '2022-10-04 21:33:50', '1', '1', NULL, 0);
@@ -505,6 +506,12 @@ INSERT INTO "public"."t_employee" VALUES ('48', 'qinjiu', '066836fce93880cbe50e8
 INSERT INTO "public"."t_employee" VALUES ('68', 'xuanpeng', '40cc20b8891cd3fd1f008ea7f4ac17c3', '玄朋', NULL, 1, '13123123124', '1', '3', NULL, 'f', 'f', NULL, '2024-11-26 22:00:21.879188', '2022-10-04 21:33:50', '1', '1', NULL, 0);
 INSERT INTO "public"."t_employee" VALUES ('69', 'peixian', '40cc20b8891cd3fd1f008ea7f4ac17c3', '玄朋', NULL, 1, '18377482773', '1', '4', NULL, 'f', 'f', NULL, '2024-11-26 22:00:33.039036', '2022-10-04 21:33:50', '1', '1', NULL, 0);
 INSERT INTO "public"."t_employee" VALUES ('6629889273090437121', 'ggggg', '4d4302f1b185345c9f637ce86caa8d91', 'ffff', NULL, 1, '13480555124', '5296820239399415810', '3', '312636208@qq.com', 't', 'f', NULL, '2024-11-26 22:05:38.690744', '2024-11-26 22:05:26.860926', '1', '1', NULL, 0);
+INSERT INTO "public"."t_employee" VALUES ('1', 'admin', '40cc20b8891cd3fd1f008ea7f4ac17c3', '管理员', 'public/common/4abada7d87124d0985fa51ebf0ac1871_20241208202246.png', 0, '13500000000', '1', '3', NULL, 'f', 't', NULL, '2024-12-08 20:22:46.449046', '2022-10-04 21:33:50', '1', '1', NULL, 0);
+INSERT INTO "public"."t_employee" VALUES ('65', 'feiye', '40cc20b8891cd3fd1f008ea7f4ac17c3', '飞叶', NULL, 1, '13123123112', '4', '3', '312636208@qq.com', 'f', 'f', NULL, '2024-12-09 13:27:42.324733', '2022-10-04 21:33:50', '1', '1', NULL, 0);
+INSERT INTO "public"."t_employee" VALUES ('44', 'zhuoda', 'bf63cb6431d613acdee104f692845b22', '卓大', NULL, 1, '18637925892', '1', '6', '312636208@qq.com', 'f', 'f', NULL, '2024-12-09 14:28:21.615014', '2022-10-04 21:33:50', '1', '1', NULL, 0);
+INSERT INTO "public"."t_employee" VALUES ('63', 'kaiyun', '0e5ec5746bf955f253fa747ab76cfa67', '开云', NULL, 0, '13112312346', '2', '5', '312636208@qq.com', 'f', 'f', NULL, '2024-12-09 14:29:13.705352', '2022-10-04 21:33:50', '1', '1', NULL, 0);
+INSERT INTO "public"."t_employee" VALUES ('64', 'qingye', '40cc20b8891cd3fd1f008ea7f4ac17c3', '清野', NULL, 1, '13123123111', '2', '4', '312636208@qq.com', 'f', 'f', NULL, '2024-12-09 15:02:43.762512', '2022-10-04 21:33:50', '1', '1', NULL, 0);
+INSERT INTO "public"."t_employee" VALUES ('2', 'huke', '40cc20b8891cd3fd1f008ea7f4ac17c3', '胡克', NULL, 0, '13123123121', '1', '4', '312636208@qq.com', 'f', 'f', NULL, '2024-12-09 15:03:02.286223', '2022-10-04 21:33:50', '1', '1', NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_feedback
@@ -537,6 +544,7 @@ COMMENT ON TABLE "public"."t_feedback" IS '意见反馈';
 -- ----------------------------
 -- Records of t_feedback
 -- ----------------------------
+INSERT INTO "public"."t_feedback" VALUES ('8044023777271209985', 'hhh', '', '2024-12-08 20:21:29.956287', '2024-12-08 20:21:29.955285', '1', '1', NULL, 0, 1, '管理员');
 
 -- ----------------------------
 -- Table structure for t_file
@@ -586,6 +594,7 @@ INSERT INTO "public"."t_file" VALUES ('8512394997951696897', 1, '阿妹最兴招
 INSERT INTO "public"."t_file" VALUES ('468966065373446145', 1, '阿妹最兴招片.jpg', 174044, 'public/common/432f4321e9a14913a478774c1548dd57_20241129233015.jpg', 'jpg', '1', 1, 'admin', '2024-11-29 23:30:15.394944', '2024-11-29 23:30:15.395948', '1', '1', NULL, 0);
 INSERT INTO "public"."t_file" VALUES ('8926726431674589185', 1, 'rbac数据库设计.jpg', 193744, 'public/common/276ada28fc774a3184fce5b60f4699bc_20241130173300.jpg', 'jpg', '1', 1, 'admin', '2024-11-30 17:33:01.063678', '2024-11-30 17:33:01.065676', '1', '1', NULL, 0);
 INSERT INTO "public"."t_file" VALUES ('4711357235844808705', 1, '文字logo.jpg', 11056, 'public/common/4446cb8e49304facb53e324004d96c7f_20241130211823.jpg', 'jpg', '1', 1, 'admin', '2024-11-30 21:18:23.760944', '2024-11-30 21:18:23.762492', '1', '1', NULL, 0);
+INSERT INTO "public"."t_file" VALUES ('8044023777271209986', 1, 'img.png', 3184, 'public/common/4abada7d87124d0985fa51ebf0ac1871_20241208202246.png', 'png', '1', 1, 'admin', '2024-12-08 20:22:46.285477', '2024-12-08 20:22:46.285477', '1', '1', NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_goods
@@ -598,7 +607,7 @@ CREATE TABLE "public"."t_goods" (
   "goods_name" text COLLATE "pg_catalog"."default" NOT NULL,
   "place" text COLLATE "pg_catalog"."default",
   "price" numeric(10,2) NOT NULL,
-  "shelves_flag" int2 NOT NULL,
+  "shelves_flag" bool NOT NULL,
   "remark" text COLLATE "pg_catalog"."default",
   "update_time" timestamp(6),
   "create_time" timestamp(6) NOT NULL,
@@ -621,12 +630,13 @@ COMMENT ON TABLE "public"."t_goods" IS '商品';
 -- ----------------------------
 -- Records of t_goods
 -- ----------------------------
-INSERT INTO "public"."t_goods" VALUES ('1', 1, '353', 'Mote60', 'BEI_JING', 9999.00, 1, NULL, NULL, '2021-09-01 22:25:30', '1', '1', NULL, 0);
-INSERT INTO "public"."t_goods" VALUES ('7', 1, '352', 'iphone15 pro', 'LUO_YANG', 50000.00, 1, '备注', NULL, '2022-10-21 19:58:07', '1', '1', NULL, 0);
-INSERT INTO "public"."t_goods" VALUES ('8', 1, '352', 'iphone14', 'ZHENG_ZHOU', 150.00, 0, '', NULL, '2022-10-21 19:00:11', '1', '1', NULL, 0);
-INSERT INTO "public"."t_goods" VALUES ('10', 1, '357', '小米15', 'LUO_YANG', 7999.00, 1, '', NULL, '2023-10-07 19:02:24', '1', '1', NULL, 0);
-INSERT INTO "public"."t_goods" VALUES ('11', 1, '354', '青轴键盘', 'ZHENG_ZHOU', 199.00, 1, '支持usb', NULL, '2023-12-01 19:55:53', '1', '1', NULL, 0);
-INSERT INTO "public"."t_goods" VALUES ('12', 1, '356', '罗技双模鼠标', 'BEI_JING,ZHENG_ZHOU', 99.00, 0, '支持蓝牙', NULL, '2023-12-01 19:57:25', '1', '1', NULL, 0);
+INSERT INTO "public"."t_goods" VALUES ('1', 1, '353', 'Mote60', 'BEI_JING', 9999.00, 't', NULL, NULL, '2021-09-01 22:25:30', '1', '1', NULL, 0);
+INSERT INTO "public"."t_goods" VALUES ('7', 1, '352', 'iphone15 pro', 'LUO_YANG', 50000.00, 't', '备注', NULL, '2022-10-21 19:58:07', '1', '1', NULL, 0);
+INSERT INTO "public"."t_goods" VALUES ('8', 1, '352', 'iphone14', 'ZHENG_ZHOU', 150.00, 'f', '', NULL, '2022-10-21 19:00:11', '1', '1', NULL, 0);
+INSERT INTO "public"."t_goods" VALUES ('10', 1, '357', '小米15', 'LUO_YANG', 7999.00, 't', '', NULL, '2023-10-07 19:02:24', '1', '1', NULL, 0);
+INSERT INTO "public"."t_goods" VALUES ('11', 1, '354', '青轴键盘', 'ZHENG_ZHOU', 199.00, 't', '支持usb', NULL, '2023-12-01 19:55:53', '1', '1', NULL, 0);
+INSERT INTO "public"."t_goods" VALUES ('12', 1, '356', '罗技双模鼠标', 'BEI_JING,ZHENG_ZHOU', 99.00, 'f', '支持蓝牙', NULL, '2023-12-01 19:57:25', '1', '1', NULL, 0);
+INSERT INTO "public"."t_goods" VALUES ('1036422357357047812', 1, '351', 'fdsfds', 'LUO_YANG', 1233.00, 'f', 'sdfs', '2024-12-07 17:17:41.069618', '2024-12-07 17:16:58.510875', '1', '1', NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_heart_beat_record
@@ -636,10 +646,9 @@ CREATE TABLE "public"."t_heart_beat_record" (
   "heart_beat_record_id" text COLLATE "pg_catalog"."default" NOT NULL,
   "project_path" text COLLATE "pg_catalog"."default" NOT NULL,
   "server_ip" text COLLATE "pg_catalog"."default" NOT NULL,
-  "process_no" int4 NOT NULL,
+  "process_no" text COLLATE "pg_catalog"."default" NOT NULL,
   "process_start_time" timestamp(6) NOT NULL,
   "heart_beat_time" timestamp(6) NOT NULL,
-  "tenant_id" text COLLATE "pg_catalog"."default" NOT NULL,
   "create_by" text COLLATE "pg_catalog"."default" NOT NULL,
   "update_by" text COLLATE "pg_catalog"."default",
   "create_time" timestamp(6) NOT NULL,
@@ -653,12 +662,23 @@ COMMENT ON COLUMN "public"."t_heart_beat_record"."server_ip" IS '服务器ip';
 COMMENT ON COLUMN "public"."t_heart_beat_record"."process_no" IS '进程号';
 COMMENT ON COLUMN "public"."t_heart_beat_record"."process_start_time" IS '进程开启时间';
 COMMENT ON COLUMN "public"."t_heart_beat_record"."heart_beat_time" IS '心跳时间';
-COMMENT ON COLUMN "public"."t_heart_beat_record"."tenant_id" IS '租户id';
 COMMENT ON TABLE "public"."t_heart_beat_record" IS '公用服务 - 服务心跳';
 
 -- ----------------------------
 -- Records of t_heart_beat_record
 -- ----------------------------
+INSERT INTO "public"."t_heart_beat_record" VALUES ('1360682278486810625', 'D:\dowork\my', '127.0.0.1;192.168.0.124;198.18.0.1;169.254.78.200;169.254.144.95;10.8.0.6;172.25.16.1;10.0.0.4;172.25.208.1', '19744', '2024-12-09 19:57:42.067', '2024-12-09 19:58:25.276849', 'system', NULL, '2024-12-09 19:58:27.880471', '2024-12-09 19:58:27.879478', 0);
+INSERT INTO "public"."t_heart_beat_record" VALUES ('6062440291107442689', 'D:\dowork\my', '127.0.0.1;192.168.0.124;198.18.0.1;169.254.78.200;169.254.144.95;10.8.0.6;172.25.16.1;10.0.0.4;172.25.208.1', '20912', '2024-12-09 20:03:52.175', '2024-12-09 20:05:09.581432', 'system', NULL, '2024-12-09 20:05:09.691852', '2024-12-09 20:05:09.689851', 0);
+INSERT INTO "public"."t_heart_beat_record" VALUES ('5891303511193346049', 'D:\dowork\my', '127.0.0.1;192.168.0.124;198.18.0.1;169.254.78.200;169.254.144.95;10.8.0.6;172.25.16.1;10.0.0.4;172.25.208.1', '23840', '2024-12-09 20:28:03.38', '2024-12-09 20:29:16.33934', 'system', NULL, '2024-12-09 20:29:16.481205', '2024-12-09 20:29:16.479203', 0);
+INSERT INTO "public"."t_heart_beat_record" VALUES ('1720970465809047558', 'D:\dowork\smart-admin-jimmer', '127.0.0.1;10.8.0.14;192.168.2.108;192.168.99.12;10.0.0.3;172.22.48.1', '19668', '2024-12-10 10:41:11.658', '2024-12-10 10:42:30.970672', 'system', NULL, '2024-12-10 10:42:31.185591', '2024-12-10 10:42:31.185591', 0);
+INSERT INTO "public"."t_heart_beat_record" VALUES ('2108280034615406593', 'D:\dowork\smart-admin-jimmer', '127.0.0.1;10.8.0.14;192.168.2.108;192.168.99.12;10.0.0.3;172.22.48.1', '9004', '2024-12-10 10:44:12.277', '2024-12-10 10:45:26.586772', 'system', NULL, '2024-12-10 10:45:26.943057', '2024-12-10 10:45:26.941058', 0);
+INSERT INTO "public"."t_heart_beat_record" VALUES ('5522008554183131137', 'D:\dowork\smart-admin-jimmer', '127.0.0.1;10.8.0.14;192.168.2.108;192.168.99.12;10.0.0.3;172.22.48.1', '3684', '2024-12-10 10:52:18.303', '2024-12-10 10:53:39.969711', 'system', NULL, '2024-12-10 10:53:40.332717', '2024-12-10 10:53:40.331734', 0);
+INSERT INTO "public"."t_heart_beat_record" VALUES ('5377893366386024452', 'D:\dowork\smart-admin-jimmer', '127.0.0.1;10.8.0.14;192.168.2.108;192.168.99.12;10.0.0.3;172.22.48.1', '17544', '2024-12-10 10:54:11.991', '2024-12-10 10:55:26.181101', 'system', NULL, '2024-12-10 10:55:26.397932', '2024-12-10 10:55:26.39693', 0);
+INSERT INTO "public"."t_heart_beat_record" VALUES ('7944945156112297986', 'D:\dowork\smart-admin-jimmer', '127.0.0.1;10.8.0.14;192.168.2.108;192.168.99.12;10.0.0.3;172.22.48.1', '3528', '2024-12-10 11:02:49.112', '2024-12-10 11:04:03.993355', 'system', NULL, '2024-12-10 11:04:04.215076', '2024-12-10 11:04:04.215076', 0);
+INSERT INTO "public"."t_heart_beat_record" VALUES ('1207560114137427971', 'D:\dowork\smart-admin-jimmer', '127.0.0.1;10.8.0.14;192.168.2.108;192.168.99.12;10.0.0.3;172.22.48.1', '8596', '2024-12-10 11:05:11.504', '2024-12-10 11:06:26.470789', 'system', NULL, '2024-12-10 11:06:26.70274', '2024-12-10 11:06:26.70274', 0);
+INSERT INTO "public"."t_heart_beat_record" VALUES ('6269606110521032705', 'D:\dowork\smart-admin-jimmer', '127.0.0.1;10.8.0.14;192.168.2.108;192.168.99.12;10.0.0.3;172.22.48.1', '21316', '2024-12-10 12:06:24.467', '2024-12-10 12:07:41.945673', 'system', NULL, '2024-12-10 12:07:42.30688', '2024-12-10 12:07:42.305868', 0);
+INSERT INTO "public"."t_heart_beat_record" VALUES ('6719966076272615425', 'D:\dowork\smart-admin-jimmer', '127.0.0.1;10.8.0.14;192.168.2.108;192.168.99.12;10.0.0.3;172.22.48.1', '18624', '2024-12-10 12:14:03.697', '2024-12-10 12:19:55.37884', 'system', NULL, '2024-12-10 12:19:58.280497', '2024-12-10 12:19:58.277496', 0);
+INSERT INTO "public"."t_heart_beat_record" VALUES ('2702755212305879041', 'D:\dowork\smart-admin-jimmer', '127.0.0.1;10.8.0.14;192.168.2.108;192.168.99.12;10.0.0.3;172.22.48.1', '14152', '2024-12-10 12:33:28.164', '2024-12-10 12:34:48.36422', 'system', NULL, '2024-12-10 12:34:48.850954', '2024-12-10 12:34:48.848955', 0);
 
 -- ----------------------------
 -- Table structure for t_help_doc
@@ -895,6 +915,32 @@ INSERT INTO "public"."t_login_log" VALUES ('5594064377393516546', '1', 1, '管�
 INSERT INTO "public"."t_login_log" VALUES ('4702351658412613633', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-05 11:17:36.565522', '2024-12-05 11:17:36.190635', '1', 'system', NULL, 0);
 INSERT INTO "public"."t_login_log" VALUES ('5395906012087320577', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-05 12:02:36.683085', '2024-12-05 12:02:36.327276', '1', 'system', NULL, 0);
 INSERT INTO "public"."t_login_log" VALUES ('6134496352675201025', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-05 12:09:31.513581', '2024-12-05 12:09:31.270991', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('6323647591801692161', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-05 15:52:24.774159', '2024-12-05 15:52:24.544588', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('3630495086378201089', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-05 20:44:20.385851', '2024-12-05 20:44:20.242654', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('4342064043782909953', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 11:24:23.173294', '2024-12-06 11:24:23.046621', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('6287619084660953089', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 11:31:55.794413', '2024-12-06 11:31:55.680515', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('2855876169728368641', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 11:36:30.164976', '2024-12-06 11:36:29.955734', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('7161317413938937857', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 11:38:18.63334', '2024-12-06 11:38:18.533211', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('3963761680960155649', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 11:48:17.849127', '2024-12-06 11:48:17.70702', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('1910120307929239553', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 15:40:26.054405', '2024-12-06 15:40:25.930073', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('6197547159373770753', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 16:05:36.748623', '2024-12-06 16:05:36.634795', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('3090063418494193665', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 16:13:46.506792', '2024-12-06 16:13:46.401519', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('2756797048082059265', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 16:21:58.034562', '2024-12-06 16:21:57.926396', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('937342800045416449', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 16:27:44.966772', '2024-12-06 16:27:44.859662', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('6945144703522066433', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 16:30:02.763228', '2024-12-06 16:30:02.644198', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('4134898536960110593', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 16:33:46.697837', '2024-12-06 16:33:46.579255', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('4134898536960110594', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 2, NULL, '2024-12-06 16:34:11.452001', '2024-12-06 16:34:11.449288', '1', '1', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('4134898536960110595', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 16:34:36.161196', '2024-12-06 16:34:36.159519', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('4134898536960110596', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 16:41:20.761744', '2024-12-06 16:41:20.759626', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('4134898536960110597', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 16:41:53.366', '2024-12-06 16:41:53.364002', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('4134898536960110598', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 16:43:32.958272', '2024-12-06 16:43:32.955573', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('2954955438203072513', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 16:48:29.028601', '2024-12-06 16:48:28.914344', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('514004440457072641', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-06 16:49:39.535144', '2024-12-06 16:49:39.417693', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('6377692103121526785', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-09 09:06:22.967578', '2024-12-09 09:06:22.635446', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('5774209822312751105', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 2, NULL, '2024-12-09 13:48:11.809987', '2024-12-09 13:48:11.443492', '1', '1', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('5774209822312751106', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-09 13:48:22.13856', '2024-12-09 13:48:22.03695', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('1360682278486810626', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-09 19:58:59.105851', '2024-12-09 19:58:59.099192', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_login_log" VALUES ('1720970465809047553', '1', 1, '管理员', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 0, '电脑端', '2024-12-10 10:41:58.834681', '2024-12-10 10:41:58.29181', '1', 'system', NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_mail_template
@@ -1309,9 +1355,6 @@ COMMENT ON TABLE "public"."t_notice" IS '通知';
 -- ----------------------------
 -- Records of t_notice
 -- ----------------------------
-INSERT INTO "public"."t_notice" VALUES ('55', '2', '1024创新实验室 十一放假通知', 't', 'f', '2024-01-01 20:22:23', '国庆假期即将来临，根据国务院办公厅关于国庆节的放假安排，废纸信息网安排如下：10月1日至7日放假调休，共7天。
-衷心预祝
-国庆快乐，阖家幸福！', '<p style="text-indent: 0px; text-align: justify;">国庆假期即将来临，根据国务院办公厅关于国庆节的放假安排，废纸信息网安排如下：<strong>10月1日至7日放假调休</strong>，共7天。</p><p style="text-indent: 0px; text-align: justify;"><strong>衷心预祝</strong></p><p style="text-indent: 0px; text-align: justify;"><strong>国庆快乐，阖家幸福！</strong></p>', '', 1, 1, '人力行政部', '卓大', '1024创新实验室发〔2022〕字第36号', NULL, '2022-10-22 14:37:57', '1', '1', NULL, 0);
 INSERT INTO "public"."t_notice" VALUES ('54', '1', 'JetBrains Fleet 公测，下一代 IDE', 't', 'f', '2024-01-01 20:22:23', 'JetBrains 宣布首次公共预览 Fleet，所有人都可以使用。Fleet 是由 JetBrains 打造的下一代 IDE，于 2021 年首次正式推出。它是一个新的分布式多语言编辑器和 IDE，基于 JetBrains 在后端的 IntelliJ 平台，采用了全新的用户界面和分布式架构从头开始构建。
 下载 Fleet：https://www.jetbrains.com.cn/fleet/download/
 
@@ -1376,6 +1419,9 @@ INSERT INTO "public"."t_notice" VALUES ('56', '2', '十月份技术分享会议'
 三、会议时间及地点
 会议报到时间：xxx1年6月14日
 会议报到地点：洛阳市', '<p style="text-indent: 0px; text-align: start;">尊敬的各位技术大佬：</p><p style="text-indent: 0px; text-align: start;">1024创新实验室技术分享即将隆重举行</p><p style="text-indent: 0px; text-align: start;">现将有关会议事宜通知如下：</p><p style="text-indent: 0px; text-align: start;"><strong>一、会议内容</strong></p><p style="text-indent: 0px; text-align: start;">1、研究探讨SmartAdmin的技术体系</p><p style="text-indent: 0px; text-align: start;"><strong>二、会议形式</strong></p><p style="text-indent: 0px; text-align: start;">大会专题小会分组讨论;</p><p style="text-indent: 0px; text-align: start;"><strong>三、会议时间及地点</strong></p><p style="text-indent: 0px; text-align: start;">会议报到时间：xxx1年6月14日</p><p style="text-indent: 0px; text-align: start;">会议报到地点：洛阳市</p>', '', 1, 1, '技术部', '开云', '1024创新实验室发〔2022〕字第33号', NULL, '2022-10-22 14:40:45', '1', '1', NULL, 0);
+INSERT INTO "public"."t_notice" VALUES ('55', '2', '1024创新实验室 十一放假通知', 't', 'f', '2024-01-01 20:22:23', '国庆假期即将来临，根据国务院办公厅关于国庆节的放假安排，废纸信息网安排如下：10月1日至7日放假调休，共7天。
+衷心预祝
+国庆快乐，阖家幸福！', '<p style="text-indent: 0px; text-align: justify;">国庆假期即将来临，根据国务院办公厅关于国庆节的放假安排，废纸信息网安排如下：<strong>10月1日至7日放假调休</strong>，共7天。</p><p style="text-indent: 0px; text-align: justify;"><strong>衷心预祝</strong></p><p style="text-indent: 0px; text-align: justify;"><strong>国庆快乐，阖家幸福！</strong></p>', '', 2, 1, '人力行政部', '卓大', '1024创新实验室发〔2022〕字第36号', NULL, '2022-10-22 14:37:57', '1', '1', NULL, 0);
 INSERT INTO "public"."t_notice" VALUES ('1874090378163363841', '1', 'bb', 'f', 'f', '2024-12-03 10:51:16.284471', 'bb', '<p>bb</p>', '', 0, 0, 'bb', 'bb', 'bb', '2024-12-03 10:51:16.55713', '2024-12-03 10:51:16.559131', '1', '1', NULL, 1);
 INSERT INTO "public"."t_notice" VALUES ('59', '2', '十月份人事任命通知', 't', 'f', '2024-01-01 20:22:23', '1024创新实验室发〔2022〕字第36号
 1024创新实验室发〔2022〕字第36号
@@ -1514,10 +1560,10 @@ INSERT INTO "public"."t_notice_view_record" VALUES ('60', '1', 1, '127.0.0.1', '
 INSERT INTO "public"."t_notice_view_record" VALUES ('58', '1', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', NULL, NULL, '2024-12-04 16:43:33.948871', '2024-12-04 16:43:33.948871', '1', '1', NULL, 0, '8818641443868094469');
 INSERT INTO "public"."t_notice_view_record" VALUES ('53', '1', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', '2024-12-04 16:43:42.633979', '2024-12-04 16:43:42.633979', '1', '1', NULL, 0, '8818641443868094471');
 INSERT INTO "public"."t_notice_view_record" VALUES ('50', '1', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', NULL, NULL, '2024-12-04 17:13:20.62862', '2024-12-04 17:13:20.62762', '1', '1', NULL, 0, '3513401090317746177');
-INSERT INTO "public"."t_notice_view_record" VALUES ('55', '1', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', NULL, NULL, '2024-12-04 17:14:38.506439', '2024-12-04 17:14:38.506439', '1', '1', NULL, 0, '3513401090317746178');
 INSERT INTO "public"."t_notice_view_record" VALUES ('49', '1', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', NULL, NULL, '2024-12-04 17:14:46.564427', '2024-12-04 17:14:46.564427', '1', '1', NULL, 0, '3513401090317746179');
 INSERT INTO "public"."t_notice_view_record" VALUES ('56', '1', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', NULL, NULL, '2024-12-04 17:14:53.438281', '2024-12-04 17:14:53.438281', '1', '1', NULL, 0, '3513401090317746180');
 INSERT INTO "public"."t_notice_view_record" VALUES ('8440338624189919233', '1', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', NULL, NULL, '2024-12-04 17:18:12.007723', '2024-12-04 17:18:12.007723', '1', '1', NULL, 0, '3513401090317746181');
+INSERT INTO "public"."t_notice_view_record" VALUES ('55', '1', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', '2024-12-04 17:14:38.506439', '2024-12-04 17:14:38.506439', '1', '1', NULL, 0, '3513401090317746178');
 
 -- ----------------------------
 -- Table structure for t_oa_bank
@@ -1619,6 +1665,7 @@ COMMENT ON TABLE "public"."t_oa_enterprise" IS 'OA企业模块
 -- ----------------------------
 INSERT INTO "public"."t_oa_enterprise" VALUES ('2234376204482793473', 'ggggg', NULL, 1, 'dsfgds', 'dsdfg', '13480555101', 'qq@qq.com', '110000', '北京市', '110100', '北京市', '110101', '东城区', 'qweqwe', NULL, 'f', '2024-11-27 09:27:50.74174', '2024-11-27 09:29:46.307095', '1', '1', NULL, 1);
 INSERT INTO "public"."t_oa_enterprise" VALUES ('2', '1024创新实验室', '', 2, '1024lab1', '卓大', '18637925892', 'lab1024@163.com', '410000', '河南省', '410300', '洛阳市', '410311', '洛龙区', '1024大楼', 'public/common/59b1ca99b7fe45d78678e6295798a699_20231201200459.jpg', 'f', '2022-10-22 14:57:36', '2024-11-29 12:12:58.381834', '1', '1', NULL, 0);
+INSERT INTO "public"."t_oa_enterprise" VALUES ('3963761680960155650', 'asdas222', NULL, 2, 'asdasd', 'asdasd', '13480555101', 'qq@qq.com', NULL, NULL, NULL, NULL, NULL, NULL, 'fdgsdfg', NULL, 'f', '2024-12-06 11:48:33.437023', '2024-12-09 09:44:26.68077', '1', '1', NULL, 0);
 INSERT INTO "public"."t_oa_enterprise" VALUES ('8926726431674589186', 'aaaaaaaa', 'public/common/276ada28fc774a3184fce5b60f4699bc_20241130173300.jpg', 1, 'aaaaaaa', 'aaaaaaaaa', '13480555101', 'qq@qq.com', NULL, NULL, NULL, NULL, NULL, NULL, 'asdfsadf', NULL, 'f', '2024-11-30 17:33:46.39541', '2024-11-30 17:33:46.39541', '1', '1', NULL, 1);
 INSERT INTO "public"."t_oa_enterprise" VALUES ('1', '1024创新区块链实验室', 'public/common/432f4321e9a14913a478774c1548dd57_20241129233015.jpg', 1, '1024lab_block', '开云123', '18637925892', NULL, '410000', '河南省', '410300', '洛阳市', '410311', '洛龙区', '区块链大楼', 'public/common/4446cb8e49304facb53e324004d96c7f_20241130211823.jpg', 'f', '2021-10-22 17:03:35', '2024-11-30 21:18:25.239863', '1', '1', NULL, 0);
 
@@ -1699,7 +1746,7 @@ CREATE TABLE "public"."t_operate_log" (
   "ip" text COLLATE "pg_catalog"."default",
   "ip_region" text COLLATE "pg_catalog"."default",
   "user_agent" text COLLATE "pg_catalog"."default",
-  "success_flag" int2,
+  "success_flag" bool,
   "fail_reason" text COLLATE "pg_catalog"."default",
   "update_time" timestamp(6),
   "create_time" timestamp(6) NOT NULL,
@@ -1731,6 +1778,41 @@ COMMENT ON TABLE "public"."t_operate_log" IS '操作记录';
 -- ----------------------------
 -- Records of t_operate_log
 -- ----------------------------
+INSERT INTO "public"."t_operate_log" VALUES ('5503993781168689153', '1', 1, '管理员', 'OA办公-企业', '分页查询企业模块 @author 开云', '/oa/enterprise/page/query', 'com.zyf.oa.EnterpriseController.queryByPage', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"keywords":"","startTime":null,"endTime":null,"disabledFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 09:29:48.463223', '2024-12-09 09:29:48.465225', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('3603474741943963649', '1', 1, '管理员', 'OA办公-企业', '分页查询企业模块 @author 开云', '/oa/enterprise/page/query', 'com.zyf.oa.EnterpriseController.queryByPage', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"keywords":"","startTime":null,"endTime":null,"disabledFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 09:44:09.218613', '2024-12-09 09:44:09.221613', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('3603474741943963650', '1', 1, '管理员', 'OA办公-企业', '分页查询企业模块 @author 开云', '/oa/enterprise/page/query', 'com.zyf.oa.EnterpriseController.queryByPage', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"keywords":"","startTime":null,"endTime":null,"disabledFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 09:44:21.430161', '2024-12-09 09:44:21.431084', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('3603474741943963651', '1', 1, '管理员', 'OA办公-企业', '查询企业详情 @author 开云', '/oa/enterprise/get/3963761680960155650', 'com.zyf.oa.EnterpriseController.getDetail', '["3963761680960155650"]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 09:44:23.362955', '2024-12-09 09:44:23.362955', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('3603474741943963653', '1', 1, '管理员', 'OA办公-企业', '编辑企业 @author 开云', '/oa/enterprise/update', 'com.zyf.oa.EnterpriseController.updateEnterprise', '[{"enterpriseId":"3963761680960155650","enterpriseName":"asdas222","enterpriseLogo":null,"unifiedSocialCreditCode":"asdasd","contact":"asdasd","contactPhone":"13480555101","type":2,"email":"qq@qq.com","province":null,"provinceName":null,"city":null,"cityName":null,"district":null,"districtName":null,"address":"fdgsdfg","businessLicense":null,"disabledFlag":false}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 09:44:27.666584', '2024-12-09 09:44:27.666584', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('3603474741943963654', '1', 1, '管理员', 'OA办公-企业', '分页查询企业模块 @author 开云', '/oa/enterprise/page/query', 'com.zyf.oa.EnterpriseController.queryByPage', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"keywords":"","startTime":null,"endTime":null,"disabledFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 09:44:28.141378', '2024-12-09 09:44:28.141378', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('1892106914078621697', '1', 1, '管理员', NULL, '【员工】通知公告-查询全部 @author 卓大', '/oa/notice/employee/query', 'com.zyf.oa.NoticeEmployeeController.queryEmployeeNotice', '[{"pageNum":1,"pageSize":6,"sortCode":null,"searchCount":true},{"keywords":null,"noticeTypeId":"2","publishTimeBegin":null,"publishTimeEnd":null,"notViewFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 11:48:24.13285', '2024-12-09 11:48:24.13485', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('1892106914078621698', '1', 1, '管理员', NULL, '【员工】通知公告-查询全部 @author 卓大', '/oa/notice/employee/query', 'com.zyf.oa.NoticeEmployeeController.queryEmployeeNotice', '[{"pageNum":1,"pageSize":6,"sortCode":null,"searchCount":true},{"keywords":null,"noticeTypeId":"1","publishTimeBegin":null,"publishTimeEnd":null,"notViewFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 11:48:24.441941', '2024-12-09 11:48:24.441941', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('5774209822312751107', '1', 1, '管理员', NULL, '【员工】通知公告-查询全部 @author 卓大', '/oa/notice/employee/query', 'com.zyf.oa.NoticeEmployeeController.queryEmployeeNotice', '[{"pageNum":1,"pageSize":6,"sortCode":null,"searchCount":true},{"keywords":null,"noticeTypeId":"2","publishTimeBegin":null,"publishTimeEnd":null,"notViewFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 13:48:26.377821', '2024-12-09 13:48:26.377821', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('5774209822312751108', '1', 1, '管理员', NULL, '【员工】通知公告-查询全部 @author 卓大', '/oa/notice/employee/query', 'com.zyf.oa.NoticeEmployeeController.queryEmployeeNotice', '[{"pageNum":1,"pageSize":6,"sortCode":null,"searchCount":true},{"keywords":null,"noticeTypeId":"1","publishTimeBegin":null,"publishTimeEnd":null,"notViewFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 13:48:26.604417', '2024-12-09 13:48:26.604417', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('8395304856984612865', '1', 1, '管理员', NULL, '分页查询登录失败次数记录表模块 @author makejava', '/support/protect/loginFail/queryPage', 'com.zyf.support.LoginFailController.queryByPage', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"loginName":null,"lockFlag":true,"loginLockBeginTimeBegin":null,"loginLockBeginTimeEnd":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 17:17:55.381749', '2024-12-09 17:17:55.382749', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('8395304856984612866', '1', 1, '管理员', NULL, '分页查询登录失败次数记录表模块 @author makejava', '/support/protect/loginFail/queryPage', 'com.zyf.support.LoginFailController.queryByPage', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"loginName":null,"lockFlag":null,"loginLockBeginTimeBegin":null,"loginLockBeginTimeEnd":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 17:18:30.334736', '2024-12-09 17:18:30.334736', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('4684338765592526849', '1', 1, '管理员', '业务支撑-网络安全', '查询 三级等保配置 @author 1024创新实验室-主任-卓大', '/support/protect/level3protect/getConfig', 'com.zyf.support.Level3protectController.getConfig', '', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 17:24:16.532901', '2024-12-09 17:24:16.534901', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('4522209182724472833', '1', 1, '管理员', 'OA办公-通知公告', '【员工】通知公告-查询全部 @author 卓大', '/oa/notice/employee/query', 'com.zyf.oa.NoticeEmployeeController.queryEmployeeNotice', '[{"pageNum":1,"pageSize":6,"sortCode":null,"searchCount":true},{"keywords":null,"noticeTypeId":"2","publishTimeBegin":null,"publishTimeEnd":null,"notViewFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 17:39:24.105786', '2024-12-09 17:39:24.107783', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('4522209182724472834', '1', 1, '管理员', 'OA办公-通知公告', '【员工】通知公告-查询全部 @author 卓大', '/oa/notice/employee/query', 'com.zyf.oa.NoticeEmployeeController.queryEmployeeNotice', '[{"pageNum":1,"pageSize":6,"sortCode":null,"searchCount":true},{"keywords":null,"noticeTypeId":"1","publishTimeBegin":null,"publishTimeEnd":null,"notViewFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 17:39:24.373504', '2024-12-09 17:39:24.373504', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('4522209182724472835', '1', 1, '管理员', '业务支撑-网络安全', '分页查询登录失败次数记录表模块 @author makejava', '/support/protect/loginFail/queryPage', 'com.zyf.support.LoginFailController.queryByPage', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"loginName":null,"lockFlag":true,"loginLockBeginTimeBegin":null,"loginLockBeginTimeEnd":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 17:39:28.776258', '2024-12-09 17:39:28.776258', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('2945949316591820801', '1', 1, '管理员', '业务支撑-网络安全', '查询 三级等保配置 @author 1024创新实验室-主任-卓大', '/support/protect/level3protect/getConfig', 'com.zyf.support.Level3protectController.getConfig', '', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 17:53:25.654142', '2024-12-09 17:53:25.656143', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('1360682278486810627', '1', 1, '管理员', 'OA办公-通知公告', '【员工】通知公告-查询全部 @author 卓大', '/oa/notice/employee/query', 'com.zyf.oa.NoticeEmployeeController.queryEmployeeNotice', '[{"pageNum":1,"pageSize":6,"sortCode":null,"searchCount":true},{"keywords":null,"noticeTypeId":"2","publishTimeBegin":null,"publishTimeEnd":null,"notViewFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 19:59:01.135501', '2024-12-09 19:59:01.135501', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('1360682278486810628', '1', 1, '管理员', 'OA办公-通知公告', '【员工】通知公告-查询全部 @author 卓大', '/oa/notice/employee/query', 'com.zyf.oa.NoticeEmployeeController.queryEmployeeNotice', '[{"pageNum":1,"pageSize":6,"sortCode":null,"searchCount":true},{"keywords":null,"noticeTypeId":"1","publishTimeBegin":null,"publishTimeEnd":null,"notViewFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 19:59:01.188866', '2024-12-09 19:59:01.188866', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('6062440291107442690', '1', 1, '管理员', 'OA办公-企业', '分页查询企业模块 @author 开云', '/oa/enterprise/page/query', 'com.zyf.oa.EnterpriseController.queryByPage', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"keywords":"","startTime":null,"endTime":null,"disabledFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-09 20:08:05.183696', '2024-12-09 20:08:05.183696', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('1720970465809047554', '1', 1, '管理员', 'OA办公-通知公告', '【员工】通知公告-查询全部 @author 卓大', '/oa/notice/employee/query', 'com.zyf.oa.NoticeEmployeeController.queryEmployeeNotice', '[{"pageNum":1,"pageSize":6,"sortCode":null,"searchCount":true},{"keywords":null,"noticeTypeId":"2","publishTimeBegin":null,"publishTimeEnd":null,"notViewFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 10:42:01.562017', '2024-12-10 10:42:01.562017', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('1720970465809047555', '1', 1, '管理员', 'OA办公-通知公告', '【员工】通知公告-查询全部 @author 卓大', '/oa/notice/employee/query', 'com.zyf.oa.NoticeEmployeeController.queryEmployeeNotice', '[{"pageNum":1,"pageSize":6,"sortCode":null,"searchCount":true},{"keywords":null,"noticeTypeId":"1","publishTimeBegin":null,"publishTimeEnd":null,"notViewFlag":null}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 10:42:01.798509', '2024-12-10 10:42:01.798509', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('1720970465809047556', '1', 1, '管理员', NULL, '获取生成记录 @author 卓大', '/support/serialNumber/queryRecord', 'com.zyf.support.SerialNumberRecordController.queryRecord', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"serialNumberId":"1"}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 10:42:13.216319', '2024-12-10 10:42:13.216319', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('1720970465809047557', '1', 1, '管理员', NULL, '获取生成记录 @author 卓大', '/support/serialNumber/queryRecord', 'com.zyf.support.SerialNumberRecordController.queryRecord', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"serialNumberId":"2"}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 10:42:15.66135', '2024-12-10 10:42:15.66135', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('2108280034615406595', '1', 1, '管理员', NULL, '获取生成记录 @author 卓大', '/support/serialNumber/queryRecord', 'com.zyf.support.SerialNumberRecordController.queryRecord', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"serialNumberId":"2"}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 10:50:56.83908', '2024-12-10 10:50:56.83908', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('2108280034615406596', '1', 1, '管理员', NULL, '获取生成记录 @author 卓大', '/support/serialNumber/queryRecord', 'com.zyf.support.SerialNumberRecordController.queryRecord', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"serialNumberId":"1"}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 10:50:59.178131', '2024-12-10 10:50:59.179136', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('2108280034615406597', '1', 1, '管理员', NULL, '获取生成记录 @author 卓大', '/support/serialNumber/queryRecord', 'com.zyf.support.SerialNumberRecordController.queryRecord', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"serialNumberId":"1"}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 10:51:20.260201', '2024-12-10 10:51:20.260201', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('5377893366386024449', '1', 1, '管理员', NULL, '获取生成记录 @author 卓大', '/support/serialNumber/queryRecord', 'com.zyf.support.SerialNumberRecordController.queryRecord', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"serialNumberId":"1"}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 10:54:48.371097', '2024-12-10 10:54:48.373097', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('5377893366386024450', '1', 1, '管理员', NULL, '获取生成记录 @author 卓大', '/support/serialNumber/queryRecord', 'com.zyf.support.SerialNumberRecordController.queryRecord', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"serialNumberId":"1"}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 10:54:56.832981', '2024-12-10 10:54:56.832981', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('5377893366386024451', '1', 1, '管理员', NULL, '获取生成记录 @author 卓大', '/support/serialNumber/queryRecord', 'com.zyf.support.SerialNumberRecordController.queryRecord', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"serialNumberId":"1"}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 10:55:06.017955', '2024-12-10 10:55:06.017955', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('1207560114137427972', '1', 1, '管理员', NULL, '获取生成记录 @author 卓大', '/support/serialNumber/queryRecord', 'com.zyf.support.SerialNumberRecordController.queryRecord', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"serialNumberId":"2"}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 11:07:33.989714', '2024-12-10 11:07:33.989714', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('1207560114137427973', '1', 1, '管理员', NULL, '获取生成记录 @author 卓大', '/support/serialNumber/queryRecord', 'com.zyf.support.SerialNumberRecordController.queryRecord', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"serialNumberId":"1"}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 11:07:37.982283', '2024-12-10 11:07:37.982283', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('1207560114137427975', '1', 1, '管理员', NULL, '获取生成记录 @author 卓大', '/support/serialNumber/queryRecord', 'com.zyf.support.SerialNumberRecordController.queryRecord', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"serialNumberId":"1"}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 11:08:06.649246', '2024-12-10 11:08:06.649246', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('1207560114137427977', '1', 1, '管理员', NULL, '获取生成记录 @author 卓大', '/support/serialNumber/queryRecord', 'com.zyf.support.SerialNumberRecordController.queryRecord', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"serialNumberId":"1"}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 11:08:13.435915', '2024-12-10 11:08:13.435915', '1', 'system', NULL, 0);
+INSERT INTO "public"."t_operate_log" VALUES ('1207560114137427978', '1', 1, '管理员', NULL, '获取生成记录 @author 卓大', '/support/serialNumber/queryRecord', 'com.zyf.support.SerialNumberRecordController.queryRecord', '[{"pageNum":1,"pageSize":10,"sortCode":null,"searchCount":true},{"serialNumberId":"2"}]', '127.0.0.1', '0|0|0|内网IP|内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 't', NULL, '2024-12-10 11:08:17.216506', '2024-12-10 11:08:17.216506', '1', 'system', NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_password_log
@@ -1809,7 +1891,7 @@ INSERT INTO "public"."t_position" VALUES ('6629889273090437123', 'fghfg', 'ghfgd
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."t_reload_item";
 CREATE TABLE "public"."t_reload_item" (
-  "reload_item_id" text COLLATE "pg_catalog"."default" NOT NULL,
+  "tag" text COLLATE "pg_catalog"."default" NOT NULL,
   "args" text COLLATE "pg_catalog"."default",
   "identification" text COLLATE "pg_catalog"."default" NOT NULL,
   "update_time" timestamp(6),
@@ -1817,10 +1899,11 @@ CREATE TABLE "public"."t_reload_item" (
   "tenant_id" text COLLATE "pg_catalog"."default" NOT NULL,
   "create_by" text COLLATE "pg_catalog"."default" NOT NULL,
   "update_by" text COLLATE "pg_catalog"."default",
-  "delete_flag" int2 NOT NULL
+  "delete_flag" int2 NOT NULL,
+  "reload_item_id" text COLLATE "pg_catalog"."default" NOT NULL
 )
 ;
-COMMENT ON COLUMN "public"."t_reload_item"."reload_item_id" IS '项名称';
+COMMENT ON COLUMN "public"."t_reload_item"."tag" IS '项名称';
 COMMENT ON COLUMN "public"."t_reload_item"."args" IS '参数 可选';
 COMMENT ON COLUMN "public"."t_reload_item"."identification" IS '运行标识';
 COMMENT ON COLUMN "public"."t_reload_item"."tenant_id" IS '租户id';
@@ -1829,14 +1912,14 @@ COMMENT ON TABLE "public"."t_reload_item" IS 'reload项目';
 -- ----------------------------
 -- Records of t_reload_item
 -- ----------------------------
-INSERT INTO "public"."t_reload_item" VALUES ('system_config', '4', '234', NULL, '2019-04-18 11:48:27', '1', '1', NULL, 0);
+INSERT INTO "public"."t_reload_item" VALUES ('system_config', '4', '234', NULL, '2019-04-18 11:48:27', '1', '1', NULL, 0, '1');
 
 -- ----------------------------
 -- Table structure for t_reload_result
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."t_reload_result";
 CREATE TABLE "public"."t_reload_result" (
-  "reload_result_id" text COLLATE "pg_catalog"."default" NOT NULL,
+  "tag" text COLLATE "pg_catalog"."default" NOT NULL,
   "identification" text COLLATE "pg_catalog"."default" NOT NULL,
   "args" text COLLATE "pg_catalog"."default",
   "result" int2 NOT NULL,
@@ -1847,7 +1930,8 @@ CREATE TABLE "public"."t_reload_result" (
   "create_by" text COLLATE "pg_catalog"."default" NOT NULL,
   "update_by" text COLLATE "pg_catalog"."default",
   "update_time" timestamp(6),
-  "delete_flag" int2 NOT NULL
+  "delete_flag" int2 NOT NULL,
+  "reload_result_id" text COLLATE "pg_catalog"."default" NOT NULL
 )
 ;
 COMMENT ON COLUMN "public"."t_reload_result"."identification" IS '运行标识';
@@ -2166,7 +2250,7 @@ CREATE TABLE "public"."t_serial_number" (
   "business_name" text COLLATE "pg_catalog"."default" NOT NULL,
   "format" text COLLATE "pg_catalog"."default",
   "rule_type" text COLLATE "pg_catalog"."default" NOT NULL,
-  "init_number" int4 NOT NULL,
+  "init_number" int8 NOT NULL,
   "step_random_range" int4 NOT NULL,
   "remark" text COLLATE "pg_catalog"."default",
   "last_number" int8,
@@ -2193,8 +2277,8 @@ COMMENT ON TABLE "public"."t_serial_number" IS '单号生成器定义表';
 -- ----------------------------
 -- Records of t_serial_number
 -- ----------------------------
-INSERT INTO "public"."t_serial_number" VALUES ('1', '订单编号', 'DK[yyyy][mm][dd]NO[nnnnn]', 'day', 1000, 10, 'DK20201101NO321', 1, '2023-12-04 09:16:42', NULL, '2021-02-19 14:37:50', '1', '1', NULL, 0);
-INSERT INTO "public"."t_serial_number" VALUES ('2', '合同编号', 'HT[yyyy][mm][dd][nnnnn]-CX', 'none', 1, 1, '', 8, '2023-12-04 09:54:53', NULL, '2021-08-12 20:40:37', '1', '1', NULL, 0);
+INSERT INTO "public"."t_serial_number" VALUES ('1', '订单编号', 'DK[yyyy][mm][dd]NO[nnnnn]', 'day', 1000, 10, 'DK20201101NO321', 1038, '2024-12-10 11:08:03.465057', NULL, '2021-02-19 14:37:50', '1', '1', NULL, 0);
+INSERT INTO "public"."t_serial_number" VALUES ('2', '合同编号', 'HT[yyyy][mm][dd][nnnnn]-CX', 'none', 1, 1, '', 15, '2024-12-10 11:08:11.103825', NULL, '2021-08-12 20:40:37', '1', '1', NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_serial_number_record
@@ -2225,6 +2309,10 @@ COMMENT ON TABLE "public"."t_serial_number_record" IS 'serial_number记录表';
 -- ----------------------------
 -- Records of t_serial_number_record
 -- ----------------------------
+INSERT INTO "public"."t_serial_number_record" VALUES ('1207560114137427969', '2024-12-09', 13, '2024-12-10 11:05:46.076172', 5, '2024-12-10 11:05:46.704752', '2024-12-10 11:05:46.707756', '2', '1', '1', NULL, 0);
+INSERT INTO "public"."t_serial_number_record" VALUES ('1207560114137427970', '2024-12-09', 1033, '2024-12-10 11:05:50.703084', 8, '2024-12-10 11:05:51.017387', '2024-12-10 11:05:51.017387', '1', '1', '1', NULL, 0);
+INSERT INTO "public"."t_serial_number_record" VALUES ('1207560114137427974', '2024-12-10', 1038, '2024-12-10 11:08:03.465057', 1, '2024-12-10 11:08:03.779135', '2024-12-10 11:08:03.779135', '1', '1', '1', NULL, 0);
+INSERT INTO "public"."t_serial_number_record" VALUES ('1207560114137427976', '2024-12-10', 15, '2024-12-10 11:08:09.987521', 2, '2024-12-10 11:08:10.316038', '2024-12-10 11:08:10.316038', '2', '1', '1', NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_smart_job
@@ -2280,7 +2368,7 @@ CREATE TABLE "public"."t_smart_job_log" (
   "job_id" text COLLATE "pg_catalog"."default" NOT NULL,
   "job_name" text COLLATE "pg_catalog"."default" NOT NULL,
   "param" text COLLATE "pg_catalog"."default",
-  "success_flag" int2 NOT NULL,
+  "success_flag" bool NOT NULL,
   "execute_start_time" timestamp(6) NOT NULL,
   "execute_time_millis" int4,
   "execute_end_time" timestamp(6),
@@ -2825,7 +2913,7 @@ CREATE INDEX "idx_reload_result__reload_item_id" ON "public"."t_reload_result" U
 -- ----------------------------
 -- Primary Key structure for table t_reload_result
 -- ----------------------------
-ALTER TABLE "public"."t_reload_result" ADD CONSTRAINT "t_reload_result_pkey" PRIMARY KEY ("reload_result_id");
+ALTER TABLE "public"."t_reload_result" ADD CONSTRAINT "t_reload_result_pkey" PRIMARY KEY ("tag");
 
 -- ----------------------------
 -- Indexes structure for table t_role
@@ -2904,6 +2992,11 @@ CREATE INDEX "uk_serial_number_record__serial_number_record_id_record_date" ON "
   "serial_number_record_id" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST,
   "record_date" "pg_catalog"."date_ops" ASC NULLS LAST
 );
+
+-- ----------------------------
+-- Primary Key structure for table t_serial_number_record
+-- ----------------------------
+ALTER TABLE "public"."t_serial_number_record" ADD CONSTRAINT "t_serial_number_record_pkey" PRIMARY KEY ("serial_number_record_id");
 
 -- ----------------------------
 -- Indexes structure for table t_smart_job

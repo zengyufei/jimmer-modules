@@ -12,6 +12,7 @@
   <a-tree-select
     v-model:value="selectValue"
     :style="`width:${width}`"
+    :fieldNames="{ label: 'categoryName', children:'children', value: 'categoryId' }"
     :dropdown-style="{ maxHeight: '400px', overflowX: 'auto' }"
     :tree-data="categoryTreeData"
     :placeholder="placeholder"
@@ -27,7 +28,7 @@
   import { smartSentry } from '/@/lib/smart-sentry';
 
   const props = defineProps({
-    value: Number,
+    value: String,
     placeholder: {
       type: String,
       default: '请选择',

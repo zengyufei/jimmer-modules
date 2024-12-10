@@ -5,6 +5,7 @@ import com.zyf.common.annotations.Slf4j
 import com.zyf.common.constant.DataTracerConst
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
+import com.zyf.common.domain.RequestUser
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.DataTracerTypeEnum
 import com.zyf.common.enums.UserTypeEnum
@@ -12,7 +13,6 @@ import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
 import com.zyf.common.utils.SmartIpUtil
 import com.zyf.login.domain.RequestEmployee
-import com.zyf.common.domain.RequestUser
 import com.zyf.service.dto.DataTracerForm
 import com.zyf.service.dto.DataTracerQueryForm
 import com.zyf.service.dto.DataTracerVO
@@ -187,7 +187,7 @@ class DataTracerService(
                 it.userName(requestUser.userName ?: "")
                 it.build()
             }
-        }?: tracerFormList.map { it.build() }
+        } ?: tracerFormList.map { it.build() }
         sql.entities.saveEntities(builders)
     }
 

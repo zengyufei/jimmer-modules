@@ -68,7 +68,7 @@
   let enterpriseId = ref();
   onMounted(() => {
     if (route.query.enterpriseId) {
-      enterpriseId.value = Number(route.query.enterpriseId);
+      enterpriseId.value = route.query.enterpriseId;
       getDetail();
     }
   });

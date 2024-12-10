@@ -3,6 +3,7 @@ package com.zyf.common.enums
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonValue
 import com.zyf.common.base.BaseEnum
+import org.babyfish.jimmer.sql.EnumType
 
 /**
  * 更新类型:[1:特大版本功能更新;2:功能更新;3:bug修复]
@@ -11,7 +12,7 @@ import com.zyf.common.base.BaseEnum
  * @Date 2022-09-26T14:53:50
  * @Copyright 1024创新实验室
  */
-
+@EnumType(EnumType.Strategy.ORDINAL)
 enum class ChangeLogTypeEnum(
     @JsonValue override val value: Int,
     override val desc: String

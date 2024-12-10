@@ -1,20 +1,18 @@
 package com.zyf.support.service
 
-import cn.hutool.core.lang.Console.where
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
-import com.zyf.common.utils.SmartBeanUtil
-import com.zyf.oa.Enterprise
-import com.zyf.oa.createTime
-import com.zyf.service.dto.*
+import com.zyf.service.dto.ChangeLogAddForm
+import com.zyf.service.dto.ChangeLogQueryForm
+import com.zyf.service.dto.ChangeLogUpdateForm
+import com.zyf.service.dto.ChangeLogVO
 import com.zyf.support.ChangeLog
 import com.zyf.support.changeLogId
 import com.zyf.support.createTime
 import com.zyf.support.version
-import org.babyfish.jimmer.sql.JSqlClient
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.ast.expression.desc
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
@@ -31,7 +29,7 @@ import org.springframework.stereotype.Service
  */
 @Service
 class ChangeLogService(
-     val sql: KSqlClient
+    val sql: KSqlClient
 ) {
     /**
      * 分页查询
@@ -108,9 +106,7 @@ class ChangeLogService(
         return ResponseDTO.ok()
     }
 
-    fun getById(changeLogId: String?): ChangeLogVO? {
-        return changeLogId?.let {
-            sql.findById(ChangeLogVO::class, changeLogId)
-        }
+    fun getById(changeLogId: String): ChangeLogVO? {
+        return sql.findById(ChangeLogVO::class, changeLogId)
     }
 }

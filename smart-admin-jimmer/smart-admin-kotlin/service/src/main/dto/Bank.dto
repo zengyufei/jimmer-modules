@@ -104,6 +104,7 @@ specification BankQueryForm {
 BankVO {
     #allScalars
     flat(enterprise) {
+        enterpriseId
         enterpriseName
     }
     flat(create) {

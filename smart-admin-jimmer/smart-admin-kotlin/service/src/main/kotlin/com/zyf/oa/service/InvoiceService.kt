@@ -70,16 +70,16 @@ class InvoiceService(
 
         // 校验企业是否存在
         if (!sql.exists(Enterprise::class) {
-            where(table.enterpriseId eq enterpriseId)
-        }) {
+                where(table.enterpriseId eq enterpriseId)
+            }) {
             return ResponseDTO.userErrorParam("企业不存在")
         }
 
         // 验证发票信息账号是否重复
         if (sql.exists(Invoice::class) {
-            where(table.enterpriseId eq enterpriseId)
-            where(table.accountNumber eq createVO.accountNumber)
-        }) {
+                where(table.enterpriseId eq enterpriseId)
+                where(table.accountNumber eq createVO.accountNumber)
+            }) {
             return ResponseDTO.userErrorParam("发票信息账号重复")
         }
 
@@ -100,24 +100,24 @@ class InvoiceService(
 
         // 校验企业是否存在
         if (!sql.exists(Enterprise::class) {
-            where(table.enterpriseId eq enterpriseId)
-        }) {
+                where(table.enterpriseId eq enterpriseId)
+            }) {
             return ResponseDTO.userErrorParam("企业不存在")
         }
 
         // 校验发票信息是否存在
         if (!sql.exists(Invoice::class) {
-            where(table.invoiceId eq invoiceId)
-        }) {
+                where(table.invoiceId eq invoiceId)
+            }) {
             return ResponseDTO.userErrorParam("发票信息不存在")
         }
 
         // 验证发票信息账号是否重复
         if (sql.exists(Invoice::class) {
-            where(table.enterpriseId eq enterpriseId)
-            where(table.accountNumber eq updateVO.accountNumber)
-            where(table.invoiceId ne invoiceId)
-        }) {
+                where(table.enterpriseId eq enterpriseId)
+                where(table.accountNumber eq updateVO.accountNumber)
+                where(table.invoiceId ne invoiceId)
+            }) {
             return ResponseDTO.userErrorParam("发票信息账号重复")
         }
 
@@ -135,8 +135,8 @@ class InvoiceService(
     fun deleteInvoice(invoiceId: String): ResponseDTO<String?> {
         // 校验发票信息是否存在
         if (!sql.exists(Invoice::class) {
-            where(table.invoiceId eq invoiceId)
-        }) {
+                where(table.invoiceId eq invoiceId)
+            }) {
             return ResponseDTO.userErrorParam("发票信息不存在")
         }
 

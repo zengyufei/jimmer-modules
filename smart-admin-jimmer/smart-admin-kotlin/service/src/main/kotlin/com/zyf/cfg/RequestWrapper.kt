@@ -117,6 +117,7 @@ class RequestWrapper(request: HttpServletRequest) : HttpServletRequestWrapper(re
     fun getHttpBodyStr(): String {
         return if (body.isEmpty()) "" else String(body)
     }
+
     /**
      * 清理缓存的请求体数据
      */

@@ -3,6 +3,7 @@ package com.zyf.loginLog
 import com.zyf.common.base.BaseEntity
 import com.zyf.common.base.SnowflakeIdGenerator
 import com.zyf.common.base.TenantAware
+import com.zyf.common.enums.UserTypeEnum
 import com.zyf.employee.Employee
 import org.babyfish.jimmer.sql.*
 
@@ -22,7 +23,7 @@ interface OperateLog : TenantAware, BaseEntity {
 
     /** 用户类型 */
     @Column(name = "operate_user_type")
-    val operateUserType: Int
+    val operateUserType: UserTypeEnum
 
     /** 用户名称 */
     @Column(name = "operate_user_name")
@@ -62,7 +63,7 @@ interface OperateLog : TenantAware, BaseEntity {
 
     /** 请求结果 0失败 1成功 */
     @Column(name = "success_flag")
-    val successFlag: Int?
+    val successFlag: Boolean?
 
     /** 失败原因 */
     @Column(name = "fail_reason")

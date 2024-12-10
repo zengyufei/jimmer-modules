@@ -1,6 +1,7 @@
 package com.zyf.oa
 
 import com.zyf.common.annotations.OperateLog
+import com.zyf.common.annotations.Operation
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.oa.service.NoticeTypeService
 import com.zyf.service.dto.NoticeTypeVO
@@ -24,18 +25,21 @@ class NoticeTypeController(
     // --------------------- 通知公告类型 -------------------------
 
     /** 通知公告类型-获取全部 @author 卓大 */
+    @Operation(summary = "通知公告类型-获取全部 @author 卓大")
     @GetMapping("/oa/noticeType/getAll")
     fun getAll(): ResponseDTO<List<NoticeTypeVO>> {
         return ResponseDTO.ok(noticeTypeService.getAll())
     }
 
     /** 通知公告类型-添加 @author 卓大 */
+    @Operation(summary = "通知公告类型-添加 @author 卓大")
     @GetMapping("/oa/noticeType/add/{name}")
     fun add(@PathVariable name: String): ResponseDTO<String?> {
         return noticeTypeService.add(name)
     }
 
     /** 通知公告类型-修改 @author 卓大 */
+    @Operation(summary = "通知公告类型-修改 @author 卓大")
     @GetMapping("/oa/noticeType/update/{noticeTypeId}/{name}")
     fun update(
         @PathVariable noticeTypeId: String,

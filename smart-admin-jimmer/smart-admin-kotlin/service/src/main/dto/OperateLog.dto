@@ -1,0 +1,42 @@
+export com.zyf.loginLog.OperateLog
+    -> package com.zyf.service.dto
+
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+
+specification OperateLogQueryForm {
+
+    /** 用户ID */
+    employeeId as operateUserId
+
+    /** 用户类型 */
+    operateUserType
+
+    /** 关键字：模块、操作内容 */
+    like/i(module, content) as keywords
+
+    /** 请求关键字：请求地址、请求方法、请求参数 */
+    like/i(url, method, param) as requestKeywords
+
+    /** 开始日期 */
+    ge(createTime) as startDate
+
+    /** 结束日期 */
+    le(createTime) as endDate
+
+    /** 用户名称 */
+    like/i(operateUserName) as userName
+
+    /** 请求结果 false失败 true成功 */
+    successFlag
+
+}
+
+
+OperateLogVO {
+    #allScalars
+    employeeId as operateUserId
+    createTime
+    updateTime
+}

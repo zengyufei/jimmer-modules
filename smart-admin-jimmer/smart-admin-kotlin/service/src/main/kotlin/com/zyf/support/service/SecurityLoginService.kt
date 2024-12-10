@@ -1,7 +1,6 @@
 package com.zyf.support.service
 
 import cn.hutool.core.date.LocalDateTimeUtil
-import cn.hutool.core.util.DesensitizedUtil.userId
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.code.UserErrorCode
 import com.zyf.common.domain.PageBean
@@ -11,10 +10,6 @@ import com.zyf.common.enums.UserTypeEnum
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
 import com.zyf.loginLog.*
-import com.zyf.oa.Enterprise
-import com.zyf.oa.createTime
-import com.zyf.runtime.support.captcha.service.CaptchaService
-import com.zyf.service.dto.EnterpriseVO
 import com.zyf.service.dto.LoginFailQueryForm
 import com.zyf.service.dto.LoginFailVO
 import org.babyfish.jimmer.sql.kt.KSqlClient
@@ -108,8 +103,8 @@ class SecurityLoginService(
             val newLoginFailEntity = LoginFail {
                 this.employeeId = userId
                 this.userType = userType.value
-               this.loginName = loginName
-               this.loginFailCount = loginFailCount
+                this.loginName = loginName
+                this.loginFailCount = loginFailCount
                 this.lockFlag = lockFlag
                 this.loginLockBeginTime = lockBeginTime
             }

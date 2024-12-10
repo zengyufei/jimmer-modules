@@ -5,13 +5,13 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://10.0.0.4:5432/postgres
+    url: jdbc:postgresql://127.0.0.1:5432/postgres
     username: root
     password: root
   data:
     redis:
       database: 0
-      host: 10.0.0.4
+      host: 127.0.0.1
       port: 6379
       timeout: 10s
       enable-statistics: false
@@ -109,6 +109,9 @@ sa-token:
   is-read-cookie: false
 
 
+# 心跳配置
+heart-beat:
+  interval-seconds: 300
 
 # 热加载配置
 reload:

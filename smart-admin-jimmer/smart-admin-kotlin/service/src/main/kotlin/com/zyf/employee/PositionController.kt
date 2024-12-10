@@ -1,6 +1,7 @@
 package com.zyf.employee
 
 import com.zyf.common.annotations.Body
+import com.zyf.common.annotations.Operation
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
@@ -22,6 +23,7 @@ class PositionController(
 ) {
 
 //    /** 查询岗位列表 */
+//@Operation(summary = "查询岗位列表")
 //    @Api
 //    @GetMapping("/position/listAll")
 //    fun listAll(): ResponseDTO<MutableList<PositionVO>> {
@@ -30,6 +32,7 @@ class PositionController(
 
 
     /** 分页查询 */
+    @Operation(summary = "分页查询")
     @Api
     @PostMapping("/position/queryPage")
     fun queryPage(
@@ -46,20 +49,23 @@ class PositionController(
 
 
     /** 添加岗位 */
+    @Operation(summary = "添加岗位")
     @PostMapping("/position/add")
 //    @SaCheckPermission("system:position:add")
-    fun addPosition(@RequestBody @Valid  createDTO: PositionAddForm): ResponseDTO<Position> {
+    fun addPosition(@RequestBody @Valid createDTO: PositionAddForm): ResponseDTO<Position> {
         return ResponseDTO.ok(positionService.addPosition(createDTO))
     }
 
     /** 更新岗位 */
+    @Operation(summary = "更新岗位")
     @PostMapping("/position/update")
 //    @SaCheckPermission("system:position:update")
-    fun updatePosition(@RequestBody @Valid  updateDTO: PositionUpdateForm): ResponseDTO<Position> {
+    fun updatePosition(@RequestBody @Valid updateDTO: PositionUpdateForm): ResponseDTO<Position> {
         return ResponseDTO.ok(positionService.updatePosition(updateDTO))
     }
 
     /** 删除岗位 */
+    @Operation(summary = "删除岗位")
     @PostMapping("/position/batchDelete")
 //    @SaCheckPermission("system:position:delete")
     fun batchDelete(@RequestBody positionIds: List<String>): ResponseDTO<String?> {
@@ -67,13 +73,15 @@ class PositionController(
         return ResponseDTO.ok()
     }
 
-      /** 单个删除 @author kaiyun */
+    /** 单个删除 @author kaiyun */
+    @Operation(summary = "单个删除 @author kaiyun")
     @GetMapping("/position/delete/{positionId}")
     fun batchDelete(@PathVariable positionId: String): ResponseDTO<String?> {
         return positionService.delete(positionId)
     }
 
     /** 不分页查询 @author kaiyun */
+    @Operation(summary = "不分页查询 @author kaiyun")
     @GetMapping("/position/queryList")
     fun queryList(): ResponseDTO<List<PositionVO>> {
         return ResponseDTO.ok(positionService.queryList())

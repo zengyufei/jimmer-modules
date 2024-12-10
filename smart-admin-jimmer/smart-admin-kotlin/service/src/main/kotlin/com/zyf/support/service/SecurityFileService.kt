@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile
  * @Copyright [1024创新实验室](https://1024lab.net)，Since 2012
  */
 @Service
-class SecurityFileService (
+class SecurityFileService(
     val sql: KSqlClient,
     val objectMapper: ObjectMapper,
     val level3ProtectConfigService: Level3ProtectConfigService,

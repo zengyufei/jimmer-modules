@@ -45,7 +45,7 @@ class DepartmentController(
     ): ResponseDTO<PageResult<Department>> {
         return ResponseDTO.ok(
             departmentService.queryPage(
-               PageBean.of(pageNum, pageSize, sortCode)
+                PageBean.of(pageNum, pageSize, sortCode)
             )
         )
     }
@@ -54,14 +54,14 @@ class DepartmentController(
     /** 添加部门 */
     @PostMapping("/department/add")
 //    @SaCheckPermission("system:department:add")
-    fun addDepartment(@RequestBody @Valid  createDTO: DepartmentAddForm): ResponseDTO<Department> {
+    fun addDepartment(@RequestBody @Valid createDTO: DepartmentAddForm): ResponseDTO<Department> {
         return ResponseDTO.ok(departmentService.addDepartment(createDTO))
     }
 
     /** 更新部门 */
     @PostMapping("/department/update")
 //    @SaCheckPermission("system:department:update")
-    fun updateDepartment(@RequestBody @Valid  updateDTO: DepartmentUpdateForm): ResponseDTO<Department> {
+    fun updateDepartment(@RequestBody @Valid updateDTO: DepartmentUpdateForm): ResponseDTO<Department> {
         return ResponseDTO.ok(departmentService.updateDepartment(updateDTO))
     }
 

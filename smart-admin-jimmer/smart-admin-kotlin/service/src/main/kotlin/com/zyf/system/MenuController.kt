@@ -27,7 +27,7 @@ class MenuController(
 
     /** 查询菜单树 */
     @GetMapping("/menu/tree")
-    fun menuTree(@RequestParam("onlyMenu")  onlyMenu: Boolean?): ResponseDTO<MutableList<MenuTreeVO>> {
+    fun menuTree(@RequestParam("onlyMenu") onlyMenu: Boolean?): ResponseDTO<MutableList<MenuTreeVO>> {
         return ResponseDTO.ok(menuService.menuTree(onlyMenu))
     }
 

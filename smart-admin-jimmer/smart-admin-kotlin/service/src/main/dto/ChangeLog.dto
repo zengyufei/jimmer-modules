@@ -41,6 +41,9 @@ specification ChangeLogQueryForm {
 
 ChangeLogVO {
     #allScalars
+    flat(create) {
+        actualName as publishAuthor
+    }
     createTime
     updateTime
 }

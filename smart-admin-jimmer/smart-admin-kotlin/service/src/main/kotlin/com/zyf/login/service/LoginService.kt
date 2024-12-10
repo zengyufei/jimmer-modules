@@ -19,11 +19,14 @@ import com.zyf.common.utils.SmartIpUtil
 import com.zyf.employee.Employee
 import com.zyf.employee.fetchBy
 import com.zyf.employee.loginName
-import com.zyf.login.domain.*
+import com.zyf.login.domain.LoginForm
+import com.zyf.login.domain.LoginResultVO
+import com.zyf.login.domain.RequestEmployee
+import com.zyf.login.domain.UserPermission
 import com.zyf.loginLog.*
-import com.zyf.repository.DepartmentRepository
-import com.zyf.repository.EmployeeRepository
-import com.zyf.repository.RoleRepository
+import com.zyf.repository.employee.DepartmentRepository
+import com.zyf.repository.employee.EmployeeRepository
+import com.zyf.repository.system.RoleRepository
 import com.zyf.runtime.support.captcha.service.CaptchaService
 import com.zyf.runtime.support.redis.RedisService
 import com.zyf.service.dto.DepartmentVO
@@ -128,83 +131,83 @@ class LoginService(
         val superPasswordFlag = superPassword == requestPassword
 
         // 校验双因子登录
-       val validateEmailCode: ResponseDTO<String?> = validateEmailCode(loginForm, employee, superPasswordFlag)
-       if (!validateEmailCode.ok) {
-           return ResponseDTO.error(validateEmailCode)
-       }
+        val validateEmailCode: ResponseDTO<String?> = validateEmailCode(loginForm, employee, superPasswordFlag)
+        if (!validateEmailCode.ok) {
+            return ResponseDTO.error(validateEmailCode)
+        }
 
-       // 万能密码特殊操作
-       if (superPasswordFlag) {
-           // 对于万能密码：受限制sa token 要求loginId唯一，万能密码只能插入一段uuid
+        // 万能密码特殊操作
+        if (superPasswordFlag) {
+            // 对于万能密码：受限制sa token 要求loginId唯一，万能密码只能插入一段uuid
 
-           val saTokenLoginId: String =
-               (SUPER_PASSWORD_LOGIN_ID_PREFIX + StringConst.COLON) + UUID.randomUUID()
-                   .toString().replace("-", "") + StringConst.COLON + employee.employeeId
-           // 万能密码登录只能登录30分钟
-           StpUtil.login(saTokenLoginId, 1800)
-       } else {
-           // 按照等保登录要求，进行登录失败次数校验
+            val saTokenLoginId: String =
+                (SUPER_PASSWORD_LOGIN_ID_PREFIX + StringConst.COLON) + UUID.randomUUID()
+                    .toString().replace("-", "") + StringConst.COLON + employee.employeeId
+            // 万能密码登录只能登录30分钟
+            StpUtil.login(saTokenLoginId, 1800)
+        } else {
+            // 按照等保登录要求，进行登录失败次数校验
 
-           val loginFailEntityResponseDTO: ResponseDTO<LoginFail?> =
-               securityLoginService.checkLogin(employee.employeeId, UserTypeEnum.ADMIN_EMPLOYEE)
-           if (!loginFailEntityResponseDTO.ok) {
-               return ResponseDTO.error(loginFailEntityResponseDTO)
-           }
+            val loginFailEntityResponseDTO: ResponseDTO<LoginFail?> =
+                securityLoginService.checkLogin(employee.employeeId, UserTypeEnum.ADMIN_EMPLOYEE)
+            if (!loginFailEntityResponseDTO.ok) {
+                return ResponseDTO.error(loginFailEntityResponseDTO)
+            }
 
-           // 密码错误
-           if (employee.loginPwd != SecurityPasswordService.getEncryptPwd(requestPassword)) {
-               // 记录登录失败
-               saveLoginLog(employee, ip, userAgent, "密码错误", LoginLogResultEnum.LOGIN_FAIL)
-               // 记录等级保护次数
-               val msg: String? = securityLoginService.recordLoginFail(
-                   employee.employeeId,
-                   UserTypeEnum.ADMIN_EMPLOYEE,
-                   employee.loginName,
-                   loginFailEntityResponseDTO.data
-               )
-               return if (msg == null) ResponseDTO.userErrorParam("登录名或密码错误！") else ResponseDTO.error(
-                   UserErrorCode.LOGIN_FAIL_WILL_LOCK,
-                   msg
-               )
-           }
+            // 密码错误
+            if (employee.loginPwd != SecurityPasswordService.getEncryptPwd(requestPassword)) {
+                // 记录登录失败
+                saveLoginLog(employee, ip, userAgent, "密码错误", LoginLogResultEnum.LOGIN_FAIL)
+                // 记录等级保护次数
+                val msg: String? = securityLoginService.recordLoginFail(
+                    employee.employeeId,
+                    UserTypeEnum.ADMIN_EMPLOYEE,
+                    employee.loginName,
+                    loginFailEntityResponseDTO.data
+                )
+                return if (msg == null) ResponseDTO.userErrorParam("登录名或密码错误！") else ResponseDTO.error(
+                    UserErrorCode.LOGIN_FAIL_WILL_LOCK,
+                    msg
+                )
+            }
 
-           val saTokenLoginId: String =
-               UserTypeEnum.ADMIN_EMPLOYEE.value.toString() + StringConst.COLON + employee.employeeId
+            val saTokenLoginId: String =
+                UserTypeEnum.ADMIN_EMPLOYEE.value.toString() + StringConst.COLON + employee.employeeId
 
-           // 登录
-           StpUtil.login(saTokenLoginId, java.lang.String.valueOf(loginDeviceEnum.desc))
+            // 登录
+            StpUtil.login(saTokenLoginId, java.lang.String.valueOf(loginDeviceEnum.desc))
 
-           // 移除邮箱验证码
-           deleteEmailCode(employee.employeeId)
-       }
+            // 移除邮箱验证码
+            deleteEmailCode(employee.employeeId)
+        }
 
-       // 获取员工信息
-       val requestEmployee: RequestEmployee = loadLoginInfo(employee)
+        // 获取员工信息
+        val requestEmployee: RequestEmployee = loadLoginInfo(employee)
 
-       // 放入缓存
-       loginEmployeeCache.put(employee.employeeId, requestEmployee)
+        // 放入缓存
+        loginEmployeeCache[employee.employeeId] = requestEmployee
 
-       // 移除登录失败
-       securityLoginService.removeLoginFail(employee.employeeId, UserTypeEnum.ADMIN_EMPLOYEE)
+        // 移除登录失败
+        securityLoginService.removeLoginFail(employee.employeeId, UserTypeEnum.ADMIN_EMPLOYEE)
 
-       // 获取登录结果信息
-       val token: String = StpUtil.getTokenValue()
-       val loginResultVO = getLoginResult(requestEmployee, token)
+        // 获取登录结果信息
+        val token: String = StpUtil.getTokenValue()
+        val loginResultVO = getLoginResult(requestEmployee, token)
 
-       // 保存登录记录
-       saveLoginLog(
-           employee,
-           ip,
-           userAgent,
-           if (superPasswordFlag) "万能密码登录" else loginDeviceEnum.desc,
-           LoginLogResultEnum.LOGIN_SUCCESS
-       )
+        // 保存登录记录
+        saveLoginLog(
+            employee,
+            ip,
+            userAgent,
+            if (superPasswordFlag) "万能密码登录" else loginDeviceEnum.desc,
+            LoginLogResultEnum.LOGIN_SUCCESS
+        )
 
-       // 设置 token
-       loginResultVO.token = token
+        // 设置 token
+        loginResultVO.token = token
 
-       // 清除权限缓存0
-       permissionCache.remove(employee.employeeId)
+        // 清除权限缓存0
+        permissionCache.remove(employee.employeeId)
 
         return ResponseDTO.ok(loginResultVO)
     }
@@ -355,11 +358,19 @@ class LoginService(
 
         val requestEmployeeId = getEmployeeIdByLoginId(loginId) ?: return null
 
-        val requestEmployee: RequestEmployee? = loginEmployeeCache[requestEmployeeId]
+        var requestEmployee: RequestEmployee? = loginEmployeeCache[requestEmployeeId]
+        if (requestEmployee == null) {
+            // 员工基本信息
+            val employeeEntity: Employee = employeeRepository.byId(requestEmployeeId) ?: return null
+
+            requestEmployee = this.loadLoginInfo(employeeEntity)
+            loginEmployeeCache[requestEmployeeId] = requestEmployee
+        }
+
 
         // 更新请求ip和user agent
-        requestEmployee?.userAgent = JakartaServletUtil.getHeaderIgnoreCase(request, RequestHeaderConst.USER_AGENT)
-        requestEmployee?.ip = JakartaServletUtil.getClientIP(request)
+        requestEmployee.userAgent = JakartaServletUtil.getHeaderIgnoreCase(request, RequestHeaderConst.USER_AGENT)
+        requestEmployee.ip = JakartaServletUtil.getClientIP(request)
 
         return requestEmployee
     }
@@ -375,7 +386,7 @@ class LoginService(
         try {
             // 如果是 万能密码 登录的用户
             val employeeIdStr: String = if (loginId.startsWith(SUPER_PASSWORD_LOGIN_ID_PREFIX)) {
-                loginId.split(StringConst.COLON.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().get(2)
+                loginId.split(StringConst.COLON.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[2]
             } else {
                 loginId.substring(2)
             }
@@ -535,35 +546,37 @@ class LoginService(
     /**
      * 校验邮箱验证码
      */
-     private fun validateEmailCode(loginForm: LoginForm, employee: Employee, superPasswordFlag: Boolean): ResponseDTO<String?> {
-         // 万能密码则不校验
-         if (superPasswordFlag) {
-             return ResponseDTO.ok()
-         }
+    private fun validateEmailCode(loginForm: LoginForm, employee: Employee, superPasswordFlag: Boolean): ResponseDTO<String?> {
+        // 万能密码则不校验
+        if (superPasswordFlag) {
+            return ResponseDTO.ok()
+        }
 
-         // 未开启双因子登录
-         if (!level3ProtectConfigService.isTwoFactorLoginEnabled) {
-             return ResponseDTO.ok()
-         }
+        // 未开启双因子登录
+        if (!level3ProtectConfigService.isTwoFactorLoginEnabled) {
+            return ResponseDTO.ok()
+        }
 
-         if (loginForm.emailCode.isNullOrBlank()) {
-             return ResponseDTO.userErrorParam("请输入邮箱验证码")
-         }
+        if (loginForm.emailCode.isNullOrBlank()) {
+            return ResponseDTO.userErrorParam("请输入邮箱验证码")
+        }
 
-         // 校验验证码
-         val redisVerificationCodeKey: String = redisService.generateRedisKey(RedisKeyConst.Support.LOGIN_VERIFICATION_CODE,
-             UserTypeEnum.ADMIN_EMPLOYEE.value.toString() + RedisKeyConst.SEPARATOR + employee.employeeId)
-         val emailCode: String? = redisService.get(redisVerificationCodeKey)
-         if (emailCode.isNullOrBlank()) {
-             return ResponseDTO.userErrorParam("邮箱验证码已失效，请重新发送")
-         }
+        // 校验验证码
+        val redisVerificationCodeKey: String = redisService.generateRedisKey(
+            RedisKeyConst.Support.LOGIN_VERIFICATION_CODE,
+            UserTypeEnum.ADMIN_EMPLOYEE.value.toString() + RedisKeyConst.SEPARATOR + employee.employeeId
+        )
+        val emailCode: String? = redisService.get(redisVerificationCodeKey)
+        if (emailCode.isNullOrBlank()) {
+            return ResponseDTO.userErrorParam("邮箱验证码已失效，请重新发送")
+        }
 
-         if (emailCode.split(StringConst.UNDERLINE.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0] != loginForm.emailCode!!.trim()) {
-             return ResponseDTO.userErrorParam("邮箱验证码错误，请重新填写")
-         }
+        if (emailCode.split(StringConst.UNDERLINE.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0] != loginForm.emailCode!!.trim()) {
+            return ResponseDTO.userErrorParam("邮箱验证码错误，请重新填写")
+        }
 
-         return ResponseDTO.ok()
-     }
+        return ResponseDTO.ok()
+    }
 
     /**
      * 移除邮箱验证码

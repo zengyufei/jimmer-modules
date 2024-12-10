@@ -1,6 +1,7 @@
 package com.zyf.support
 
 import com.zyf.common.annotations.Body
+import com.zyf.common.annotations.Operation
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
@@ -23,6 +24,7 @@ class ChangeLogController(
 ) {
 
     /** 分页查询 @author 卓大 */
+    @Operation(summary = "分页查询 @author 卓大")
     @PostMapping("/support/changeLog/queryPage")
     fun queryPage(
         @Body pageBean: PageBean,
@@ -33,8 +35,9 @@ class ChangeLogController(
 
 
     /** 变更内容详情 @author 卓大 */
+    @Operation(summary = "变更内容详情 @author 卓大")
     @GetMapping("/support/changeLog/getDetail/{changeLogId}")
-    fun getDetail(@PathVariable changeLogId: String?): ResponseDTO<ChangeLogVO?> {
+    fun getDetail(@PathVariable changeLogId: String): ResponseDTO<ChangeLogVO?> {
         return ResponseDTO.ok(changeLogService.getById(changeLogId))
     }
 }
