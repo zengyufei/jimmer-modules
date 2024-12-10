@@ -1,5 +1,31 @@
 services:
 
+  smart-postgresql:
+    image: "postgres:14.6"
+    container_name: "smart-postgresql"
+    hostname: "postgresql"
+    privileged: true
+    user: root:root
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "root"
+    volumes: 
+      - ./data:/var/lib/postgresql/data
+      - ./smart_admin_postgres.sql:/docker-entrypoint-initdb.d/init.sql
+
+  smart-redis:
+    image: "redis:6.2.6"
+    container_name: "smart-redis"
+    hostname: "redis"
+    privileged: true
+    user: root:root
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+
   smart-admin-web:
     image: nginx
     hostname: smart-admin-web
@@ -14,7 +40,7 @@ services:
     ports:
       - 8082:80
     volumes:
-      - ./smart-admin-web:/etc/nginx/html:ro
+      - ./smart-admin-web:/usr/share/nginx/html:ro
 
   smart-admin-kotlin:
     image: open-liberty:22.0.0.9-full-java17-openj9
@@ -33,10 +59,11 @@ services:
         max-size: 1g
     extra_hosts:
         - "host.docker.internal:host-gateway"
-        - "redis:host-gateway"
-        - "postgresql:host-gateway"
     ports:
       - "1024:1024"
+    depends_on:
+      - smart-redis
+      - smart-postgresql
     working_dir: /usr/jar
     command: /bin/bash -c "java -jar smart-admin-kotlin.jar $${JAVA_OPTS}"
     volumes:
