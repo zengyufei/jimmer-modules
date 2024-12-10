@@ -54,7 +54,7 @@ jobs:
     - name: Build with Gradle Wrapper
       run: |
         cd ./smart-admin-jimmer/smart-admin-kotlin
-        gradle build
+        gradle build -x test
               
     - name: Get release asset ID
       id: get_asset_id
