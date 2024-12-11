@@ -41,7 +41,7 @@ interface Menu : TenantAware, BaseEntity {
 
     /** 权限类型 */
     @Column(name = "perms_type")
-    val permsType: String?
+    val permsType: Int?
 
     /** 后端权限字符串 */
     @Column(name = "api_perms")

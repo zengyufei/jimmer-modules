@@ -11,19 +11,15 @@ import java.lang.reflect.Method
  * @Email lab1024@163.com
  * @Copyright  [1024创新实验室](https://1024lab.net)
  */
-class SmartReloadObject {
+class SmartReloadObject(
     /**
      * 方法对应的实例化对象
      */
-    var reloadObject: Any? = null
-
+    var reloadObject: Any?,
     /**
      * 重新加载执行的方法
      */
-    var method: Method? = null
+    var method: Method?
+) {
 
-    constructor(reloadObject: Any?, method: Method?) {
-        this.reloadObject = reloadObject
-        this.method = method
-    }
 }

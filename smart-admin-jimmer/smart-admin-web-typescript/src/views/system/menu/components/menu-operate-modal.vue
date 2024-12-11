@@ -243,7 +243,7 @@
       let params = _.cloneDeep(form);
       // 若无父级ID 默认设置为0
       if (!params.parentId) {
-        params.parentId = 0;
+        params.parentId = null;
       }
       if (params.menuId) {
         await menuApi.updateMenu(params);

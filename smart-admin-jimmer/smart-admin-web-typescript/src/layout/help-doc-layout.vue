@@ -126,7 +126,7 @@
         parentId = catalog[0].parentId;
         expandedKeys.value.push(TYPE_CATALOG_PREFIX + catalog[0].helpDocCatalogId);
       } else {
-        parentId = 0;
+        parentId = null;
       }
     }
   }

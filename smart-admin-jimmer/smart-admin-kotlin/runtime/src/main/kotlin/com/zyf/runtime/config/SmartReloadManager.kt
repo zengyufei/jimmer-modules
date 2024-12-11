@@ -6,7 +6,6 @@ import com.zyf.common.annotations.SmartReload
 import com.zyf.runtime.domain.SmartReloadObject
 import com.zyf.runtime.utils.SmartReloadRunnable
 import jakarta.annotation.PreDestroy
-import jakarta.annotation.Resource
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationListener
@@ -64,7 +63,7 @@ class SmartReloadManager(
             }
             t
         }
-        threadPoolExecutor!!.scheduleWithFixedDelay(SmartReloadRunnable(this.reloadCommand!!), 10, intervalSeconds!!.toLong(), TimeUnit.SECONDS)
+        threadPoolExecutor!!.scheduleWithFixedDelay(SmartReloadRunnable(this.reloadCommand), 10, intervalSeconds.toLong(), TimeUnit.SECONDS)
     }
 
     @PreDestroy

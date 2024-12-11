@@ -1,9 +1,171 @@
 export com.zyf.system.Menu
     -> package com.zyf.service.dto
 
-import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+import com.zyf.common.valid.CheckEnum
+import com.alibaba.excel.annotation.ExcelProperty
+import com.zyf.common.enums.EnterpriseTypeEnum
+import com.zyf.common.valid.SmartVerificationUtil
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.zyf.cfg.json.deserializer.FileKeyVoDeserializer
+import com.zyf.cfg.json.serializer.FileKeyVoSerializer
+import com.zyf.common.convert.ExcelEnum
+import com.zyf.common.enums.MenuPermsTypeEnum
+import com.zyf.common.enums.MenuTypeEnum
 
+MenuPointsOperateForm {
+
+    /** 菜单ID */
+    menuId
+
+    /** 功能点名称 */
+    @NotBlank(message = "功能点不能为空")
+    @Length(max = 30, message = "功能点最多30个字符")
+    menuName
+
+    /** 禁用状态 */
+    @NotNull(message = "禁用状态不能为空")
+    disabledFlag
+
+    /** 后端接口权限集合 */
+    apiPermsList: List<String>
+
+    /** 权限字符串 */
+    webPerms
+
+    /** 功能点关联菜单ID */
+    contextMenuId
+}
+
+
+input MenuUpdateForm {
+
+    /** 菜单ID */
+    @NotNull(message = "菜单ID不能为空")
+    menuId!
+
+    /** 菜单名称 */
+    @NotBlank(message = "菜单名称不能为空")
+    @Length(max = 30, message = "菜单名称最多30个字符")
+    menuName
+
+    @CheckEnum(value = MenuTypeEnum.class, message = "类型错误")
+    menuType
+
+    /** 父菜单ID 无上级可传0 */
+    @NotNull(message = "父菜单ID不能为空")
+    parentId
+
+    /** 显示顺序 */
+    sort
+
+    /** 路由地址 */
+    path
+
+    /** 组件路径 */
+    component
+
+    /** 是否为外链 */
+    @NotNull(message = "是否为外链不能为空")
+    frameFlag
+
+    /** 外链地址 */
+    frameUrl
+
+    /** 是否缓存 */
+    @NotNull(message = "是否缓存不能为空")
+    cacheFlag
+
+    /** 显示状态 */
+    @NotNull(message = "显示状态不能为空")
+    visibleFlag
+
+    /** 禁用状态 */
+    @NotNull(message = "禁用状态不能为空")
+    disabledFlag
+
+    @CheckEnum(value = MenuPermsTypeEnum.class, message = "权限类型")
+    permsType
+
+    /** 前端权限字符串 */
+    webPerms
+
+    /** 后端端权限字符串 */
+    apiPerms
+
+    /** 菜单图标 */
+    icon
+
+    /** 功能点关联菜单ID */
+    contextMenuId
+
+    updateId as updateUserId
+}
+
+input MenuAddForm {
+
+    /** 菜单名称 */
+    @NotBlank(message = "菜单名称不能为空")
+    @Length(max = 30, message = "菜单名称最多30个字符")
+    menuName
+
+    @CheckEnum(value = MenuTypeEnum.class, message = "类型错误")
+    menuType
+
+    /** 父菜单ID 无上级可传0 */
+    @NotNull(message = "父菜单ID不能为空")
+    parentId
+
+    /** 显示顺序 */
+    sort
+
+    /** 路由地址 */
+    path
+
+    /** 组件路径 */
+    component
+
+    /** 是否为外链 */
+    @NotNull(message = "是否为外链不能为空")
+    frameFlag
+
+    /** 外链地址 */
+    frameUrl
+
+    /** 是否缓存 */
+    @NotNull(message = "是否缓存不能为空")
+    cacheFlag
+
+    /** 显示状态 */
+    @NotNull(message = "显示状态不能为空")
+    visibleFlag
+
+    /** 禁用状态 */
+    @NotNull(message = "禁用状态不能为空")
+    disabledFlag
+
+    @CheckEnum(value = MenuPermsTypeEnum.class, message = "权限类型")
+    permsType
+
+    /** 前端权限字符串 */
+    webPerms
+
+    /** 后端端权限字符串 */
+    apiPerms
+
+    /** 菜单图标 */
+    icon
+
+    /** 功能点关联菜单ID */
+    contextMenuId
+
+    createId as createUserId
+}
 
 MenuSimpleTreeVO {
     menuId

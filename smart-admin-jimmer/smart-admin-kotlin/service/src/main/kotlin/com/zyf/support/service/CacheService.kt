@@ -46,7 +46,7 @@ class CacheService(
      *
      */
     fun removeCache(cacheName: String?) {
-        val cache = caffeineCacheManager!!.getCache(cacheName!!) as CaffeineCache?
+        val cache = caffeineCacheManager.getCache(cacheName!!) as CaffeineCache?
         cache?.clear()
     }
 

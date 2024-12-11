@@ -3,8 +3,10 @@ package com.zyf.support.service
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.annotations.Slf4j
 import com.zyf.common.annotations.Slf4j.Companion.log
+import com.zyf.common.annotations.SmartReload
 import com.zyf.common.code.ErrorCode
 import com.zyf.common.code.UserErrorCode
+import com.zyf.common.constant.ReloadConst
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
@@ -149,14 +151,10 @@ class ConfigService(
         return getConfig(configKey)?.configValue
     }
 
-//    @Resource
-//    private lateinit var configDao: ConfigDao
-//
-//    @SmartReload(ReloadConst.CONFIG_RELOAD)
-//    fun configReload(param: String) {
-//        loadConfigCache()
-//    }
-//
+    @SmartReload(ReloadConst.CONFIG_RELOAD)
+    fun configReload(param: String) {
+        loadConfigCache()
+    }
 
 
     //
