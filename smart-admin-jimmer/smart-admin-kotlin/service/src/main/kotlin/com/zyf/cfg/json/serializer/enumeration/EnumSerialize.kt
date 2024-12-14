@@ -15,4 +15,4 @@ import kotlin.reflect.KClass
 @Retention(AnnotationRetention.RUNTIME)
 @JacksonAnnotationsInside
 @JsonSerialize(using = EnumSerializer::class, nullsUsing = EnumSerializer::class)
-annotation class EnumSerialize(val value: KClass<BaseEnum>)
+annotation class EnumSerialize(val value: KClass<out BaseEnum>)

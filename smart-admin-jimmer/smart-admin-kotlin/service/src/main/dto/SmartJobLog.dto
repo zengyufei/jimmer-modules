@@ -1,0 +1,91 @@
+export com.zyf.support.SmartJobLog
+    -> package com.zyf.support.service.dto
+
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+import com.zyf.common.valid.CheckEnum
+import com.alibaba.excel.annotation.ExcelProperty
+import com.zyf.common.convert.ExcelEnum
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.zyf.cfg.json.serializer.enumeration.EnumSerialize
+
+
+specification SmartJobLogQueryForm {
+
+    /** 搜索词|可选  */
+    @Length(max = 50, message = "搜索词最多50字符")
+    like/i(jobName, param, executeResult, createName) as searchWord
+
+    /** 任务id|可选  */
+     jobId
+
+    /** 是否成功|可选  */
+     successFlag
+
+    /** 开始时间|可选", example = "2024-06-06  */
+    gt(executeStartTime) as startTime
+
+    /** 截止时间|可选", example = "2025-10-15  */
+    lt(executeStartTime) as endTime
+}
+input SmartJobLogUpdateParam {
+    #allScalars
+}
+input SmartJobLogAddParam {
+    #allScalars
+}
+SmartJobLogExcelVO {
+    #allScalars
+}
+SmartJobLogVO {
+    /** logId  */
+     logId
+
+    /** 任务id  */
+     jobId
+
+    /** 任务名称  */
+     jobName
+
+    /** 定时任务参数|可选  */
+     param
+
+    /** 执行结果是否成功  */
+     successFlag
+
+    /** 开始执行时间  */
+     executeStartTime
+
+    /** 执行时长-毫秒  */
+     executeTimeMillis
+
+    /** 执行结果描述  */
+     executeResult
+
+    /** 执行结束时间  */
+     executeEndTime
+
+    /** ip  */
+     ip
+
+    /** 进程id  */
+     processId
+
+    /** 程序目录  */
+     programPath
+
+     createName
+
+     createTime
+}
+
+SmartJobLogDetailVO {
+    #allScalars
+    createTime
+    updateTime
+}

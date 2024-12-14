@@ -1,0 +1,145 @@
+export com.zyf.support.SmartJob
+    -> package com.zyf.support.service.dto
+
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+import com.zyf.common.valid.CheckEnum
+import com.alibaba.excel.annotation.ExcelProperty
+import com.zyf.common.convert.ExcelEnum
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.zyf.support.job.constant.SmartJobTriggerTypeEnum
+import com.zyf.support.job.api.domain.SmartJobLogVO
+import com.zyf.cfg.json.serializer.enumeration.EnumSerialize
+
+SmartJobExecuteForm {
+    /** 任务id  */
+    @NotNull(message = "任务id不能为空")
+    jobId
+
+    /** 定时任务参数|可选  */
+    @Length(max = 2000, message = "定时任务参数最多2000字符")
+    param
+
+    updateName?
+}
+
+
+input SmartJobEnabledUpdateForm {
+
+    /** 任务id */
+    @NotNull(message = "任务id不能为空")
+    jobId
+
+    /** 是否启用 */
+    @NotNull(message = "是否启用不能为空")
+    enabledFlag
+
+    updateName
+}
+
+
+ input SmartJobUpdateForm {
+ 
+    /** 任务id  */
+    @NotNull(message = "任务id不能为空")
+     jobId
+
+    /** 任务名称  */
+    @NotBlank(message = "任务名称不能为空") @Length(max = 100, message = "任务名称最多100字符")
+     jobName
+
+    /** 任务执行类  */
+    @NotBlank(message = "任务执行类不能为空")
+    @Length(max = 200, message = "任务执行类最多200字符")
+     jobClass
+
+    @CheckEnum(value = SmartJobTriggerTypeEnum::class, required = true, message = "触发类型错误")
+     triggerType
+
+    /** 触发配置  */
+     @NotBlank(message = "触发配置不能为空") @Length(max = 100, message = "触发配置最多100字符")
+     triggerValue
+
+    /** 定时任务参数|可选  */
+    @Length(max = 1000, message = "定时任务参数最多1000字符")
+     param
+
+    /** 是否开启  */
+    @NotNull(message = "是否开启不能为空")
+     enabledFlag
+
+    /** 备注  */
+    @Length(max = 250, message = "任务备注最多250字符")
+     remark
+    
+ /** 排序  */
+ @NotNull(message = "排序不能为空") 
+     sort
+           
+     updateName
+}
+specification SmartJobQueryForm {
+    /** 搜索词|可选  */
+    @Length(max = 50, message = "搜索词最多50字符")
+    like/i(jobName, jobClass, triggerValue) as searchWord
+
+    @CheckEnum(value = SmartJobTriggerTypeEnum::class, message = "触发类型错误")
+    triggerType
+
+    /** 是否启用|可选  */
+    enabledFlag
+}
+input SmartJobUpdateParam {
+    #allScalars
+}
+input SmartJobAddParam {
+    #allScalars
+}
+SmartJobExcelVO {
+    #allScalars
+}
+SmartJobVO {
+    /** 任务id  */
+    jobId
+
+    /** 任务名称  */
+    jobName
+
+    /** 执行类  */
+    jobClass
+
+    @EnumSerialize(SmartJobTriggerTypeEnum::class)
+    triggerType
+
+    /** 触发配置  */
+    triggerValue
+
+    /** 定时任务参数|可选  */
+    param
+
+    /** 是否启用  */
+    enabledFlag
+
+    /** 最后一执行时间  */
+    lastExecuteTime
+
+    /** 最后一次执行记录id  */
+    lastExecuteLogId
+
+    /** 备注  */
+    remark
+
+    /** 排序  */
+    sort
+
+    updateName
+
+    updateTime
+
+    createTime
+}

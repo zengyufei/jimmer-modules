@@ -55,6 +55,13 @@ kotlin {
 	}
 }
 
+afterEvaluate {
+	tasks {
+		"kspKotlin" {
+			inputs.dir(layout.projectDirectory.dir("src/main/dto"))
+		}
+	}
+}
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")

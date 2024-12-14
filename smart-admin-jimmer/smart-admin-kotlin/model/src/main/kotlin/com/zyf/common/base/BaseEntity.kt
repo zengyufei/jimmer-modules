@@ -34,7 +34,7 @@ interface BaseEntity {
     val updateTime: LocalDateTime?
 
     /** 删除标记，0未删除，1已删除 */
-    @Default("0")
+//    @Default("0")
     @LogicalDeleted("1")
     @Column(name="delete_flag")
     val deleteFlag: Int

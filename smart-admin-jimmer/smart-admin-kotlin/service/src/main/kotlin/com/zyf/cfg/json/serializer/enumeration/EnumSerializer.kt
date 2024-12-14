@@ -21,7 +21,7 @@ import kotlin.reflect.KClass
  * @date 2024年6月29日
  */
 class EnumSerializer : JsonSerializer<Any>(), ContextualSerializer {
-    private var enumClazz: KClass<BaseEnum>? = null
+    private var enumClazz: KClass<out BaseEnum>? = null
 
     @Throws(IOException::class)
     override fun serialize(value: Any, gen: JsonGenerator, serializers: SerializerProvider) {

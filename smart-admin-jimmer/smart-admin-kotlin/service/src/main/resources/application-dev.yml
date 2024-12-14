@@ -10,11 +10,17 @@ spring:
     password: root
   data:
     redis:
+
       database: 0
       host: redis
       port: 6379
       timeout: 10s
-      enable-statistics: false
+      lettuce:
+        pool:
+          max-active: 5
+          min-idle: 1
+          max-idle: 3
+          max-wait: 30000ms
       jedis:
         pool:
           # 连接池最大连接数（使用负值表示没有限制） 默认 10
@@ -116,3 +122,16 @@ heart-beat:
 # 热加载配置
 reload:
   interval-seconds: 300
+
+# SmartJob 定时任务配置(不需要可以直接删除以下配置，详细文档请看：https://www.xxxxxx.com)
+smart:
+  job:
+    enabled: true
+    # 任务初始化延迟 默认30秒 可选
+    init-delay: 10
+    # 定时任务执行线程池数量 默认2 可选
+    core-pool-size: 2
+    # 数据库配置检测-开关 默认开启 可选（作用是固定间隔读取数据库配置更新任务，关闭后只能重启服务或通过接口修改定时任务，建议开启）
+    db-refresh-enabled: true
+    # 数据库配置检测-执行间隔 默认120秒 可选
+    db-refresh-interval: 60
