@@ -1,7 +1,167 @@
 export com.zyf.helpDoc.HelpDoc
     -> package com.zyf.service.dto
 
-HelpDocVo {
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import com.alibaba.excel.annotation.ExcelProperty
+import org.hibernate.validator.constraints.Length
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.zyf.cfg.json.deserializer.FileKeyVoDeserializer
+import com.zyf.cfg.json.serializer.FileKeyVoSerializer
+import com.zyf.oa.domain.NoticeVisibleRangeVO
+import com.zyf.oa.domain.NoticeVisibleRangeForm
+
+import org.springframework.format.annotation.DateTimeFormat
+import com.fasterxml.jackson.annotation.JsonFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import com.zyf.helpDoc.domain.HelpDocRelationVO
+import com.zyf.helpDoc.domain.HelpDocRelationForm
+
+input HelpDocUpdateForm {
+
+    /** 标题 */
+    @NotBlank(message = "标题不能为空")
+    @Length(max = 200, message = "标题最多200字符")
+    title
+
+    /** 分类 */
+    @NotNull(message = "分类不能为空")
+    helpDocCatalogId
+
+    /** 纯文本内容 */
+    @NotNull(message = "文本内容不能为空")
+    contentText
+
+    /** html内容 */
+    @NotNull(message = "html内容不能为空")
+    contentHtml
+
+    /** 附件,多个英文逗号分隔|可选 */
+    @Length(max = 1000, message = "最多1000字符")
+    @JsonDeserialize(using = FileKeyVoDeserializer.class)
+    attachment
+
+    /** 排序 */
+    @NotNull(message = "排序不能为空")
+    sort
+
+    /** 关联的集合 */
+    relationList: List<HelpDocRelationForm>
+
+    /** 作者 */
+    @NotBlank(message = "作者不能为空")
+    author
+
+    /** id */
+    @NotNull(message = "通知id不能为空")
+    helpDocId
+
+}
+
+input HelpDocAddForm {
+
+    /** 标题 */
+    @NotBlank(message = "标题不能为空")
+    @Length(max = 200, message = "标题最多200字符")
+    title
+
+    /** 分类 */
+    @NotNull(message = "分类不能为空")
+    helpDocCatalogId
+
+    /** 纯文本内容 */
+    @NotNull(message = "文本内容不能为空")
+    contentText
+
+    /** html内容 */
+    @NotNull(message = "html内容不能为空")
+    contentHtml
+
+    /** 附件,多个英文逗号分隔|可选 */
+    @Length(max = 1000, message = "最多1000字符")
+    @JsonDeserialize(using = FileKeyVoDeserializer.class)
+    attachment
+
+    /** 排序 */
+    @NotNull(message = "排序不能为空")
+    sort
+
+    /** 关联的集合 */
+    relationList: List<HelpDocRelationForm>
+
+    /** 作者 */
+    @NotBlank(message = "作者不能为空")
+    author
+}
+
+
+specification HelpDocQueryForm {
+
+    /** 分类 */
+    helpDocCatalogId
+
+    /** 标题 */
+    like/i(title, author) as keywords
+
+    /** 创建-开始时间 */
+    gt(createTime) as createTimeBegin
+
+    /** 创建-截止时间 */
+    lt(createTime) as createTimeEnd
+    // ORDER BY t_help_doc.sort ASC, t_help_doc.create_time DESC
+}
+
+HelpDocDetailVO {
+
+    /** id */
+    helpDocId
+
+    /** 标题 */
+    title
+
+    helpDocCatalogId
+
+    flat(helpDocCatalog) {
+        /** 分类名称 */
+        helpDocCatalogName
+    }
+
+    /** 纯文本内容 */
+    contentText
+
+    /** html内容 */
+    contentHtml
+
+    /** 附件 */
+    @JsonSerialize(using = FileKeyVoSerializer.class)
+    attachment
+
+    /** 作者 */
+    @NotBlank(message = "作者不能为空")
+    author
+
+    /** 页面浏览量 */
+    pageViewCount
+
+    /** 用户浏览量 */
+    userViewCount
+
+    /** 创建时间 */
+    createTime
+
+    /** 更新时间 */
+    updateTime
+
+    /** 关联项目 */
+    relationList: List<HelpDocRelationVO>
+
+}
+
+
+HelpDocVO {
     helpDocId
     title
     helpDocCatalogId

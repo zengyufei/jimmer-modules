@@ -44,7 +44,7 @@
   // 外部调用初始化
   async function queryCatalogTree() {
     let res = await helpDocCatalogApi.getAll();
-    let children = buildHelpDocCatalogTree(res.data, 0);
+    let children = buildHelpDocCatalogTree(res.data, null);
     treeData.value = children;
   }
 

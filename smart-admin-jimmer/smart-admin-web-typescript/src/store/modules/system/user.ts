@@ -308,7 +308,7 @@ function buildMenuParentIdListMap(menuTree) {
 function recursiveBuildMenuParentIdListMap(menuList, parentMenuList, menuParentIdListMap) {
   for (const e of menuList) {
     // 顶级parentMenuList清空
-    if (e.parentId === 0) {
+    if (e.parentId === null) {
       parentMenuList = [];
     }
     let menuIdStr = e.menuId.toString();

@@ -241,7 +241,7 @@
     } else {
       resList.push(info);
     }
-    if (info.parentId && info.parentId !== 0) {
+    if (info.parentId) {
       recursionFilterHelpDocCatalog(resList, info.parentId, unshift);
     }
   }
@@ -264,7 +264,7 @@
     let data = {
       helpDocCatalogId: 0,
       name: '',
-      parentId: 0,
+      parentId: null,
     };
     helpDocCatalogFormModal.value.showModal(data);
   }

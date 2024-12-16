@@ -72,6 +72,7 @@
   import logoImg from '/@/assets/images/logo/smart-admin-logo-white.png';
   import { SmartLoading } from '/@/components/framework/smart-loading';
   import { HOME_PAGE_NAME } from '/@/constants/system/home-const';
+  import { LAYOUT_ELEMENT_IDS } from './layout-const';
   import watermark from '../lib/smart-watermark';
   import { useUserStore } from '/@/store/modules/system/user';
   import HeaderAvatar from './components/header-user-space/header-avatar.vue';
@@ -120,7 +121,7 @@
     }
 
     let parentId = catalogId;
-    while (parentId !== 0) {
+    while (parentId !== null) {
       let catalog = catalogList.filter((e) => e.helpDocCatalogId === parentId);
       if (catalog.length > 0) {
         parentId = catalog[0].parentId;
@@ -164,7 +165,7 @@
         list.push(item);
       }
 
-      helpDocTreeData.value = buildHelpDocCatalogTree(catalogList, 0, helpDocMap);
+      helpDocTreeData.value = buildHelpDocCatalogTree(catalogList, null, helpDocMap);
       if (!route.query.helpDocId && firstHelpDocId) {
         selectHelpDoc([TYPE_HELP_DOC_PREFIX + firstHelpDocId]);
         return;

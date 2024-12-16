@@ -209,7 +209,7 @@
     } else {
       resList.push(info);
     }
-    if (info.parentId && info.parentId !== 0) {
+    if (info.parentId) {
       recursionFilterDepartment(resList, info.parentId, unshift);
     }
   }

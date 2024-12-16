@@ -35,10 +35,12 @@ interface HelpDoc : TenantAware, BaseEntity {
     @Column(name = "sort")
     val sort: Int
 
+    @Default("0")
     /** 页面浏览量，传说中的pv */
     @Column(name = "page_view_count")
     val pageViewCount: Int
 
+    @Default("0")
     /** 用户浏览量，传说中的uv */
     @Column(name = "user_view_count")
     val userViewCount: Int

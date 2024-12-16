@@ -1,0 +1,60 @@
+export com.zyf.helpDoc.HelpDocViewRecord
+    -> package com.zyf.helpDoc.service.dto
+
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.Length
+import com.zyf.common.valid.CheckEnum
+import com.alibaba.excel.annotation.ExcelProperty
+import com.zyf.common.convert.ExcelEnum
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+
+HelpDocViewRecordVO {
+
+    /** ID */
+    userId
+
+    /** 姓名 */
+    userName
+
+    /** 查看次数 */
+    pageViewCount
+
+    /** 首次ip */
+    firstIp
+
+    /** 首次用户设备等标识 */
+    firstUserAgent
+
+    /** 首次查看时间 */
+    createTime
+
+    /** 最后一次 ip */
+    lastIp
+
+    /** 最后一次 用户设备等标识 */
+    lastUserAgent
+
+    /** 最后一次查看时间 */
+    updateTime
+}
+
+
+specification HelpDocViewRecordQueryForm  {
+
+    /** 帮助文档id */
+    @NotNull(message = "帮助文档id不能为空")
+    helpDocId
+
+    /** 用户id */
+    userId
+
+    /** 关键字 */
+    like/i(userName, firstIp, firstUserAgent, lastIp, lastUserAgent) as keywords
+
+    // order by update_time desc,create_time desc
+}

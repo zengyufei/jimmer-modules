@@ -10,7 +10,7 @@
 <template>
   <a-modal v-model:open="visible" :title="formState.helpDocCatalogId ? '编辑目录' : '添加目录'" @ok="handleOk" destroyOnClose>
     <a-form ref="formRef" :model="formState" :rules="rules" layout="vertical">
-      <a-form-item label="上级目录" name="parentId" v-if="formState.parentId !== 0">
+      <a-form-item label="上级目录" name="parentId" v-if="formState.parentId">
         <HelpDocCatalogTreeSelect ref="helpDocCatalogTreeSelect" v-model:value="formState.parentId" :defaultValueFlag="false" width="100%" />
       </a-form-item>
       <a-form-item label="目录名称" name="name">

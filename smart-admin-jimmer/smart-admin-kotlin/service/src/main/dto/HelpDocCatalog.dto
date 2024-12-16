@@ -1,0 +1,69 @@
+export com.zyf.helpDoc.HelpDocCatalog
+    -> package com.zyf.service.dto
+
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import com.alibaba.excel.annotation.ExcelProperty
+import org.hibernate.validator.constraints.Length
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.zyf.cfg.json.deserializer.FileKeyVoDeserializer
+import com.zyf.cfg.json.serializer.FileKeyVoSerializer
+import com.zyf.oa.domain.NoticeVisibleRangeVO
+import com.zyf.oa.domain.NoticeVisibleRangeForm
+
+import org.springframework.format.annotation.DateTimeFormat
+import com.fasterxml.jackson.annotation.JsonFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+
+
+HelpDocCatalogVO {
+
+    /** 帮助文档目录id */
+    helpDocCatalogId
+
+    /** 帮助文档目录-名称 */
+    helpDocCatalogName as name
+
+    /** 帮助文档目录-父级id */
+    parentId
+
+    /** 帮助文档目录-排序 */
+    sort
+
+}
+
+input HelpDocCatalogUpdateForm {
+
+    /** 名称 */
+    @NotBlank(message = "名称不能为空")
+    @Length(max = 200, message = "名称最多200字符")
+    helpDocCatalogName as name
+
+    /** 父级 */
+    parentId
+
+    /** 排序 */
+    sort
+
+    /** id */
+    @NotNull(message = "id")
+    helpDocCatalogId!
+}
+
+
+input HelpDocCatalogAddForm {
+
+    /** 名称 */
+    @NotBlank(message = "名称不能为空")
+    @Length(max = 200, message = "名称最多200字符")
+    helpDocCatalogName as name
+
+    /** 父级 */
+    parentId
+
+    /** 排序 */
+    sort
+}

@@ -1,0 +1,9 @@
+export com.zyf.helpDoc.HelpDocRelation
+    -> package com.zyf.service.dto
+
+HelpDocRelationVVO {
+    #allScalars
+    flat(helpDoc) {
+        title
+    }
+}
