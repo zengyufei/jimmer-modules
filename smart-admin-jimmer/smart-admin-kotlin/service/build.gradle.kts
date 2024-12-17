@@ -74,7 +74,7 @@ tasks.withType<Test> {
 }
 
 springBoot {
-	mainClass.set("com.zyf.AppKt.main")
+	mainClass.set("com.zyf.AppKt")
 }
 
 tasks.jar {
