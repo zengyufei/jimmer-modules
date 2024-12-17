@@ -105,7 +105,7 @@
     router.push({ path: '/help-doc/detail', query: { helpDocId } });
   }
 
-  // 更新展开节点
+  // 更新 展开节点
   function updateExpandedKeys(helpDocId, helpDocList, catalogList) {
     expandedKeys.value = [TYPE_HELP_DOC_PREFIX + helpDocId];
     selectedKeys.value = [TYPE_HELP_DOC_PREFIX + helpDocId];
