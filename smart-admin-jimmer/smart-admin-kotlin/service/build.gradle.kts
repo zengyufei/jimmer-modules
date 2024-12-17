@@ -73,9 +73,11 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
+springBoot {
+	mainClass.set("com.zyf.App")
+}
 
 tasks.jar {
-
     // 指定 JAR 文件的名称
     archiveBaseName.set("smart-admin-kotlin") // JAR 文件的基本名称
     archiveVersion.set("plan") // JAR 文件的版本
