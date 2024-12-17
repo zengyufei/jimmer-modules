@@ -70,7 +70,7 @@ jimmer:
         info:
           title: REST Api
           description: This is the OpenAPI UI
-          version: 0.8.64
+          version: 0.9.32
         securities:
           - tenantHeader: [ ]
         components:

@@ -20,10 +20,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
  */
 @Configuration
 class MvcConfig(val adminInterceptor: AdminInterceptor) : WebMvcConfigurer {
+
+    val SWAGGER_WHITELIST = mutableListOf(
+        "/openapi.html",
+        "/ts.zip",
+    )
+
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry.addInterceptor(adminInterceptor)
             .addPathPatterns("/**")
-            .excludePathPatterns("/ts.zip")
+            .excludePathPatterns(SWAGGER_WHITELIST)
     }
 
     /**

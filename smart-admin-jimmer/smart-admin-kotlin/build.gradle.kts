@@ -1,5 +1,5 @@
 val zyfAdminVersion by extra { "1.0.0" }
-val jimmerVersion by extra { "0.9.32" }
+val jimmerVersion by extra { "0.9.33" }
 val springBootVersion by extra { "3.3.1" }
 val easyExcelVersion by extra { "3.3.2" }
 val poiVersion by extra { "4.1.2" }

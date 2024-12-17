@@ -29,6 +29,7 @@ class EnterpriseController(
     val enterpriseService: EnterpriseService
 ) {
 
+    @Api
     /** 分页查询企业模块 @author 开云 */
     @Operation(summary = "分页查询企业模块 @author 开云")
     @PostMapping("/oa/enterprise/page/query")
@@ -39,6 +40,8 @@ class EnterpriseController(
         return enterpriseService.queryByPage(pageBean, queryForm)
     }
 
+
+    @Api
     /** 导出企业信息 @author 卓大 */
     @Operation(summary = "导出企业信息 @author 卓大")
     @PostMapping("/oa/enterprise/exportExcel")
@@ -60,6 +63,8 @@ class EnterpriseController(
         )
     }
 
+
+    @Api
     /** 查询企业详情 @author 开云 */
     @Operation(summary = "查询企业详情 @author 开云")
     @GetMapping("/oa/enterprise/get/{enterpriseId}")
@@ -67,6 +72,8 @@ class EnterpriseController(
         return ResponseDTO.ok(enterpriseService.getDetail(enterpriseId))
     }
 
+
+    @Api
     /** 新建企业 @author 开云 */
     @Operation(summary = "新建企业 @author 开云")
     @PostMapping("/oa/enterprise/create")
@@ -74,6 +81,8 @@ class EnterpriseController(
         return enterpriseService.createEnterprise(createVO)
     }
 
+
+    @Api
     /** 编辑企业 @author 开云 */
     @Operation(summary = "编辑企业 @author 开云")
     @PostMapping("/oa/enterprise/update")
@@ -81,6 +90,8 @@ class EnterpriseController(
         return enterpriseService.updateEnterprise(updateVO)
     }
 
+
+    @Api
     /** 删除企业 @author 开云 */
     @Operation(summary = "删除企业 @author 开云")
     @GetMapping("/oa/enterprise/delete/{enterpriseId}")
@@ -88,6 +99,8 @@ class EnterpriseController(
         return enterpriseService.deleteEnterprise(enterpriseId)
     }
 
+
+    @Api
     /** 按照类型查询企业 @author 开云 */
     @Operation(summary = "按照类型查询企业 @author 开云")
     @GetMapping("/oa/enterprise/query/list")
@@ -95,6 +108,8 @@ class EnterpriseController(
         return enterpriseService.queryList(type)
     }
 
+
+    @Api
     /** 企业添加员工 @author 罗伊 */
     @Operation(summary = "企业添加员工 @author 罗伊")
     @PostMapping("/oa/enterprise/employee/add")
@@ -102,6 +117,8 @@ class EnterpriseController(
         return enterpriseService.addEmployee(enterpriseEmployeeForm)
     }
 
+
+    @Api
     /** 查询企业全部员工 @author 罗伊 */
     @Operation(summary = "查询企业全部员工 @author 罗伊")
     @PostMapping("/oa/enterprise/employee/list")
@@ -109,6 +126,8 @@ class EnterpriseController(
         return ResponseDTO.ok(enterpriseService.employeeList(enterpriseIdList))
     }
 
+
+    @Api
     /** 分页查询企业员工 @author 卓大 */
     @Operation(summary = "分页查询企业员工 @author 卓大")
     @PostMapping("/oa/enterprise/employee/queryPage")
@@ -119,6 +138,8 @@ class EnterpriseController(
         return ResponseDTO.ok(enterpriseService.queryPageEmployeeList(pageBean, queryForm))
     }
 
+
+    @Api
     /** 企业删除员工 @author 罗伊 */
     @Operation(summary = "企业删除员工 @author 罗伊")
     @PostMapping("/oa/enterprise/employee/delete")

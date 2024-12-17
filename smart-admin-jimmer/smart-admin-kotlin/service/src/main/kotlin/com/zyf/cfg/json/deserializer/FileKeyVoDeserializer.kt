@@ -24,10 +24,13 @@ import java.io.IOException
 class FileKeyVoDeserializer : JsonDeserializer<String>() {
 
     @Throws(IOException::class, JsonProcessingException::class)
-    override fun deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): String {
+    override fun deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): String? {
         val list: MutableList<FileKeyVO> = mutableListOf()
         val objectCodec = jsonParser.codec
         val listOrObjectNode = objectCodec.readTree<JsonNode>(jsonParser)
+        if (listOrObjectNode.size()==0) {
+            return null
+        }
         var deserialize: String
         try {
             if (listOrObjectNode.isArray) {

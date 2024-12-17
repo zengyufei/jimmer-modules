@@ -86,7 +86,7 @@ class NoticeService(
         sql.findById(Notice::class, updateForm.noticeId)
             ?: return ResponseDTO.userErrorParam("通知不存在")
 
-        noticeTypeService.getByNoticeTypeId(updateForm.noticeTypeId!!) ?: return ResponseDTO.userErrorParam("分类不存在")
+        noticeTypeService.byId(updateForm.noticeTypeId!!) ?: return ResponseDTO.userErrorParam("分类不存在")
 
         if (updateForm.allVisibleFlag) {
             return ResponseDTO.ok()
@@ -147,18 +147,18 @@ class NoticeService(
             }
         }, noticeId) ?: return null
 
-        val departmentLiist = notice.departmentRanges.map {
-            val noticeVisibleRangeVO = NoticeVisibleRangeVO()
-            noticeVisibleRangeVO.dataType = 1
-            noticeVisibleRangeVO.dataId = it.departmentId
-            noticeVisibleRangeVO.dataName = it.departmentName
-            noticeVisibleRangeVO
-        }
         val employeeList = notice.employeeRanges.map {
             val noticeVisibleRangeVO = NoticeVisibleRangeVO()
-            noticeVisibleRangeVO.dataType = 2
+            noticeVisibleRangeVO.dataType = NoticeVisibleRangeDataTypeEnum.EMPLOYEE.value
             noticeVisibleRangeVO.dataId = it.employeeId
             noticeVisibleRangeVO.dataName = it.actualName
+            noticeVisibleRangeVO
+        }
+        val departmentLiist = notice.departmentRanges.map {
+            val noticeVisibleRangeVO = NoticeVisibleRangeVO()
+            noticeVisibleRangeVO.dataType = NoticeVisibleRangeDataTypeEnum.DEPARTMENT.value
+            noticeVisibleRangeVO.dataId = it.departmentId
+            noticeVisibleRangeVO.dataName = it.departmentName
             noticeVisibleRangeVO
         }
 
