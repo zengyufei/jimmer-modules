@@ -9,6 +9,7 @@ import com.zyf.common.constant.AdminSwaggerTagConst
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
+import com.zyf.common.utils.SmartRequestUtil
 import com.zyf.login.domain.RequestEmployee
 import com.zyf.oa.service.NoticeEmployeeService
 import com.zyf.oa.service.NoticeService
@@ -40,9 +41,8 @@ class NoticeEmployeeController(
     @Operation(summary = "【员工】通知公告-查看详情 @author 卓大")
     @GetMapping("/oa/notice/employee/view/{noticeId}")
     fun view(@PathVariable noticeId: String, request: HttpServletRequest): ResponseDTO<NoticeDetailVO?> {
-        val requestUser = RequestEmployee()
-        requestUser.userId = "1"
-        requestUser.userName = "admin"
+
+        val requestUser = SmartRequestUtil.requestUser!!
         return noticeEmployeeService.view(
             requestUser.userId!!,
             noticeId,
@@ -58,9 +58,8 @@ class NoticeEmployeeController(
         @Body pageBean: PageBean,
         @RequestBody noticeEmployeeQueryForm: @Valid NoticeEmployeeQueryForm
     ): ResponseDTO<PageResult<NoticeEmployeeVO>> {
-        val requestUser = RequestEmployee()
-        requestUser.userId = "1"
-        requestUser.userName = "admin"
+
+        val requestUser = SmartRequestUtil.requestUser!!
         return noticeEmployeeService.queryList(requestUser.userId!!, pageBean, noticeEmployeeQueryForm)
     }
 

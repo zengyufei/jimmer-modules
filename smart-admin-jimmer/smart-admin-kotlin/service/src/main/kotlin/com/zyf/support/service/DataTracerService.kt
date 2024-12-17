@@ -12,6 +12,7 @@ import com.zyf.common.enums.UserTypeEnum
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
 import com.zyf.common.utils.SmartIpUtil
+import com.zyf.common.utils.SmartRequestUtil
 import com.zyf.login.domain.RequestEmployee
 import com.zyf.service.dto.DataTracerForm
 import com.zyf.service.dto.DataTracerQueryForm
@@ -138,9 +139,7 @@ class DataTracerService(
      * 保存数据变动记录
      */
     fun addTrace(tracerFormBuild: DataTracerForm.Builder) {
-        val requestUser = RequestEmployee()
-        requestUser.userId = "1"
-        requestUser.userName = "admin"
+        val requestUser = SmartRequestUtil.requestUser!!
         this.addTrace(tracerFormBuild, requestUser)
     }
 
@@ -164,9 +163,7 @@ class DataTracerService(
      * 批量保存数据变动记录
      */
     fun addTraceList(tracerFormList: List<DataTracerForm.Builder>) {
-        val requestUser = RequestEmployee()
-        requestUser.userId = "1"
-        requestUser.userName = "admin"
+        val requestUser = SmartRequestUtil.requestUser!!
         this.addTraceList(tracerFormList, requestUser)
     }
 

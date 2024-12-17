@@ -1,6 +1,7 @@
 package com.zyf.support
 
 import com.zyf.common.domain.ResponseDTO
+import com.zyf.common.utils.SmartRequestUtil
 import com.zyf.login.domain.RequestEmployee
 import com.zyf.support.domain.TableColumnUpdateForm
 import com.zyf.support.service.TableColumnService
@@ -20,8 +21,7 @@ class TableColumnController(
     @Api
     @PostMapping("/support/tableColumn/update")
     fun updateTableColumn(@RequestBody @Valid updateForm: TableColumnUpdateForm): ResponseDTO<String?> {
-        val requestUser = RequestEmployee()
-        requestUser.userId = "1"
+        val requestUser = SmartRequestUtil.requestUser!!
         tableColumnService.updateTableColumns(requestUser, updateForm)
         return ResponseDTO.ok()
     }
@@ -30,8 +30,7 @@ class TableColumnController(
     @Api
     @GetMapping("/support/tableColumn/delete/{tableId}")
     fun deleteTableColumn(@PathVariable tableId: String): ResponseDTO<String?> {
-        val requestUser = RequestEmployee()
-        requestUser.userId = "1"
+        val requestUser = SmartRequestUtil.requestUser!!
         tableColumnService.deleteTableColumn(requestUser, tableId)
         return ResponseDTO.ok()
     }
@@ -40,8 +39,7 @@ class TableColumnController(
     @Api
     @GetMapping("/support/tableColumn/getColumns/{tableId}")
     fun getColumns(@PathVariable tableId: String): ResponseDTO<String?> {
-        val requestUser = RequestEmployee()
-        requestUser.userId = "1"
+        val requestUser = SmartRequestUtil.requestUser!!
         return ResponseDTO.ok(tableColumnService.getTableColumns(requestUser, tableId))
     }
 }

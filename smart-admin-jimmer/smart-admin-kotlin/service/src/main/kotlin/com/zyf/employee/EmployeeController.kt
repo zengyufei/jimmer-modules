@@ -5,6 +5,7 @@ import com.zyf.common.annotations.Operation
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
+import com.zyf.common.utils.SmartRequestUtil
 import com.zyf.employee.service.EmployeeService
 import com.zyf.login.domain.RequestEmployee
 import com.zyf.service.dto.*
@@ -49,8 +50,7 @@ class EmployeeController(
     @Operation(summary = "更新登录人信息 @author 善逸")
     @PostMapping("/employee/update/login")
     fun updateByLogin(@RequestBody employeeUpdateForm: EmployeeUpdateForm): ResponseDTO<String?> {
-        val requestUser = RequestEmployee()
-        requestUser.userId = "1"
+        val requestUser = SmartRequestUtil.requestUser!!
         val newForm = employeeUpdateForm.copy(
             employeeId = requestUser.userId
         )
@@ -61,8 +61,7 @@ class EmployeeController(
     @Operation(summary = "更新登录人头像 @author 善逸")
     @PostMapping("/employee/update/avatar")
     fun updateAvatar(@RequestBody employeeUpdateAvatarForm: EmployeeUpdateAvatarForm): ResponseDTO<String?> {
-        val requestUser = RequestEmployee()
-        requestUser.userId = "1"
+        val requestUser = SmartRequestUtil.requestUser!!
         val newForm = employeeUpdateAvatarForm.copy(
             employeeId = requestUser.userId
         )
@@ -95,8 +94,8 @@ class EmployeeController(
     @PostMapping("/employee/update/password")
 //    @ApiDecrypt
     fun updatePassword(@RequestBody updatePasswordForm: EmployeeUpdatePasswordForm): ResponseDTO<String?> {
-        val requestUser = RequestEmployee()
-        requestUser.userId = "1"
+
+        val requestUser = SmartRequestUtil.requestUser!!
         val newForm = updatePasswordForm.copy(
             employeeId = requestUser.userId
         )

@@ -41,7 +41,7 @@ class SmartJobController(
 
     @Operation(summary = "定时任务-查询详情 @huke")
     @GetMapping("/support/job/{jobId}")
-    fun queryJobInfo(@PathVariable jobId: String?): ResponseDTO<SmartJobDetailVO?> {
+    fun queryJobInfo(@PathVariable jobId: String): ResponseDTO<SmartJobDetailVO?> {
         return jobService.queryJobInfo(jobId)
     }
 

@@ -32,7 +32,7 @@ class WebServerListener : ApplicationListener<WebServerInitializedEvent> {
     private val intervalSeconds: Int? = null
 
     override fun onApplicationEvent(webServerInitializedEvent: WebServerInitializedEvent) {
-        val context: WebServerApplicationContext = webServerInitializedEvent.getApplicationContext()
+        val context: WebServerApplicationContext = webServerInitializedEvent.applicationContext
         // 初始化reload
         initReload(context)
         // 项目信息
@@ -43,12 +43,12 @@ class WebServerListener : ApplicationListener<WebServerInitializedEvent> {
      * 显示项目信息
      */
     private fun showProjectMessage(webServerInitializedEvent: WebServerInitializedEvent) {
-        val context: WebServerApplicationContext = webServerInitializedEvent.getApplicationContext()
-        val env: Environment = context.getEnvironment()
+        val context: WebServerApplicationContext = webServerInitializedEvent.applicationContext
+        val env: Environment = context.environment
 
         // 获取服务信息
         val ip = NetUtil.getLocalhost().hostAddress
-        val port: Int = webServerInitializedEvent.getWebServer().getPort()
+        val port: Int = webServerInitializedEvent.webServer.port
         var contextPath = env.getProperty("server.servlet.context-path")
         if (contextPath == null) {
             contextPath = ""
@@ -63,8 +63,7 @@ class WebServerListener : ApplicationListener<WebServerInitializedEvent> {
         val codeCount: Int = ErrorCodeRegister.initialize()
         val localhostUrl = URLUtil.normalize(String.format("http://localhost:%d%s", port, contextPath), false, true)
         val externalUrl = URLUtil.normalize(String.format("http://%s:%d%s", ip, port, contextPath), false, true)
-        val swaggerUrl = URLUtil.normalize(String.format("http://localhost:%d%s/swagger-ui/index.html", port, contextPath), false, true)
-        val knife4jUrl = URLUtil.normalize(String.format("http://localhost:%d%s/doc.html", port, contextPath), false, true)
+        val swaggerUrl = URLUtil.normalize(String.format("http://localhost:%d%s/openapi.html", port, contextPath), false, true)
         log.warn(
             "\n{}\n" +
                     "\t当前启动环境:\t{} , {}" +
@@ -72,9 +71,8 @@ class WebServerListener : ApplicationListener<WebServerInitializedEvent> {
                     "\n\t服务本机地址:\t{}" +
                     "\n\t服务外网地址:\t{}" +
                     "\n\tSwagger地址:\t{}" +
-                    "\n\tknife4j地址:\t{}" +
                     "\n-------------------------------------------------------------------------------------\n",
-            title, profile, environmentEnum?.desc, codeCount, localhostUrl, externalUrl, swaggerUrl, knife4jUrl
+            title, profile, environmentEnum?.desc, codeCount, localhostUrl, externalUrl, swaggerUrl
         )
     }
 

@@ -22,7 +22,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 class MvcConfig(val adminInterceptor: AdminInterceptor) : WebMvcConfigurer {
 
     val SWAGGER_WHITELIST = mutableListOf(
+        "/openapi.yml",
         "/openapi.html",
+        "/favicon**",
         "/ts.zip",
     )
 

@@ -162,7 +162,7 @@ class AdminInterceptor(
         if (!StrUtil.isNumeric(token)) {
             return false
         }
-        return (systemEnvironment!!.currentEnvironment == SystemEnvironmentEnum.DEV
+        return (systemEnvironment.currentEnvironment == SystemEnvironmentEnum.DEV
                 || systemEnvironment.currentEnvironment == SystemEnvironmentEnum.TEST)
     }
 
@@ -171,7 +171,7 @@ class AdminInterceptor(
         // 清除上下文
         remove()
         // 开发环境，关闭 sa token 的临时切换用户
-        if (systemEnvironment!!.currentEnvironment == SystemEnvironmentEnum.DEV) {
+        if (systemEnvironment.currentEnvironment == SystemEnvironmentEnum.DEV) {
             StpUtil.endSwitch()
         }
     }

@@ -8,6 +8,7 @@ import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.UserTypeEnum
+import com.zyf.common.utils.SmartRequestUtil
 import com.zyf.login.domain.RequestEmployee
 import com.zyf.runtime.utils.SmartResponseUtil
 import com.zyf.service.dto.FileQueryForm
@@ -50,10 +51,8 @@ class FileInfoController(
     @Operation(summary = "文件上传 @author 胡克")
     @PostMapping("/support/file/upload")
     fun upload(@RequestParam(value = "file") file: MultipartFile, @RequestParam folder: Int): ResponseDTO<FileUploadVO?> {
-        val requestUser = RequestEmployee()
-        requestUser.userId = "1"
-        requestUser.userName = "admin"
-        requestUser.userType = UserTypeEnum.ADMIN_EMPLOYEE
+
+        val requestUser = SmartRequestUtil.requestUser!!
         return fileService.fileUpload(file, folder, requestUser)
     }
 

@@ -36,7 +36,7 @@ class ReloadController(
     @Operation(summary = "获取reload result @author 开云")
     @GetMapping("/support/reload/result/{tag}")
     @SaCheckPermission("support:reload:result")
-    fun queryReloadResult(@PathVariable("tag") tag: String?): ResponseDTO<List<ReloadResultVO>> {
+    fun queryReloadResult(@PathVariable("tag") tag: String): ResponseDTO<List<ReloadResultVO>> {
         return reloadService.queryReloadItemResult(tag)
     }
 

@@ -10,6 +10,7 @@ import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.EnterpriseTypeEnum
+import com.zyf.common.utils.SmartRequestUtil
 import com.zyf.oa.service.EnterpriseService
 import com.zyf.runtime.utils.SmartExcelUtil
 import com.zyf.runtime.utils.SmartResponseUtil
@@ -51,7 +52,8 @@ class EnterpriseController(
             SmartResponseUtil.write(response, ResponseDTO.userErrorParam<String>("暂无数据"))
             return
         }
-        val watermark = "admin " + DateUtil.now()
+        val requestUser = SmartRequestUtil.requestUser
+        val watermark = requestUser!!.userName + " " + DateUtil.now()
 
         SmartExcelUtil.exportExcelWithWatermark(
             response,

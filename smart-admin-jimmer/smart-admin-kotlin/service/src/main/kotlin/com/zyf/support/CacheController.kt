@@ -36,7 +36,7 @@ class CacheController(
     @Operation(summary = "移除某个缓存 @author 罗伊")
     @GetMapping("/support/cache/remove/{cacheName}")
     @SaCheckPermission("support:cache:delete")
-    fun removeCache(@PathVariable cacheName: String?): ResponseDTO<String?> {
+    fun removeCache(@PathVariable cacheName: String): ResponseDTO<String?> {
         cacheService.removeCache(cacheName)
         return ResponseDTO.ok()
     }
@@ -44,7 +44,7 @@ class CacheController(
     @Operation(summary = "获取某个缓存的所有key @author 罗伊")
     @GetMapping("/support/cache/keys/{cacheName}")
     @SaCheckPermission("support:cache:keys")
-    fun cacheKeys(@PathVariable cacheName: String?): ResponseDTO<List<String>> {
+    fun cacheKeys(@PathVariable cacheName: String): ResponseDTO<List<String>> {
         return ResponseDTO.ok(cacheService.cacheKey(cacheName))
     }
 }

@@ -117,7 +117,7 @@ class HelpDocController(
 
     @Operation(summary = "【管理】帮助文档-删除 @author 卓大")
     @GetMapping("/support/helpDoc/delete/{helpDocId}")
-    fun delete(@PathVariable helpDocId: String?): ResponseDTO<String?> {
+    fun delete(@PathVariable helpDocId: String): ResponseDTO<String?> {
         return helpDocService.delete(helpDocId)
     }
 
