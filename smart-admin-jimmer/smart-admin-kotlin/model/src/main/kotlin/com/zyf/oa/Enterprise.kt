@@ -25,6 +25,7 @@ Enterprise : TenantAware, BaseEntity {
     val enterpriseId: String
 
     /** 企业名称 */
+    @Key
     @Column(name = "enterprise_name")
     @DataTracerFieldLabel("企业名称")
     val enterpriseName: String

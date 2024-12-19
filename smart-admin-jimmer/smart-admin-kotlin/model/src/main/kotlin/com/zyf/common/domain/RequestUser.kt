@@ -18,19 +18,19 @@ interface RequestUser {
      *
      * @return
      */
-    val userId: String?
+    val userId: String
 
     /**
      * 请求用户名称
      *
      * @return
      */
-    val userName: String?
+    val userName: String
 
     /**
      * 获取用户类型
      */
-    val userType: UserTypeEnum?
+    val userType: UserTypeEnum
 
     /**
      * 获取请求的IP

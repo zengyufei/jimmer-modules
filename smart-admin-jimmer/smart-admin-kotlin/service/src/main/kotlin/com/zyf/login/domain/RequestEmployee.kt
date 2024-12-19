@@ -15,16 +15,17 @@ import com.zyf.common.enums.UserTypeEnum
  */
 open class RequestEmployee : RequestUser {
     /** 员工id  */
-    override var userId: String? = null
-    var employeeId: String? = null
+    override lateinit var userId: String
 
-    override var userType: UserTypeEnum? = null
+    lateinit var employeeId: String
+
+    override lateinit var userType: UserTypeEnum
 
     /** 登录账号  */
-    var loginName: String? = null
+    lateinit var loginName: String
 
     /** 员工名称  */
-    override var userName: String? = null
+    override lateinit var userName: String
 
     var actualName: String? = null
 
@@ -37,16 +38,16 @@ open class RequestEmployee : RequestUser {
     var phone: String? = null
 
     /** 部门id */
-    var departmentId: String? = null
+    lateinit var departmentId: String
 
     /** 部门名称 */
-    var departmentName: String? = null
+    lateinit var departmentName: String
 
     /** 是否禁用 */
-    var disabledFlag: Boolean? = null
+    var disabledFlag: Boolean = false
 
     /** 是否为超管 */
-    var administratorFlag: Boolean? = null
+    var administratorFlag: Boolean = false
 
     /** 备注 */
     var remark: String? = null

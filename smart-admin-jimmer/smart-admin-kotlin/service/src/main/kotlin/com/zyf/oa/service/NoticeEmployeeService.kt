@@ -38,10 +38,8 @@ class NoticeEmployeeService(
         noticeEmployeeQueryForm: NoticeEmployeeQueryForm
     ): ResponseDTO<PageResult<NoticeEmployeeVO>> {
 
-        val employee: Employee? = sql.findById(Employee::class, requestEmployeeId)
-        if (employee == null) {
-            throw IllegalArgumentException("用户不存在")
-        }
+        val employee: Employee = sql.findById(Employee::class, requestEmployeeId) ?: throw IllegalArgumentException("用户不存在")
+
         // 如果不是管理员 则获取请求人的 部门及其子部门
         var employeeDepartmentIdList: List<String>? = mutableListOf()
         val departmentId = employee.departmentId

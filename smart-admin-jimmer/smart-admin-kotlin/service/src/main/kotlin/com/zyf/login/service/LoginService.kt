@@ -29,7 +29,6 @@ import com.zyf.repository.employee.EmployeeRepository
 import com.zyf.repository.system.RoleRepository
 import com.zyf.runtime.support.captcha.service.CaptchaService
 import com.zyf.runtime.support.redis.RedisService
-import com.zyf.service.dto.DepartmentVO
 import com.zyf.service.dto.LoginLogVO
 import com.zyf.service.dto.MenuVO
 import com.zyf.service.dto.RoleVO
@@ -271,7 +270,7 @@ class LoginService(
         loginResultVO.menuList = menuAndPointsList
 
         // 更新下后端权限缓存
-        val userPermission: UserPermission? = requestEmployee.userId?.let { getUserPermission(it) }
+        val userPermission: UserPermission = getUserPermission(requestEmployee.userId)
         permissionCache[requestEmployee.userId] = userPermission
 
         // 上次登录信息
@@ -292,7 +291,7 @@ class LoginService(
         }
 
         // 是否需要强制修改密码
-        val needChangePasswordFlag: Boolean? = requestEmployee.userType?.let { requestEmployee.userId?.let { it1 -> securityPasswordService.checkNeedChangePassword(it.value, it1) } }
+        val needChangePasswordFlag: Boolean = securityPasswordService.checkNeedChangePassword(requestEmployee.userType.value, requestEmployee.userId)
         loginResultVO.needUpdatePwdFlag = needChangePasswordFlag
 
         // 万能密码登录，则不需要设置强制修改密码
@@ -309,34 +308,27 @@ class LoginService(
     /**
      * 获取登录的用户信息
      */
-    private fun loadLoginInfo(employee: Employee?): RequestEmployee {
+    private fun loadLoginInfo(employee: Employee): RequestEmployee {
         // 基础信息
 
         val requestEmployee = RequestEmployee()
-        requestEmployee.userId = employee?.employeeId
-        requestEmployee.employeeId = employee?.employeeId
-        requestEmployee.actualName = employee?.actualName
+        requestEmployee.userId = employee.employeeId
+        requestEmployee.employeeId = employee.employeeId
+        requestEmployee.actualName = employee.actualName
         requestEmployee.userType = UserTypeEnum.ADMIN_EMPLOYEE
-        requestEmployee.loginName = employee?.loginName
-        requestEmployee.userName = employee?.actualName
-        requestEmployee.avatar = employee?.avatar
-        requestEmployee.gender = employee?.gender?.value ?: GenderEnum.MAN.value
-        requestEmployee.phone = employee?.phone
-        requestEmployee.departmentId = employee?.departmentId
-        requestEmployee.departmentName = employee?.department?.departmentName
-        requestEmployee.disabledFlag = employee?.disabledFlag
-        requestEmployee.administratorFlag = employee?.administratorFlag
-        requestEmployee.remark = employee?.remark
+        requestEmployee.loginName = employee.loginName
+        requestEmployee.userName = employee.actualName
+        requestEmployee.avatar = employee.avatar
+        requestEmployee.gender = employee.gender.value
+        requestEmployee.phone = employee.phone
+        requestEmployee.departmentId = employee.departmentId!!
+        requestEmployee.departmentName = employee.department?.departmentName!!
+        requestEmployee.disabledFlag = employee.disabledFlag
+        requestEmployee.administratorFlag = employee.administratorFlag
+        requestEmployee.remark = employee.remark
 
-        // 部门信息
-        employee?.departmentId?.let {
-            departmentRepository.byId(DepartmentVO::class, it)?.let { iit ->
-                requestEmployee.departmentName = iit.name
-            }
-        }
-
-        // // 头像信息
-        val avatar: String? = employee?.avatar
+        // 头像信息
+        val avatar: String? = employee.avatar
         if (!avatar.isNullOrBlank()) {
             val getFileUrl: ResponseDTO<String?> = fileStorageService.getFileUrl(avatar)
             if (getFileUrl.ok) {
@@ -417,8 +409,8 @@ class LoginService(
         // 保存登出日志
         val loginLog = LoginLog {
             userId = requestUser.userId
-            userType = requestUser.userType?.value ?: UserTypeEnum.ADMIN_EMPLOYEE.value
-            userName = requestUser.userName ?: ""
+            userType = requestUser.userType.value
+            userName = requestUser.userName
             userAgent = requestUser.userAgent
             loginIp = requestUser.ip
             loginIpRegion = SmartIpUtil.getRegion(requestUser.ip)

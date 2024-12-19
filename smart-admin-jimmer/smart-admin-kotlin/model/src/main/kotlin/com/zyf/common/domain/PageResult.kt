@@ -14,22 +14,22 @@ class PageResult<T> {
     /**
      * 当前页
      */
-    var pageNum: Long? = null
+    var pageNum: Long = 0
 
     /**
      * 每页的数量
      */
-    var pageSize: Long? = null
+    var pageSize: Long = 0
 
     /**
      * 总记录数
      */
-    var total: Long? = null
+    var total: Long = 0
 
     /**
      * 总页数
      */
-    var pages: Long? = null
+    var pages: Long = 0
 
     /**
      * 结果集

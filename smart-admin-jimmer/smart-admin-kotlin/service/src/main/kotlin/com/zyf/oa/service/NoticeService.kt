@@ -77,7 +77,7 @@ class NoticeService(
         }
         val result = sql.insert(notice)
         val noticeId = result.modifiedEntity.noticeId
-        dataTracerService.insert(noticeId, DataTracerTypeEnum.OA_NOTICE);
+        dataTracerService.insert(noticeId, DataTracerTypeEnum.OA_NOTICE)
 
         return ResponseDTO.ok()
     }
@@ -139,10 +139,10 @@ class NoticeService(
         val notice = sql.findById(newFetcher(Notice::class).by {
             allScalarFields()
             noticeType()
-            departmentRanges() {
+            departmentRanges {
                 allScalarFields()
             }
-            employeeRanges() {
+            employeeRanges {
                 allScalarFields()
             }
         }, noticeId) ?: return null

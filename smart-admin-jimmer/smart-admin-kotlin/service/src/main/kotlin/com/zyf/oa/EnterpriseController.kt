@@ -10,15 +10,14 @@ import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.EnterpriseTypeEnum
-import com.zyf.common.utils.SmartRequestUtil
 import com.zyf.oa.service.EnterpriseService
 import com.zyf.runtime.utils.SmartExcelUtil
 import com.zyf.runtime.utils.SmartResponseUtil
 import com.zyf.service.dto.*
+import com.zyf.utils.AdminRequestUtil
 import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
 import org.babyfish.jimmer.client.meta.Api
-import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.springframework.web.bind.annotation.*
 
 @Api("Enterprise Api")
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.*
 @Tag(name = AdminSwaggerTagConst.Business.OA_ENTERPRISE)
 @OperateLog
 class EnterpriseController(
-    val sql: KSqlClient,
     val enterpriseService: EnterpriseService
 ) {
 
@@ -52,8 +50,8 @@ class EnterpriseController(
             SmartResponseUtil.write(response, ResponseDTO.userErrorParam<String>("暂无数据"))
             return
         }
-        val requestUser = SmartRequestUtil.requestUser
-        val watermark = requestUser!!.userName + " " + DateUtil.now()
+        val requestUser = AdminRequestUtil.requestUser
+        val watermark = requestUser.userName + " " + DateUtil.now()
 
         SmartExcelUtil.exportExcelWithWatermark(
             response,

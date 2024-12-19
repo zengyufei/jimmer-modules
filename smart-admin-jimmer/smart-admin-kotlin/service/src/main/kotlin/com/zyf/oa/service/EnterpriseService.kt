@@ -13,6 +13,7 @@ import com.zyf.common.jimmer.page
 import com.zyf.employee.Employee
 import com.zyf.employee.enterpriseId
 import com.zyf.oa.*
+import com.zyf.repository.oa.EnterpriseRepository
 import com.zyf.service.dto.*
 import com.zyf.support.service.DataTracerService
 import org.babyfish.jimmer.sql.ast.tuple.Tuple2
@@ -29,6 +30,7 @@ class EnterpriseService(
     val sql: KSqlClient,
     val objectMapper: ObjectMapper,
     val dataTracerService: DataTracerService,
+    private val enterpriseRepository: EnterpriseRepository,
 ) {
 
     /**
@@ -92,14 +94,8 @@ class EnterpriseService(
      */
     @Transactional(rollbackFor = [Exception::class])
     fun updateEnterprise(updateVO: EnterpriseUpdateForm): ResponseDTO<String?> {
-        val inputEnterpriseId = updateVO.enterpriseId ?: return ResponseDTO.userErrorParam("企业不存在")
-        // 校验企业是否存在
-        val enterpriseDetail = sql.findOneOrNull(newFetcher(Enterprise::class).by {
-            allScalarFields()
-        }) {
-            where(table.enterpriseId eq inputEnterpriseId)
-        }
-        enterpriseDetail ?: return ResponseDTO.userErrorParam("企业不存在")
+        updateVO.enterpriseId ?: return ResponseDTO.userErrorParam("企业不存在")
+
         // 验证企业名称是否重复
         if (sql.exists(Enterprise::class) {
                 where(table.enterpriseName eq updateVO.enterpriseName)
@@ -110,15 +106,16 @@ class EnterpriseService(
 
         // 数据编辑
         val result = sql.update(updateVO)
+
+
         if (result.isModified) {
-            val modifiedEntity = result.modifiedEntity
             // 变更记录
             val builder = DataTracerForm.Builder()
                 .dataId(updateVO.enterpriseId)
                 .type(DataTracerTypeEnum.OA_ENTERPRISE.value)
                 .content("修改企业信息")
-                .diffOld(dataTracerService.getChangeContentK(enterpriseDetail))
-                .diffNew(dataTracerService.getChangeContentK(modifiedEntity))
+                .diffOld(dataTracerService.getChangeContentK(result.originalEntity))
+                .diffNew(dataTracerService.getChangeContentK(result.modifiedEntity))
             dataTracerService.addTrace(builder)
         }
         return ResponseDTO.ok()

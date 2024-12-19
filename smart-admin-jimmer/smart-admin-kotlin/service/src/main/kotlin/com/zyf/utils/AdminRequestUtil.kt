@@ -15,12 +15,12 @@ import com.zyf.login.domain.RequestEmployee
  */
 object AdminRequestUtil {
     @JvmStatic
-    val requestUser: RequestEmployee?
-        get() = SmartRequestUtil.requestUser as RequestEmployee?
+    val requestUser: RequestEmployee
+        get() = SmartRequestUtil.requestUser!! as RequestEmployee
 
     @JvmStatic
-    val requestUserId: String?
+    val requestUserId: String
         get() {
-            return requestUser?.userId
+            return requestUser.userId
         }
 }

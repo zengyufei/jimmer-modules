@@ -56,6 +56,7 @@
   // ============ 组件业务 ============
   const areaOptionData = props.type === TYPE_PROVINCE_CITY_DISTRICT ? PROVINCE_CITY_DISTRICT : PROVINCE_CITY;
 
+
   // 绑定地区数据
   const areaValue = ref([]);
   // 监听value变化
@@ -66,7 +67,7 @@
         let array = [];
         for (let index = 0; index < 3; index++) {
           if (newValue[index]) {
-            array.push(newValue[index].value);
+            array.push(parseInt(newValue[index].value));
           }
         }
         areaValue.value = array;
