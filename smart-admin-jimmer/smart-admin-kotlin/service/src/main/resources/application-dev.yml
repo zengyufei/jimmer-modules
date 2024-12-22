@@ -24,12 +24,10 @@ spring:
 
   # 邮件，置以SSL的方式发送, 这个需要使用这种方式并且端口是465
   mail:
-    host: smtp.qq.com
+    host: smtp.163.com
     port: 465
-    username: 990263438@qq.com
-    password: gpyfzuvddryvbddc
-    #默认的邮件编码为UTF-8
-    default-encoding: UTF-8
+    username: lab1024@163.com
+    password: ROIMSIQCEXHTQFTA
     properties:
       mail:
         smtp:
