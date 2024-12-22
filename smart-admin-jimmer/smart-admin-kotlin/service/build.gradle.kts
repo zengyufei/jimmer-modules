@@ -36,7 +36,14 @@ dependencies {
 	implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
 	implementation("org.springframework.boot:spring-boot-starter-aop")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-mail")
 	implementation("com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2")
+	// https://mvnrepository.com/artifact/org.freemarker/freemarker
+	implementation("org.freemarker:freemarker:2.3.33")
+	// https://mvnrepository.com/artifact/org.jsoup/jsoup
+	implementation("org.jsoup:jsoup:1.18.1")
+
+
 
 //	runtimeOnly("com.h2database:h2:2.1.212")
 //	runtimeOnly("mysql:mysql-connector-java:8.0.30")

@@ -64,13 +64,13 @@ class LoginController(
         return ResponseDTO.ok(captchaService.generateCaptcha())
     }
 
-    // @NoNeedLogin
-    // @GetMapping("/login/sendEmailCode/{loginName}")
-    // /** 获取邮箱登录验证码 @author 卓大 */
-//@Operation(summary = "获取邮箱登录验证码 @author 卓大")
-    // fun sendEmailCode(@PathVariable loginName: String?): ResponseDTO<String?> {
-    //     return loginService.sendEmailCode(loginName)
-    // }
+    @NoNeedLogin
+    @GetMapping("/login/sendEmailCode/{loginName}")
+    /** 获取邮箱登录验证码 @author 卓大 */
+    @Operation(summary = "获取邮箱登录验证码 @author 卓大")
+    fun sendEmailCode(@PathVariable loginName: String?): ResponseDTO<String?> {
+        return loginService.sendEmailCode(loginName)
+    }
 
 
     @NoNeedLogin

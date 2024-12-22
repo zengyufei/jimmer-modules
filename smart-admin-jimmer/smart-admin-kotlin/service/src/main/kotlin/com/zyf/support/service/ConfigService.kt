@@ -97,7 +97,7 @@ class ConfigService(
     fun updateConfig(updateDTO: ConfigUpdateForm): ErrorCode? {
         val configId = updateDTO.configId
 
-        val oldConfig = sql.findById(Config::class, configId!!) ?: return UserErrorCode.DATA_NOT_EXIST
+        sql.findById(Config::class, configId!!) ?: return UserErrorCode.DATA_NOT_EXIST
 
         val fetchOne = sql.createQuery(Config::class) {
             where(table.configKey eq updateDTO.configKey)
@@ -157,31 +157,32 @@ class ConfigService(
     }
 
 
-    //
-//    /**
-//     * 根据参数key查询 并转换为对象
-//     */
-//    fun <T> getConfigValue2Obj(configKey: ConfigKeyEnum, clazz: Class<T>): T? {
-//        val configValue = getConfigValue(configKey)
-//        return JSON.parseObject(configValue, clazz)
-//    }
-//
-//    /**
-//     * 更新系统配置
-//     */
+
+    /**
+     * 根据参数key查询 并转换为对象
+     */
+    fun <T> getConfigValue2Obj(configKey: ConfigKeyEnum, clazz: Class<T>): T? {
+        val configValue = getConfigValue(configKey)
+        return objectMapper.readValue(configValue, clazz)
+    }
+
+    /**
+     * 更新系统配置
+     */
     fun updateValueByKey(key: ConfigKeyEnum, value: String): ResponseDTO<String?> {
-//        val config = getConfig(key) ?: return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
-//
-//        // 更新数据
-//        val configId = config.configId
-//        val entity = Config().apply {
-//            this.configId = configId
-//            this.configValue = value
-//        }
-//        configDao.updateById(entity)
-//
-//        // 刷新缓存
-//        refreshConfigCache(configId)
+        val config = getConfig(key) ?: return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
+
+        // 更新数据
+        val configId = config.configId
+
+        val entity = Config{
+            this.configId = configId
+            this.configValue = value
+        }
+        sql.update(entity)
+
+        // 刷新缓存
+        refreshConfigCache(configId)
         return ResponseDTO.ok()
     }
 

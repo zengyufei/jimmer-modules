@@ -10,7 +10,6 @@ import org.springframework.cache.annotation.EnableCaching
 @SpringBootApplication
 @EnableImplicitApi
 @EnableCaching
-// @EnableAspectJAutoProxy
 class App
 
 fun main(args: Array<String>) {

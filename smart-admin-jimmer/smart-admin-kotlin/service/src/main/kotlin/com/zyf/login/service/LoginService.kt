@@ -2,6 +2,8 @@ package com.zyf.login.service
 
 import cn.dev33.satoken.stp.StpInterface
 import cn.dev33.satoken.stp.StpUtil
+import cn.hutool.core.util.NumberUtil
+import cn.hutool.core.util.RandomUtil
 import cn.hutool.extra.servlet.JakartaServletUtil
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap
@@ -23,6 +25,7 @@ import com.zyf.login.domain.LoginForm
 import com.zyf.login.domain.LoginResultVO
 import com.zyf.login.domain.RequestEmployee
 import com.zyf.login.domain.UserPermission
+import com.zyf.login.enums.MailTemplateCodeEnum
 import com.zyf.loginLog.*
 import com.zyf.repository.employee.DepartmentRepository
 import com.zyf.repository.employee.EmployeeRepository
@@ -61,6 +64,7 @@ class LoginService(
     val redisService: RedisService,
     val securityLoginService: SecurityLoginService,
     val fileStorageService: IFileStorageService,
+    private val mailService: MailService,
 ) : StpInterface {
 
 
@@ -491,48 +495,48 @@ class LoginService(
     /**
      * 发送 邮箱 验证码
      */
-    // fun sendEmailCode(loginName: String?): ResponseDTO<String?> {
-    //     // 开启双因子登录
-    //
-    //     if (!level3ProtectConfigService.isTwoFactorLoginEnabled) {
-    //         return ResponseDTO.userErrorParam("无需使用邮箱验证码")
-    //     }
-    //
-    //     // 验证登录名
-    //     val employee: Employee = loginName?.let { employeeRepository.byLoginName(it) } ?: return ResponseDTO.userErrorParam("登录名不存在！")
-    //
-    //     // 验证账号状态
-    //     if (employee.disabledFlag) {
-    //         return ResponseDTO.userErrorParam("您的账号已被禁用,请联系工作人员！")
-    //     }
-    //
-    //     val mail: String? = employee.email
-    //     if (mail != null && mail.isBlank()) {
-    //         return ResponseDTO.userErrorParam("您暂未配置邮箱地址，请联系管理员配置邮箱")
-    //     }
-    //
-    //     // 校验验证码发送时间，60秒内不能重复发生
-    //     val redisVerificationCodeKey: String = redisService.generateRedisKey(RedisKeyConst.Support.LOGIN_VERIFICATION_CODE, UserTypeEnum.ADMIN_EMPLOYEE.value + RedisKeyConst.SEPARATOR + employee.employeeId)
-    //     val emailCode: String = redisService.get(redisVerificationCodeKey)
-    //     var sendCodeTimeMills: Long = -1
-    //     if (emailCode.isNotBlank()) {
-    //         sendCodeTimeMills = NumberUtil.parseLong(emailCode.split(StringConst.UNDERLINE.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().get(1))
-    //     }
-    //
-    //     if (System.currentTimeMillis() - sendCodeTimeMills < 60 * 1000) {
-    //         return ResponseDTO.userErrorParam("邮箱验证码已发送，一分钟内请勿重复发送")
-    //     }
-    //
-    //     // 生成验证码
-    //     val currentTimeMillis = System.currentTimeMillis()
-    //     val verificationCode = RandomUtil.randomNumbers(4)
-    //     redisService.set(redisVerificationCodeKey, verificationCode + StringConst.UNDERLINE + currentTimeMillis, 300)
-    //
-    //     // 发送邮件验证码
-    //     val mailParams = HashMap<String, Any>()
-    //     mailParams["code"] = verificationCode
-    //     return mailService.sendMail(MailTemplateCodeEnum.LOGIN_VERIFICATION_CODE, mailParams, listOf(employee.email))
-    // }
+     fun sendEmailCode(loginName: String?): ResponseDTO<String?> {
+         // 开启双因子登录
+
+         if (!level3ProtectConfigService.isTwoFactorLoginEnabled) {
+             return ResponseDTO.userErrorParam("无需使用邮箱验证码")
+         }
+
+         // 验证登录名
+         val employee: Employee = loginName?.let { employeeRepository.byLoginName(it) } ?: return ResponseDTO.userErrorParam("登录名不存在！")
+
+         // 验证账号状态
+         if (employee.disabledFlag) {
+             return ResponseDTO.userErrorParam("您的账号已被禁用,请联系工作人员！")
+         }
+
+         val mail: String? = employee.email
+         if (mail.isNullOrBlank()) {
+             return ResponseDTO.userErrorParam("您暂未配置邮箱地址，请联系管理员配置邮箱")
+         }
+
+         // 校验验证码发送时间，60秒内不能重复发生
+         val redisVerificationCodeKey: String = redisService.generateRedisKey(RedisKeyConst.Support.LOGIN_VERIFICATION_CODE, UserTypeEnum.ADMIN_EMPLOYEE.value.toString() + RedisKeyConst.SEPARATOR + employee.employeeId)
+         val emailCode: String? = redisService.get(redisVerificationCodeKey)
+         var sendCodeTimeMills: Long = -1
+         if (!emailCode.isNullOrBlank()) {
+             sendCodeTimeMills = NumberUtil.parseLong(emailCode.split(StringConst.UNDERLINE.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().get(1))
+         }
+
+         if (System.currentTimeMillis() - sendCodeTimeMills < 60 * 1000) {
+             return ResponseDTO.userErrorParam("邮箱验证码已发送，一分钟内请勿重复发送")
+         }
+
+         // 生成验证码
+         val currentTimeMillis = System.currentTimeMillis()
+         val verificationCode = RandomUtil.randomNumbers(4)
+         redisService.set(redisVerificationCodeKey, verificationCode + StringConst.UNDERLINE + currentTimeMillis, 300)
+
+         // 发送邮件验证码
+         val mailParams = HashMap<String, Any>()
+         mailParams["code"] = verificationCode
+         return mailService.sendMail(MailTemplateCodeEnum.LOGIN_VERIFICATION_CODE, mailParams, listOf(employee.email))
+     }
 
 
     /**
