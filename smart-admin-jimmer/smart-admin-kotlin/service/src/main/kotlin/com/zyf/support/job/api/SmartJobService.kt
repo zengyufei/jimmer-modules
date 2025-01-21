@@ -145,10 +145,10 @@ class SmartJobService(
     fun updateJob(updateForm: SmartJobUpdateForm): ResponseDTO<String?> {
         // 校验参数
         val jobId: String = updateForm.jobId!!
-        var jobEntity: SmartJob = smartJobRepository.byId(jobId) ?: return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
+        smartJobRepository.byId(jobId) ?: return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
         // 校验触发时间配置
         val triggerType: String = updateForm.triggerType
-        val triggerValue: String = updateForm.triggerValue!!
+        val triggerValue: String = updateForm.triggerValue
         if (SmartJobTriggerTypeEnum.CRON.equalsValue(triggerType) && !SmartJobUtil.checkCron(triggerValue)) {
             return ResponseDTO.userErrorParam("cron表达式错误")
         }

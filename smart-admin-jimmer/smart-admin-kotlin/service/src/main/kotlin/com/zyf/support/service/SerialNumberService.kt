@@ -90,7 +90,7 @@ class SerialNumberService(
     @Transactional(rollbackFor = [Exception::class])
     fun update(updateParam: SerialNumberUpdateParam): ResponseDTO<String?> {
         // 数据编辑
-        val result = sql.update(updateParam)
+        sql.update(updateParam)
         return ResponseDTO.ok()
     }
 

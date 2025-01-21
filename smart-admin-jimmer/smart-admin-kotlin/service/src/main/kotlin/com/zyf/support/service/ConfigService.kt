@@ -1,5 +1,6 @@
 package com.zyf.support.service
 
+import cn.hutool.json.XMLTokener.entity
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.annotations.Slf4j
 import com.zyf.common.annotations.Slf4j.Companion.log
@@ -36,11 +37,14 @@ class ConfigService(
     val objectMapper: ObjectMapper,
 ) {
 
+    companion object {
 
-    /**
-     * 一个简单的系统配置缓存
-     */
-    private val CONFIG_CACHE = ConcurrentHashMap<String, ConfigVO>()
+        /**
+         * 一个简单的系统配置缓存
+         */
+        private val CONFIG_CACHE = ConcurrentHashMap<String, ConfigVO>()
+    }
+
 
     /**
      * 初始化系统设置缓存
@@ -54,8 +58,8 @@ class ConfigService(
         if (entityList.isEmpty()) {
             return
         }
-        entityList.forEach { entity ->
-            CONFIG_CACHE[entity.configKey.lowercase()] = entity
+        entityList.forEach {
+            CONFIG_CACHE[it.configKey.lowercase()] = it
         }
         log.info("################# 系统配置缓存初始化完毕:{} ###################", CONFIG_CACHE.size)
     }
@@ -67,7 +71,7 @@ class ConfigService(
     fun queryConfigPage(pageBean: PageBean, queryForm: ConfigQueryForm): PageResult<ConfigVO> {
         return sql.createQuery(Config::class) {
             orderBy(pageBean)
-            where(table.configKey `ilike?` queryForm.configKey)
+            where(queryForm)
             select(table.fetch(ConfigVO::class))
         }.page(pageBean)
     }
@@ -97,7 +101,7 @@ class ConfigService(
     fun updateConfig(updateDTO: ConfigUpdateForm): ErrorCode? {
         val configId = updateDTO.configId
 
-        sql.findById(Config::class, configId!!) ?: return UserErrorCode.DATA_NOT_EXIST
+        sql.findById(Config::class, configId) ?: return UserErrorCode.DATA_NOT_EXIST
 
         val fetchOne = sql.createQuery(Config::class) {
             where(table.configKey eq updateDTO.configKey)

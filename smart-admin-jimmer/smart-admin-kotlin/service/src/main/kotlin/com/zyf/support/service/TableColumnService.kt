@@ -46,8 +46,8 @@ class TableColumnService(
         if (oldTableColumn == null) {
             val tableColumn = TableColumn {
                 this.tableId = tableId
-                this.userId = requestUser.userId!!
-                this.userType = requestUser.userType?.value ?: UserTypeEnum.ADMIN_EMPLOYEE.value
+                this.userId = requestUser.userId
+                this.userType = requestUser.userType.value
                 this.columns = objectMapper.writeValueAsString(updateForm.columnList)
             }
             sql.insert(tableColumn)

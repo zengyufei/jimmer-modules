@@ -7,16 +7,11 @@ import com.zyf.common.base.SnowflakeIdGenerator
 import com.zyf.common.base.TenantAware
 import com.zyf.common.enums.EnterpriseTypeEnum
 import com.zyf.employee.Employee
-import com.zyf.support.FileInfo
 import org.babyfish.jimmer.sql.*
 
 @Entity
 @Table(name = "t_oa_enterprise")
-interface
-
-
-
-Enterprise : TenantAware, BaseEntity {
+interface Enterprise : TenantAware, BaseEntity {
 
     /** id */
     @Id

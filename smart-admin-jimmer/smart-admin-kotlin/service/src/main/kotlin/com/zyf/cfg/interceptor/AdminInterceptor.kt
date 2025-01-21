@@ -100,7 +100,7 @@ class AdminInterceptor(
             }
 
             // 如果是超级管理员的话，不需要校验权限
-            if (requestEmployee.administratorFlag!!) {
+            if (requestEmployee.administratorFlag) {
                 return true
             }
 

@@ -121,7 +121,7 @@ class RequestWrapper(request: HttpServletRequest) : HttpServletRequestWrapper(re
     /**
      * 清理缓存的请求体数据
      */
-    fun clearBody() {
+    private fun clearBody() {
         // 将body数组清空
         body = ByteArray(0)
     }

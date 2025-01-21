@@ -152,9 +152,9 @@ class DataTracerService(
             tracerForm.ip(requestUser.ip)
             tracerForm.ip(SmartIpUtil.getRegion(requestUser.ip))
             tracerForm.userAgent(requestUser.userAgent)
-            tracerForm.userId(requestUser.userId ?: "")
-            tracerForm.userType(requestUser.userType?.value ?: UserTypeEnum.ADMIN_EMPLOYEE.value)
-            tracerForm.userName(requestUser.userName ?: "")
+            tracerForm.userId(requestUser.userId)
+            tracerForm.userType(requestUser.userType.value)
+            tracerForm.userName(requestUser.userName)
         }
         sql.insert(tracerForm.build())
     }
@@ -179,9 +179,9 @@ class DataTracerService(
                 it.ip(requestUser.ip)
                 it.ip(SmartIpUtil.getRegion(requestUser.ip))
                 it.userAgent(requestUser.userAgent)
-                it.userId(requestUser.userId ?: "")
-                it.userType(requestUser.userType?.value ?: UserTypeEnum.ADMIN_EMPLOYEE.value)
-                it.userName(requestUser.userName ?: "")
+                it.userId(requestUser.userId)
+                it.userType(requestUser.userType.value)
+                it.userName(requestUser.userName)
                 it.build()
             }
         } ?: tracerFormList.map { it.build() }

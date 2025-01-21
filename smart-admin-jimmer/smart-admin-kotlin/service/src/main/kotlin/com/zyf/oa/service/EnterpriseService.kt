@@ -10,8 +10,7 @@ import com.zyf.common.enums.DataTracerTypeEnum
 import com.zyf.common.enums.EnterpriseTypeEnum
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
-import com.zyf.employee.Employee
-import com.zyf.employee.enterpriseId
+import com.zyf.employee.*
 import com.zyf.oa.*
 import com.zyf.repository.oa.EnterpriseRepository
 import com.zyf.service.dto.*
@@ -19,6 +18,7 @@ import com.zyf.support.service.DataTracerService
 import org.babyfish.jimmer.sql.ast.tuple.Tuple2
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.ast.expression.*
+import org.babyfish.jimmer.sql.kt.ast.table.source
 import org.babyfish.jimmer.sql.kt.exists
 import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
 import org.springframework.stereotype.Service
@@ -36,7 +36,10 @@ class EnterpriseService(
     /**
      * 分页查询企业模块
      */
-    fun queryByPage(pageBean: PageBean, queryForm: EnterpriseQueryForm): ResponseDTO<PageResult<EnterpriseVO>> {
+    fun queryByPage(
+        pageBean: PageBean,
+        queryForm: EnterpriseQueryForm
+    ): ResponseDTO<PageResult<EnterpriseVO>> {
         val pageResult = sql.createQuery(Enterprise::class) {
 
             pageBean.sortCode?.let {
@@ -80,9 +83,9 @@ class EnterpriseService(
             }) {
             return ResponseDTO.userErrorParam("企业名称重复")
         }
-
         // 数据插入
         val result = sql.insert(createVO)
+
         val modifiedEntity = result.modifiedEntity
         // 变更记录
         dataTracerService.insert(modifiedEntity.enterpriseId, DataTracerTypeEnum.OA_ENTERPRISE)
@@ -95,7 +98,6 @@ class EnterpriseService(
     @Transactional(rollbackFor = [Exception::class])
     fun updateEnterprise(updateVO: EnterpriseUpdateForm): ResponseDTO<String?> {
         updateVO.enterpriseId ?: return ResponseDTO.userErrorParam("企业不存在")
-
         // 验证企业名称是否重复
         if (sql.exists(Enterprise::class) {
                 where(table.enterpriseName eq updateVO.enterpriseName)

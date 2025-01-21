@@ -27,6 +27,7 @@ class SystemEnvironmentConfig : Condition {
 
     @Value("\${project.name}")
     lateinit var projectName: String
+
     /**
      * 判断是否开启swagger
      */
@@ -38,7 +39,7 @@ class SystemEnvironmentConfig : Condition {
      * 是否为：开发环境和 测试环境
      */
     private fun isDevOrTest(conditionContext: ConditionContext): Boolean {
-        val property: String? = conditionContext.getEnvironment().getProperty("spring.profiles.active")
+        val property: String? = conditionContext.environment.getProperty("spring.profiles.active")
         return property?.isNotBlank() == true && (SystemEnvironmentEnum.TEST.equalsValue(property) || SystemEnvironmentEnum.DEV.equalsValue(
             property
         ))
@@ -49,7 +50,7 @@ class SystemEnvironmentConfig : Condition {
         val currentEnvironment: SystemEnvironmentEnum =
             SmartEnumUtil.getEnumByValue<SystemEnvironmentEnum>(systemEnvironment)
                 ?: throw ExceptionInInitializerError("无法获取当前环境！请在 application.yaml 配置参数：spring.profiles.active")
-        if (projectName?.isBlank() == true) {
+        if (projectName.isBlank()) {
             throw ExceptionInInitializerError("无法获取当前项目名称！请在 application.yaml 配置参数：project.name")
         }
         return SystemEnvironment(currentEnvironment === SystemEnvironmentEnum.PROD, projectName, currentEnvironment)

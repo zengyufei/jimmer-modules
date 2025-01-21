@@ -18,8 +18,10 @@ class DictCacheService(
     val objectMapper: ObjectMapper,
 ) {
 
-    private val DICT_CACHE = ConcurrentHashMap<String, List<DictValueVO>>()
-    private val VALUE_CACHE = ConcurrentHashMap<String, DictValueVO>()
+    companion object {
+         val DICT_CACHE = ConcurrentHashMap<String, List<DictValueVO>>()
+         val VALUE_CACHE = ConcurrentHashMap<String, DictValueVO>()
+    }
 
     @PostConstruct
     fun dictCache() {
@@ -40,9 +42,9 @@ class DictCacheService(
         val valueListMap = dictValueVOList.groupBy { it.dictKeyId }
 
         // 字典键值对缓存
-        dictKeyEntityList.forEach { dictKeyEntity ->
-            val keyCode = dictKeyEntity.keyCode
-            val dictKeyId = dictKeyEntity.dictKeyId
+        dictKeyEntityList.forEach {
+            val keyCode = it.keyCode
+            val dictKeyId = it.dictKeyId
             DICT_CACHE[keyCode] = valueListMap.getOrDefault(dictKeyId, emptyList())
         }
 

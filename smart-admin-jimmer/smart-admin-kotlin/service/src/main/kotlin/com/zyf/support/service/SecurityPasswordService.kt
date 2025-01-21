@@ -45,7 +45,7 @@ class SecurityPasswordService(
         }
 
         // 无需校验 密码复杂度
-        if (!level3ProtectConfigService!!.isPasswordComplexityEnabled) {
+        if (!level3ProtectConfigService.isPasswordComplexityEnabled) {
             return ResponseDTO.ok()
         }
 
@@ -69,12 +69,8 @@ class SecurityPasswordService(
         // 检查最近几次是否有重复密码
         val oldPasswords: List<String?> = sql.createQuery(PasswordLog::class) {
             orderBy(table.passwordLogId.desc())
-            requestUser.userType?.let {
-                where(table.userType eq it.value)
-            }
-            requestUser.userId?.let {
-                where(table.employeeId eq it)
-            }
+            where(table.userType eq requestUser.userType.value)
+            where(table.employeeId eq requestUser.userId)
             select(table.newPassword)
         }.limit(level3ProtectConfigService.regularChangePasswordNotAllowRepeatTimes).execute()
 
@@ -111,7 +107,7 @@ class SecurityPasswordService(
             newPassword = inputNewPassword
             inputOldPassword?.let { oldPassword = it }
             employeeId = requestUser.userId
-            userType = requestUser.userType!!.value
+            userType = requestUser.userType.value
         }
         sql.insert(passwordLog)
     }

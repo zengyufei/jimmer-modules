@@ -76,7 +76,7 @@ class HelpDocUserService(
         if (viewCount == 0L) {
             sql.insert(HelpDocViewRecord {
                 helpDocId = inputHelpDocId
-                userId = requestUser!!.userId!!
+                userId = requestUser!!.userId
                 userName = requestUser.userName
                 firstIp = requestUser.ip
                 firstUserAgent = requestUser.userAgent

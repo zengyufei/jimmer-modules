@@ -1,0 +1,39 @@
+{
+  "properties": [
+    {
+      "name": "project.pageField.pageNum",
+      "type": "java.lang.String",
+      "description": "当前页参数名称."
+    },
+    {
+      "name": "project.pageField.enabled",
+      "type": "java.lang.String",
+      "description": "开关参数名称."
+    },
+    {
+      "name": "project.pageField.pageSize",
+      "type": "java.lang.String",
+      "description": "分页大小参数名称."
+    },
+    {
+      "name": "project.pageField.sortCode",
+      "type": "java.lang.String",
+      "description": "排序参数名称."
+    },
+    {
+      "name": "project.default-tenant",
+      "type": "java.lang.String",
+      "description": "默认租户标识."
+    },
+    {
+      "name": "project.access-control-allow-origin",
+      "type": "java.lang.String",
+      "description": "跨域配置."
+    },
+    {
+      "name": "project.name",
+      "type": "java.lang.String",
+      "description": "项目名."
+    }
+  ]
+}

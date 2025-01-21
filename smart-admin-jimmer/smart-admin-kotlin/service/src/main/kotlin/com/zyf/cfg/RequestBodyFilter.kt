@@ -13,8 +13,8 @@ import java.io.IOException
 /**
  * 重新组装 HttpServletRequest 返回, 解决拦截器中从流中获取完 post 请求中的 body 参数，controller 层无法再次获取的问题
  */
-@Order(10)
-@Component
+//@Order(10)
+//@Component
 class RequestBodyFilter : OncePerRequestFilter() {
 
     @Throws(ServletException::class, IOException::class)

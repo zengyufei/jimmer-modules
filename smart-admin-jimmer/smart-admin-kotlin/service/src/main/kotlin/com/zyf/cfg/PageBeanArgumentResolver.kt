@@ -15,6 +15,9 @@ import org.springframework.web.method.support.ModelAndViewContainer
  * 解决 分页参数 注入问题
  */
 class PageBeanArgumentResolver(
+    private val pageNumKeyName: String = "pageNum",
+    private val pageSizeKeyName: String = "pageSize",
+    private val sortCodeKeyName: String = "sortCode",
     private val objectMapper: ObjectMapper
 ) : HandlerMethodArgumentResolver {
 
@@ -46,11 +49,10 @@ class PageBeanArgumentResolver(
         // 从webRequest获取原生的HttpServletRequest对象
         val request = webRequest.getNativeRequest(HttpServletRequest::class.java)!!
 
-
         // 尝试从请求参数中获取分页和排序相关的参数
-        val inputSortCode: String? = request.getParameter("sortCode")
-        val inputPageNum: String? = request.getParameter("pageNum")
-        val inputPageSize: String? = request.getParameter("pageSize")
+        val inputSortCode: String? = request.getParameter(sortCodeKeyName)
+        val inputPageNum: String? = request.getParameter(pageNumKeyName)
+        val inputPageSize: String? = request.getParameter(pageSizeKeyName)
 
         // 解析JSON字符串
         val jsonString = getHttpRequestBody(request)
@@ -58,9 +60,9 @@ class PageBeanArgumentResolver(
         val jsonNode: JsonNode = objectMapper.readTree(jsonString)
 
         // 从JsonNode中获取分页和排序相关的参数
-        val jsonSortCode: JsonNode? = jsonNode.get("sortCode")
-        val jsonPageNum: JsonNode? = jsonNode.get("pageNum")
-        val jsonPageSize: JsonNode? = jsonNode.get("pageSize")
+        val jsonSortCode: JsonNode? = jsonNode.get(sortCodeKeyName)
+        val jsonPageNum: JsonNode? = jsonNode.get(pageNumKeyName)
+        val jsonPageSize: JsonNode? = jsonNode.get(pageSizeKeyName)
 
         // 根据JSON和请求参数中的pageSize，选择有效的pageSize值
         val pageSize: Int? = try {

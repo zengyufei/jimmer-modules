@@ -16,6 +16,7 @@ interface Menu : TenantAware, BaseEntity {
     val menuId: String
 
     /** 菜单名称 */
+    @Key
     @Column(name = "menu_name")
     val menuName: String
 

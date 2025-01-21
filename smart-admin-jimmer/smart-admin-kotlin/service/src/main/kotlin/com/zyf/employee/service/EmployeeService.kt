@@ -1,12 +1,15 @@
 package com.zyf.employee.service
 
+import cn.dev33.satoken.stp.StpUtil
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.annotations.Slf4j
 import com.zyf.common.code.UserErrorCode
+import com.zyf.common.constant.StringConst
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.RequestUser
 import com.zyf.common.domain.ResponseDTO
+import com.zyf.common.enums.UserTypeEnum
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
 import com.zyf.department.service.DepartmentService
@@ -221,7 +224,7 @@ class EmployeeService(
         // 遍历员工ID列表，强制退出所有相关员工的登录状态
         employeeIdList.forEach { employeeId ->
             // 强制退出登录
-//            StpUtil.logout(UserTypeEnum.ADMIN_EMPLOYEE.value + StringConst.COLON + employeeId)
+            StpUtil.logout(UserTypeEnum.ADMIN_EMPLOYEE.value.toString() + StringConst.COLON + employeeId)
         }
 
         // 返回成功响应

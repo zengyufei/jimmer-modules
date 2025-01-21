@@ -97,11 +97,11 @@ class Level3ProtectConfigService {
 
 
     @Resource
-    private val configService: ConfigService? = null
+    lateinit var configService: ConfigService
 
     @PostConstruct
     fun init() {
-        val configValue = configService!!.getConfigValue(ConfigKeyEnum.LEVEL3_PROTECT_CONFIG)
+        val configValue = configService.getConfigValue(ConfigKeyEnum.LEVEL3_PROTECT_CONFIG)
         if (StrUtil.isEmpty(configValue)) {
             throw ExceptionInInitializerError("t_config 表 三级等保配置为空，请进行配置！")
         }
@@ -161,6 +161,6 @@ class Level3ProtectConfigService {
         setProp(configForm)
         // 保存数据库
         val configFormJsonString = JSONUtil.toJsonStr(configForm)
-        return configService!!.updateValueByKey(ConfigKeyEnum.LEVEL3_PROTECT_CONFIG, configFormJsonString)
+        return configService.updateValueByKey(ConfigKeyEnum.LEVEL3_PROTECT_CONFIG, configFormJsonString)
     }
 }

@@ -14,8 +14,8 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
 	mavenLocal()
-	mavenCentral()
 	maven { url = uri("https://mirrors.cloud.tencent.com/nexus/repository/maven-public/") }
+	mavenCentral()
 }
 
 

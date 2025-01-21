@@ -58,6 +58,12 @@ jimmer:
 
 # 项目配置: 名称、日志目录
 project:
+  access-control-allow-origin: "*"
+  pageField:
+    enabled: true
+    pageNum: "pageNum"
+    pageSize: "pageSize"
+    sortCode: "sortCode"
   default-tenant: "1"
   name: sa-admin
   log-directory: ${localPath:/home}/logs/smart_admin_v3/${project.name}/${spring.profiles.active}

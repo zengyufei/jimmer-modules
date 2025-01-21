@@ -3,7 +3,7 @@ package com.zyf.common.code
 import org.apache.commons.lang3.tuple.ImmutablePair
 import java.util.concurrent.ConcurrentHashMap
 import java.util.stream.Collectors
-import java.util.stream.Stream
+import kotlin.reflect.KClass
 
 /**
  * 错误码 注册容器
@@ -18,14 +18,14 @@ internal object ErrorCodeRangeContainer {
     /**
      * 所有的错误码均大于10000
      */
-    const val MIN_START_CODE: Int = 10000
+    private const val MIN_START_CODE: Int = 10000
 
-    val CODE_RANGE_MAP: MutableMap<Class<out ErrorCode?>, ImmutablePair<Int, Int>> = ConcurrentHashMap()
+    private val CODE_RANGE_MAP: MutableMap<KClass<out ErrorCode>, ImmutablePair<Int, Int>> = ConcurrentHashMap()
 
     /**
      * 用于统计数量
      */
-    var errorCounter: Int = 0
+    private var errorCounter: Int = 0
 
     /**
      * 注册状态码
@@ -33,9 +33,9 @@ internal object ErrorCodeRangeContainer {
      *
      */
     @JvmStatic
-    fun register(clazz: Class<out ErrorCode?>, start: Int, end: Int) {
+    fun register(clazz: KClass<out ErrorCode>, start: Int, end: Int) {
         val simpleName = clazz.simpleName
-        if (!clazz.isEnum) {
+        if (!clazz.java.isEnum) {
             throw ExceptionInInitializerError(String.format("<<ErrorCodeRangeValidator>> error: %s not Enum class !", simpleName))
         }
         if (start > end) {
@@ -53,7 +53,7 @@ internal object ErrorCodeRangeContainer {
         }
 
         // 校验 开始结束值 是否越界
-        CODE_RANGE_MAP.forEach { (k: Class<out ErrorCode?>, v: ImmutablePair<Int, Int>) ->
+        CODE_RANGE_MAP.forEach { (k: KClass<out ErrorCode>, v: ImmutablePair<Int, Int>) ->
             require(!isExistOtherRange(start, end, v)) {
                 String.format(
                     "<<ErrorCodeRangeValidator>> error: %s[%d,%d] has intersection with class:%s[%d,%d]", simpleName, start, end,
@@ -63,11 +63,11 @@ internal object ErrorCodeRangeContainer {
         }
 
         // 循环校验code并存储
-        val codeList = Stream.of(*clazz.enumConstants).map { codeEnum: ErrorCode? ->
+        val codeList = clazz.java.enumConstants.map { codeEnum: ErrorCode? ->
             val code = codeEnum!!.code
             require(!(code < start || code > end)) { String.format("<<ErrorCodeRangeValidator>> error: %s[%d,%d] code %d out of range", simpleName, start, end, code) }
             code
-        }.collect(Collectors.toList())
+        }
 
         // 校验code是否重复
         val distinctCodeList = codeList.stream().distinct().collect(Collectors.toList())
@@ -76,7 +76,7 @@ internal object ErrorCodeRangeContainer {
 
         CODE_RANGE_MAP[clazz] = ImmutablePair.of(start, end)
         // 统计
-        errorCounter = errorCounter + distinctCodeList.size
+        errorCounter += distinctCodeList.size
     }
 
     /**
