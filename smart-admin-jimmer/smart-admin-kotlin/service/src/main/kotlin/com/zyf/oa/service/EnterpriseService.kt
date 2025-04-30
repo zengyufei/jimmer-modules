@@ -1,5 +1,6 @@
 package com.zyf.oa.service
 
+import cn.hutool.core.lang.Console.where
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.annotations.Slf4j
 import com.zyf.common.code.UserErrorCode
@@ -8,9 +9,9 @@ import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.DataTracerTypeEnum
 import com.zyf.common.enums.EnterpriseTypeEnum
-import com.zyf.common.jimmer.orderBy
-import com.zyf.common.jimmer.page
-import com.zyf.employee.*
+import com.zyf.common.jimmer.*
+import com.zyf.employee.Employee
+import com.zyf.employee.enterpriseId
 import com.zyf.oa.*
 import com.zyf.repository.oa.EnterpriseRepository
 import com.zyf.service.dto.*
@@ -18,9 +19,7 @@ import com.zyf.support.service.DataTracerService
 import org.babyfish.jimmer.sql.ast.tuple.Tuple2
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.ast.expression.*
-import org.babyfish.jimmer.sql.kt.ast.table.source
 import org.babyfish.jimmer.sql.kt.exists
-import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -40,15 +39,10 @@ class EnterpriseService(
         pageBean: PageBean,
         queryForm: EnterpriseQueryForm
     ): ResponseDTO<PageResult<EnterpriseVO>> {
-        val pageResult = sql.createQuery(Enterprise::class) {
-
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.createTime.desc())
-
+        val pageResult = sql.page(Enterprise::class, EnterpriseVO::class, pageBean) {
+            orderBy(pageBean, table.createTime.desc())
             where(queryForm)
-            select(table.fetch(EnterpriseVO::class))
-        }.page(pageBean)
+        }
         return ResponseDTO.ok(pageResult)
     }
 
@@ -56,12 +50,10 @@ class EnterpriseService(
      * 获取导出数据
      */
     fun getExcelExportData(queryForm: EnterpriseQueryForm): List<EnterpriseExcelVO> {
-        val vos = sql.createQuery(Enterprise::class) {
+        val vos = sql.list(Enterprise::class, EnterpriseExcelVO::class) {
             orderBy(table.createTime.desc())
-
             where(queryForm)
-            select(table.fetch(EnterpriseExcelVO::class))
-        }.execute()
+        }
         return vos
     }
 
@@ -78,9 +70,7 @@ class EnterpriseService(
     @Transactional(rollbackFor = [Exception::class])
     fun createEnterprise(createVO: EnterpriseCreateForm): ResponseDTO<String?> {
         // 验证企业名称是否重复
-        if (sql.exists(Enterprise::class) {
-                where(table.enterpriseName eq createVO.enterpriseName)
-            }) {
+        if (sql.exists(Enterprise::class){ where(table.enterpriseName eq createVO.enterpriseName) }) {
             return ResponseDTO.userErrorParam("企业名称重复")
         }
         // 数据插入
@@ -143,11 +133,14 @@ class EnterpriseService(
      * 企业列表查询
      */
     fun queryList(type: EnterpriseTypeEnum?): ResponseDTO<List<EnterpriseListVO>> {
-        val vos = sql.createQuery(Enterprise::class) {
+
+        val vos = sql.list(
+            Enterprise::class,
+            EnterpriseListVO::class
+        ) {
             where(table.type `eq?` type)
             where(table.disabledFlag `eq?` false)
-            select(table.fetch(EnterpriseListVO::class))
-        }.execute()
+        }
         return ResponseDTO.ok(vos)
     }
 
@@ -164,7 +157,7 @@ class EnterpriseService(
 
         sql.findById(Enterprise::class, enterpriseId) ?: return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
 
-        if (waitAddEmployeeIdList.isNotEmpty()) {
+        waitAddEmployeeIdList.takeIf { it.isNotEmpty() }.let {
             val list = mutableListOf<Tuple2<String, String>>()
             waitAddEmployeeIdList.forEach {
                 list.add(Tuple2(it, enterpriseId))
@@ -172,6 +165,7 @@ class EnterpriseService(
             sql.getAssociations(Employee::enterprise)
                 .insertAllIfAbsent(list)
         }
+
         return ResponseDTO.ok()
     }
 
@@ -205,22 +199,20 @@ class EnterpriseService(
         if (enterpriseIdList.isEmpty()) {
             return emptyList()
         }
-        return sql.createQuery(Employee::class) {
+        return sql.list(Employee::class, EnterpriseEmployeeVO::class) {
             enterpriseIdList.takeIf { it.isNotEmpty() }?.let {
                 where(table.enterpriseId `valueIn?` enterpriseIdList)
             }
-            select(table.fetch(EnterpriseEmployeeVO::class))
-        }.execute()
+        }
     }
 
     /**
      * 分页查询企业员工
      */
     fun queryPageEmployeeList(pageBean: PageBean, queryForm: EnterpriseEmployeeQueryForm): PageResult<EnterpriseEmployeeVO> {
-        return sql.createQuery(Employee::class) {
+        return sql.page(Employee::class, EnterpriseEmployeeVO::class, pageBean) {
             orderBy(pageBean)
             where(queryForm)
-            select(table.fetch(EnterpriseEmployeeVO::class))
-        }.page(pageBean)
+        }
     }
 }

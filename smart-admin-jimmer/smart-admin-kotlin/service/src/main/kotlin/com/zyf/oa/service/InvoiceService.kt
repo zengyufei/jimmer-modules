@@ -1,9 +1,12 @@
 package com.zyf.oa.service
 
+import cn.hutool.core.lang.Console.where
 import com.zyf.common.annotations.Slf4j
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
+import com.zyf.common.jimmer.list
+import com.zyf.common.jimmer.notExists
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
 import com.zyf.oa.*
@@ -29,14 +32,10 @@ class InvoiceService(
      * 分页查询发票信息
      */
     fun queryByPage(pageBean: PageBean, queryForm: InvoiceQueryForm): ResponseDTO<PageResult<InvoiceVO>> {
-        val pageResult = sql.createQuery(Invoice::class) {
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.createTime.desc())
-
+        val pageResult = sql.page(Invoice::class, InvoiceVO::class, pageBean) {
+            orderBy(pageBean, table.createTime.desc())
             where(queryForm)
-            select(table.fetch(InvoiceVO::class))
-        }.page(pageBean)
+        }
         return ResponseDTO.ok(pageResult)
     }
 
@@ -44,11 +43,10 @@ class InvoiceService(
      * 查询发票信息列表
      */
     fun queryList(enterpriseId: String): ResponseDTO<List<InvoiceVO>> {
-        val vos = sql.createQuery(Invoice::class) {
+        val vos = sql.list(Invoice::class, InvoiceVO::class) {
             where(table.enterpriseId eq enterpriseId)
             where(table.disabledFlag eq false)
-            select(table.fetch(InvoiceVO::class))
-        }.execute()
+        }
         return ResponseDTO.ok(vos)
     }
 
@@ -69,7 +67,7 @@ class InvoiceService(
         val enterpriseId = createVO.enterpriseId
 
         // 校验企业是否存在
-        if (!sql.exists(Enterprise::class) {
+        if (sql.notExists(Enterprise::class) {
                 where(table.enterpriseId eq enterpriseId)
             }) {
             return ResponseDTO.userErrorParam("企业不存在")
@@ -99,14 +97,14 @@ class InvoiceService(
         val invoiceId = updateVO.invoiceId
 
         // 校验企业是否存在
-        if (!sql.exists(Enterprise::class) {
+        if (sql.notExists(Enterprise::class) {
                 where(table.enterpriseId eq enterpriseId)
             }) {
             return ResponseDTO.userErrorParam("企业不存在")
         }
 
         // 校验发票信息是否存在
-        if (!sql.exists(Invoice::class) {
+        if (sql.notExists(Invoice::class) {
                 where(table.invoiceId eq invoiceId)
             }) {
             return ResponseDTO.userErrorParam("发票信息不存在")
@@ -134,7 +132,7 @@ class InvoiceService(
     @Transactional(rollbackFor = [Exception::class])
     fun deleteInvoice(invoiceId: String): ResponseDTO<String?> {
         // 校验发票信息是否存在
-        if (!sql.exists(Invoice::class) {
+        if (sql.notExists(Invoice::class) {
                 where(table.invoiceId eq invoiceId)
             }) {
             return ResponseDTO.userErrorParam("发票信息不存在")

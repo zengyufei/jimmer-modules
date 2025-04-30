@@ -109,12 +109,12 @@ class MailService(
             subject = "(测试)$subject"
         }
 
-        val mimeMessage: MimeMessage = javaMailSender!!.createMimeMessage()
+        val mimeMessage: MimeMessage = javaMailSender.createMimeMessage()
 
         //是否为多文件上传
         val multiparty = !CollectionUtils.isEmpty(fileList)
         val helper = MimeMessageHelper(mimeMessage, multiparty)
-        helper.setFrom(clientMail!!)
+        helper.setFrom(clientMail)
         helper.setTo(receiverUserList.toTypedArray<String?>())
         helper.setSubject(subject)
         //发送html格式

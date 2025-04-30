@@ -6,6 +6,7 @@ import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.NoticeVisibleRangeDataTypeEnum
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
+import com.zyf.common.jimmer.unlimitedCount
 import com.zyf.department.service.DepartmentService
 import com.zyf.employee.Employee
 import com.zyf.employee.departmentId
@@ -48,9 +49,7 @@ class NoticeEmployeeService(
         }
 
         val noticeList = sql.createQuery(Notice::class) {
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.publishTime.desc())
+            orderBy(pageBean, table.publishTime.desc())
             where(noticeEmployeeQueryForm)
             if (noticeEmployeeQueryForm.notViewFlag == true) {
                 where(table.allVisibleFlag eq true)
@@ -135,11 +134,10 @@ class NoticeEmployeeService(
         var noticeDetailVO = NoticeDetailVO(updateFormVO.toEntity())
 
 
-        val viewCount: Long = sql.createQuery(NoticeViewRecord::class) {
+        val viewCount: Long = sql.unlimitedCount(NoticeViewRecord::class) {
             where(table.noticeId eq noticeId)
             where(table.employeeId eq requestEmployeeId)
-            select(count(table))
-        }.fetchUnlimitedCount()
+        }
         if (viewCount == 0L) {
             sql.insert(NoticeViewRecord {
                 this.noticeId = noticeId
@@ -212,13 +210,10 @@ class NoticeEmployeeService(
      * 分页查询  查看记录
      */
     fun queryViewRecord(pageBean: PageBean, noticeViewRecordQueryForm: NoticeViewRecordQueryForm?): PageResult<NoticeViewRecordVO> {
-        val pageResult = sql.createQuery(NoticeViewRecord::class) {
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.updateTime.desc(), table.createTime.desc())
+        val pageResult = sql.page(NoticeViewRecord::class, NoticeViewRecordVO::class, pageBean) {
+            orderBy(pageBean, table.updateTime.desc(), table.createTime.desc())
             where(noticeViewRecordQueryForm)
-            select(table.fetch(NoticeViewRecordVO::class))
-        }.page(pageBean)
+        }
         return pageResult
     }
 

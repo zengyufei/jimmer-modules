@@ -161,9 +161,7 @@ class SecurityLoginService(
     ): PageResult<LoginFailVO> {
         val pageResult = sql.createQuery(LoginFail::class) {
 
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.updateTime.desc())
+            orderBy(pageBean, table.updateTime.desc())
 
             where(queryForm)
             select(table.fetch(LoginFailVO::class))

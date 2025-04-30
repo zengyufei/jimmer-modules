@@ -1,10 +1,12 @@
 package com.zyf.employee.service
 
+import cn.hutool.core.lang.Console.where
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.annotations.Slf4j
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
+import com.zyf.common.jimmer.list
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
 import com.zyf.employee.Position
@@ -27,12 +29,12 @@ class PositionService(
 ) {
 
     fun <T : View<Position>> list(viewType: KClass<T>): MutableList<T> {
-        return sql.createQuery(Position::class) {
+        return sql.list(Position::class, viewType) {
             orderBy(table.sort.asc())
             select(
                 table.fetch(viewType)
             )
-        }.execute().toMutableList()
+        }.toMutableList()
     }
 
     fun listAll(): MutableList<PositionVO> {
@@ -40,13 +42,10 @@ class PositionService(
     }
 
     fun queryPage(pageBean: PageBean, params: PositionSpecification): PageResult<PositionVO> {
-        return sql.createQuery(Position::class) {
+        return sql.page(Position::class, PositionVO::class, pageBean) {
             orderBy(pageBean)
             where(params)
-            select(
-                table.fetch(PositionVO::class)
-            )
-        }.page(pageBean)
+        }
     }
 
     fun addPosition(createDTO: PositionAddForm): Position {

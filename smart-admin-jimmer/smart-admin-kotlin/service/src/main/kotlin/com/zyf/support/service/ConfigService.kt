@@ -1,5 +1,6 @@
 package com.zyf.support.service
 
+import cn.hutool.core.lang.Console.where
 import cn.hutool.json.XMLTokener.entity
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.annotations.Slf4j
@@ -12,6 +13,8 @@ import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.ConfigKeyEnum
+import com.zyf.common.jimmer.exists
+import com.zyf.common.jimmer.list
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
 import com.zyf.service.dto.ConfigAddForm
@@ -27,6 +30,7 @@ import org.babyfish.jimmer.sql.kt.ast.expression.count
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.babyfish.jimmer.sql.kt.ast.expression.`ilike?`
 import org.babyfish.jimmer.sql.kt.ast.expression.ne
+import org.babyfish.jimmer.sql.kt.exists
 import org.springframework.stereotype.Service
 import java.util.concurrent.ConcurrentHashMap
 
@@ -52,9 +56,7 @@ class ConfigService(
     @PostConstruct
     private fun loadConfigCache() {
         CONFIG_CACHE.clear()
-        val entityList = sql.createQuery(Config::class) {
-            select(table.fetch(ConfigVO::class))
-        }.execute()
+        val entityList = sql.list(Config::class, ConfigVO::class)
         if (entityList.isEmpty()) {
             return
         }
@@ -69,22 +71,19 @@ class ConfigService(
      * 分页查询系统配置
      */
     fun queryConfigPage(pageBean: PageBean, queryForm: ConfigQueryForm): PageResult<ConfigVO> {
-        return sql.createQuery(Config::class) {
+        return sql.page(Config::class, ConfigVO::class, pageBean) {
             orderBy(pageBean)
             where(queryForm)
-            select(table.fetch(ConfigVO::class))
-        }.page(pageBean)
+        }
     }
 
     /**
      * 添加系统配置
      */
     fun add(configAddForm: ConfigAddForm): ErrorCode? {
-        val fetchOne = sql.createQuery(Config::class) {
-            where(table.configKey eq configAddForm.configKey)
-            select(count(table))
-        }.fetchOne()
-        if (fetchOne > 0) {
+        if (sql.exists(Config::class) {
+                where(table.configKey eq configAddForm.configKey)
+            }) {
             return UserErrorCode.ALREADY_EXIST
         }
 
@@ -103,13 +102,10 @@ class ConfigService(
 
         sql.findById(Config::class, configId) ?: return UserErrorCode.DATA_NOT_EXIST
 
-        val fetchOne = sql.createQuery(Config::class) {
-            where(table.configKey eq updateDTO.configKey)
-            where(table.configId ne configId)
-            select(count(table))
-        }.fetchOne()
-
-        if (fetchOne > 0) {
+        if (sql.exists(Config::class) {
+                where(table.configKey eq updateDTO.configKey)
+                where(table.configId ne configId)
+            }) {
             return UserErrorCode.ALREADY_EXIST
         }
 
@@ -161,7 +157,6 @@ class ConfigService(
     }
 
 
-
     /**
      * 根据参数key查询 并转换为对象
      */
@@ -179,7 +174,7 @@ class ConfigService(
         // 更新数据
         val configId = config.configId
 
-        val entity = Config{
+        val entity = Config {
             this.configId = configId
             this.configValue = value
         }

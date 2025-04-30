@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.annotations.Slf4j
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
+import com.zyf.common.jimmer.list
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
+import com.zyf.common.jimmer.unlimitedCount
 import com.zyf.department.domain.DepartmentTreeVO
 import com.zyf.employee.*
 import com.zyf.repository.employee.DepartmentRepository
@@ -29,12 +31,9 @@ class DepartmentService(
 ) {
 
     fun <T : View<Department>> list(viewType: KClass<T>): MutableList<T> {
-        return sql.createQuery(Department::class) {
+        return sql.list(Department::class, viewType) {
             orderBy(table.sort.asc())
-            select(
-                table.fetch(viewType)
-            )
-        }.execute().toMutableList()
+        }.toMutableList()
     }
 
     fun listAll(): MutableList<DepartmentVO> {
@@ -47,12 +46,9 @@ class DepartmentService(
     }
 
     fun queryPage(pageBean: PageBean): PageResult<Department> {
-        return sql.createQuery(Department::class) {
+        return sql.page(Department::class, pageBean) {
             orderBy(pageBean)
-            select(
-                table
-            )
-        }.page(pageBean)
+        }
     }
 
     fun addDepartment(createDTO: DepartmentAddForm): Department {
@@ -81,21 +77,19 @@ class DepartmentService(
 //        }
 
         // 是否有子级部门
-        val subDepartmentNum: Long = sql.createQuery(Department::class) {
+        val subDepartmentNum: Long = sql.unlimitedCount(Department::class) {
             where(table.parentId eq departmentId)
-            select(count(table))
-        }.fetchOne()
+        }
         if (subDepartmentNum > 0) {
             throw RuntimeException("请先删除子级部门")
         }
 
 
         // 是否有未删除员工
-        val employeeNum: Long = sql.createQuery(Employee::class) {
+        val employeeNum: Long = sql.unlimitedCount(Employee::class) {
             where(table.departmentId eq departmentId)
             where(table.disabledFlag eq false)
-            select(count(table))
-        }.fetchOne()
+        }
         if (employeeNum > 0) {
             throw RuntimeException("请先删除部门员工")
         }

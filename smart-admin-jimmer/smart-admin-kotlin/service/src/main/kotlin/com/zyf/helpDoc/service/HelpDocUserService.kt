@@ -1,12 +1,12 @@
 package com.zyf.helpDoc.service
 
+import cn.hutool.core.lang.Console.where
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.RequestUser
 import com.zyf.common.domain.ResponseDTO
-import com.zyf.common.jimmer.orderBy
-import com.zyf.common.jimmer.page
+import com.zyf.common.jimmer.*
 import com.zyf.helpDoc.*
 import com.zyf.helpDoc.service.dto.HelpDocViewRecordQueryForm
 import com.zyf.helpDoc.service.dto.HelpDocViewRecordVO
@@ -66,13 +66,12 @@ class HelpDocUserService(
         if (inputHelpDocId == null) {
             return ResponseDTO.userErrorParam("帮助文档id不能为空")
         }
-        val helpDocDetailVO = helpDocRepository.byId(HelpDocDetailVO::class, inputHelpDocId) ?: return ResponseDTO.userErrorParam("帮助文档不存在")
+        val helpDocDetailVO = sql.byId(HelpDocDetailVO::class, inputHelpDocId) ?: return ResponseDTO.userErrorParam("帮助文档不存在")
 
-        val viewCount = sql.createQuery(HelpDocViewRecord::class) {
+        val viewCount = sql.unlimitedCount(HelpDocViewRecord::class) {
             where(table.helpDocId eq inputHelpDocId)
             where(table.userId eq requestUser!!.userId)
-            select(count(table))
-        }.fetchUnlimitedCount()
+        }
         if (viewCount == 0L) {
             sql.insert(HelpDocViewRecord {
                 helpDocId = inputHelpDocId
@@ -82,27 +81,27 @@ class HelpDocUserService(
                 firstUserAgent = requestUser.userAgent
                 pageViewCount = 1
             })
-            sql.createUpdate(HelpDoc::class) {
+            sql.simpleUpdate(HelpDoc::class) {
                 set(table.pageViewCount, table.pageViewCount+1)
                 set(table.userViewCount, table.userViewCount+1)
                 where(table.helpDocId eq inputHelpDocId)
-            }.execute()
+            }
             return ResponseDTO.ok(helpDocDetailVO.copy(
                 pageViewCount = helpDocDetailVO.pageViewCount+1,
                 userViewCount = helpDocDetailVO.userViewCount+1
             ))
         } else {
-            sql.createUpdate(HelpDocViewRecord::class) {
+            sql.simpleUpdate(HelpDocViewRecord::class) {
                 set(table.pageViewCount, table.pageViewCount+1)
                 set(table.lastIp, requestUser!!.ip)
                 set(table.lastUserAgent, requestUser.userAgent)
                 where(table.helpDocId eq inputHelpDocId)
                 where(table.userId eq requestUser.userId)
-            }.execute()
-            sql.createUpdate(HelpDoc::class) {
+            }
+            sql.simpleUpdate(HelpDoc::class) {
                 set(table.userViewCount, table.userViewCount+1)
                 where(table.helpDocId eq inputHelpDocId)
-            }.execute()
+            }
             return ResponseDTO.ok(helpDocDetailVO.copy(
                 pageViewCount = helpDocDetailVO.pageViewCount+1,
             ))
@@ -122,9 +121,7 @@ class HelpDocUserService(
     ): PageResult<HelpDocViewRecordVO> {
         val pageResult = sql.createQuery(HelpDocViewRecord::class) {
 
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.updateTime.desc(), table.createTime.desc())
+            orderBy(pageBean, table.updateTime.desc(), table.createTime.desc())
 
             where(helpDocViewRecordQueryForm)
             select(table.fetch(HelpDocViewRecordVO::class))

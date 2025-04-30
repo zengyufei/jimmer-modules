@@ -7,6 +7,7 @@ import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
+import com.zyf.common.jimmer.oneOrNull
 import com.zyf.oa.*
 import com.zyf.repository.system.RoleRepository
 import com.zyf.service.dto.BankCreateForm
@@ -41,16 +42,10 @@ class BankService(
      * 分页查询银行信息
      */
     fun queryByPage(pageBean: PageBean, queryForm: BankQueryForm): ResponseDTO<PageResult<BankVO>> {
-
-        val pageResult = sql.createQuery(Bank::class) {
-
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.createTime.desc())
-
+        val pageResult = sql.page(Bank::class, BankVO::class, pageBean) {
+            orderBy(pageBean, table.createTime.desc())
             where(queryForm)
-            select(table.fetch(BankVO::class))
-        }.page(pageBean)
+        }
         return ResponseDTO.ok(pageResult)
     }
 
@@ -83,11 +78,10 @@ class BankService(
         // 校验企业是否存在
         sql.findById(Enterprise::class, enterpriseId) ?: return ResponseDTO.userErrorParam("企业不存在")
         // 验证银行信息账号是否重复
-        val validateBank: Bank? = sql.createQuery(Bank::class) {
+        val validateBank: Bank? = sql.oneOrNull(Bank::class) {
             where(table.enterpriseId eq enterpriseId)
             where(table.accountNumber eq createVO.accountNumber)
-            select(table)
-        }.fetchOneOrNull()
+        }
         validateBank?.let { return ResponseDTO.userErrorParam("银行信息账号重复") }
         // 数据插入
         sql.insert(createVO)
@@ -107,12 +101,11 @@ class BankService(
         // 校验银行信息是否存在
         sql.findById(Bank::class, bankId) ?: return ResponseDTO.userErrorParam("银行信息不存在")
         // 验证银行信息账号是否重复
-        val validateBank: Bank? = sql.createQuery(Bank::class) {
+        val validateBank: Bank? = sql.oneOrNull(Bank::class) {
             where(table.enterpriseId eq enterpriseId)
             where(table.accountNumber eq updateVO.accountNumber)
             where(table.bankId ne bankId)
-            select(table)
-        }.fetchOneOrNull()
+        }
         validateBank?.let { return ResponseDTO.userErrorParam("银行信息账号重复") }
         // 数据编辑
         sql.update(updateVO)

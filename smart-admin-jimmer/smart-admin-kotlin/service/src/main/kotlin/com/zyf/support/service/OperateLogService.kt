@@ -40,9 +40,7 @@ class OperateLogService(
     ): ResponseDTO<PageResult<OperateLogVO>> {
         val pageResult = sql.createQuery(OperateLog::class) {
 
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.createTime.desc())
+            orderBy(pageBean, table.createTime.desc())
 
             where(queryForm)
             select(table.fetch(OperateLogVO::class))

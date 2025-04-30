@@ -38,15 +38,10 @@ class ChangeLogService(
         pageBean: PageBean,
         queryForm: ChangeLogQueryForm
     ): PageResult<ChangeLogVO> {
-        val pageResult = sql.createQuery(ChangeLog::class) {
-
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.createTime.desc())
-
+        val pageResult = sql.page(ChangeLog::class, ChangeLogVO::class, pageBean) {
+            orderBy(pageBean, table.createTime.desc())
             where(queryForm)
-            select(table.fetch(ChangeLogVO::class))
-        }.page(pageBean)
+        }
         return pageResult
     }
 

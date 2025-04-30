@@ -41,9 +41,7 @@ class SerialNumberRecordService(
     fun queryByPage(pageBean: PageBean, queryForm: SerialNumberRecordQueryForm): ResponseDTO<PageResult<SerialNumberRecordVO>> {
         val pageResult = sql.createQuery(SerialNumberRecord::class) {
 
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.lastTime.desc())
+            orderBy(pageBean, table.lastTime.desc())
 
             where(queryForm)
             select(table.fetch(SerialNumberRecordVO::class))

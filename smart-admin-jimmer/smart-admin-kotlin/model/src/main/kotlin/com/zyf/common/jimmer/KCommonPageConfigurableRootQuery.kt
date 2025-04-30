@@ -52,10 +52,10 @@ fun <T1, T2> KConfigurableRootQuery<*, Tuple2<T1, T2>>.page(
     return newPageResult
 }
 
-fun KMutableQuery<*>.orderBy(pageBean: PageBean) {
+fun KMutableQuery<*>.orderBy(pageBean: PageBean,vararg defaultOrders: Order?) {
     pageBean.sortCode?.let {
         orderBy(Order.makeOrders((table as KTableImplementor<*>).javaTable, pageBean.sortCode))
-    }
+    } ?: orderBy(*defaultOrders)
 }
 
 

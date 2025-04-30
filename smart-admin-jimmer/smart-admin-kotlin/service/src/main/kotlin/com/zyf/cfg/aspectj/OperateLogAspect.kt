@@ -24,6 +24,7 @@ import org.springframework.boot.context.properties.bind.BindResult
 import org.springframework.context.ApplicationContext
 import org.springframework.core.annotation.AnnotationUtils
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.request.ServletRequestAttributes
 import org.springframework.web.multipart.MultipartFile
@@ -45,15 +46,15 @@ import java.util.concurrent.ThreadPoolExecutor
 @Aspect
 abstract class OperateLogAspect {
     @Resource
-    private val applicationContext: ApplicationContext? = null
+    private lateinit var applicationContext: ApplicationContext
 
     @Resource
-    private val objectMapper: ObjectMapper? = null
+    private lateinit var objectMapper: ObjectMapper
 
     /**
      * 线程池
      */
-    private var taskExecutor: ThreadPoolTaskExecutor? = null
+    private lateinit var taskExecutor: ThreadPoolTaskExecutor
 
     abstract val operateLogConfig: OperateLogConfig
 
@@ -86,26 +87,26 @@ abstract class OperateLogAspect {
         }
         taskExecutor = ThreadPoolTaskExecutor()
         // 线程初始化
-        taskExecutor!!.initialize()
+        taskExecutor.initialize()
         // 设置核心线程数
-        taskExecutor!!.corePoolSize = corePoolSize
+        taskExecutor.corePoolSize = corePoolSize
         // 设置最大线程数
-        taskExecutor!!.maxPoolSize = corePoolSize * 2
+        taskExecutor.maxPoolSize = corePoolSize * 2
         // 设置队列容量
-        taskExecutor!!.queueCapacity = 1000
+        taskExecutor.queueCapacity = 1000
         // 设置线程活跃时间（秒）
-        taskExecutor!!.keepAliveSeconds = 60
+        taskExecutor.keepAliveSeconds = 60
         // 设置默认线程名称
-        taskExecutor!!.setThreadNamePrefix("smart-operate-log")
+        taskExecutor.setThreadNamePrefix("smart-operate-log")
         // 设置拒绝策略
-        taskExecutor!!.setRejectedExecutionHandler(ThreadPoolExecutor.CallerRunsPolicy())
+        taskExecutor.setRejectedExecutionHandler(ThreadPoolExecutor.CallerRunsPolicy())
         // 等待所有任务结束后再关闭线程池
-        taskExecutor!!.setWaitForTasksToCompleteOnShutdown(true)
+        taskExecutor.setWaitForTasksToCompleteOnShutdown(true)
     }
 
-    protected fun handleLog(joinPoint: JoinPoint, e: Exception?) {
+    private fun handleLog(joinPoint: JoinPoint, e: Exception?) {
         try {
-            val operateLog = this.getAnnotationLog(joinPoint) ?: return
+            this.getAnnotationLog(joinPoint) ?: return
             this.submitLog(joinPoint, e)
         } catch (exp: Exception) {
             log.error("保存操作日志异常:{}", exp.message)
@@ -138,10 +139,7 @@ abstract class OperateLogAspect {
         val methodSignature = signature as MethodSignature
         val method = methodSignature.method
         val classAnnotation = AnnotationUtils.findAnnotation(method!!.declaringClass, Tag::class.java)
-        if (method != null) {
-            return classAnnotation
-        }
-        return null
+        return classAnnotation
     }
 
     /**
@@ -189,8 +187,8 @@ abstract class OperateLogAspect {
 
         val operateLog: com.zyf.loginLog.OperateLog = com.zyf.loginLog.OperateLog {
             employeeId = user.userId
-            operateUserType = user.userType!!
-            operateUserName = user.userName!!
+            operateUserType = user.userType
+            operateUserName = user.userName
             url = request.requestURI
             method = operateMethod
             param = params
@@ -212,21 +210,18 @@ abstract class OperateLogAspect {
         }
 
 
-        taskExecutor!!.execute {
+        taskExecutor.execute {
             this.saveLog(operateLog)
         }
     }
 
     private fun buildParamString(args: Array<Any>?): String {
-        if (args == null || args.size == 0) {
+        if (args.isNullOrEmpty()) {
             return StringConst.EMPTY
         }
 
         val filterArgs: MutableList<Any> = ArrayList()
         for (arg in args) {
-            if (arg == null) {
-                continue
-            }
             if (arg is HttpServletRequest
                 || arg is HttpServletResponse
                 || arg is ModelAndView
@@ -237,7 +232,7 @@ abstract class OperateLogAspect {
             }
             filterArgs.add(arg)
         }
-        return objectMapper!!.writeValueAsString(filterArgs)
+        return objectMapper.writeValueAsString(filterArgs)
     }
 
 
@@ -258,7 +253,7 @@ abstract class OperateLogAspect {
     private fun saveLog(operateLog: com.zyf.loginLog.OperateLog): Boolean? {
         val operateLogConfig = operateLogConfig
         if (operateLogConfig.saveFunction == null) {
-            val sql = applicationContext!!.getBean(KSqlClient::class.java)
+            val sql = applicationContext.getBean(KSqlClient::class.java)
             sql.insert(operateLog)
             return true
         }

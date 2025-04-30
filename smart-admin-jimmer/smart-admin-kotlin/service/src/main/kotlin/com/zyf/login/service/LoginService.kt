@@ -16,11 +16,10 @@ import com.zyf.common.constant.StringConst
 import com.zyf.common.domain.RequestUser
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.*
+import com.zyf.common.jimmer.oneOrNull
 import com.zyf.common.utils.SmartEnumUtil
 import com.zyf.common.utils.SmartIpUtil
-import com.zyf.employee.Employee
-import com.zyf.employee.fetchBy
-import com.zyf.employee.loginName
+import com.zyf.employee.*
 import com.zyf.login.domain.LoginForm
 import com.zyf.login.domain.LoginResultVO
 import com.zyf.login.domain.RequestEmployee
@@ -39,10 +38,12 @@ import com.zyf.support.service.*
 import com.zyf.system.roleId
 import com.zyf.system.service.RoleMenuService
 import jakarta.servlet.http.HttpServletRequest
+import org.babyfish.jimmer.ImmutableObjects
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.ast.expression.desc
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 import java.util.*
 import java.util.concurrent.ConcurrentMap
@@ -97,6 +98,7 @@ class LoginService(
      *
      * @return 返回用户登录信息
      */
+    @Transactional(rollbackFor = [Throwable::class])
     fun login(loginForm: LoginForm, ip: String?, userAgent: String?): ResponseDTO<LoginResultVO?> {
         val loginDeviceEnum: LoginDeviceEnum =
             SmartEnumUtil.getEnumByValue<LoginDeviceEnum>(loginForm.loginDevice)
@@ -117,8 +119,7 @@ class LoginService(
                     departmentName()
                 }
             })
-        }.fetchOneOrNull()
-            ?: return ResponseDTO.userErrorParam("登录名不存在！")
+        }.fetchOneOrNull() ?: return ResponseDTO.userErrorParam("登录名不存在！")
 
         // 验证账号状态
         if (employee.disabledFlag) {
@@ -198,13 +199,13 @@ class LoginService(
         val loginResultVO = getLoginResult(requestEmployee, token)
 
         // 保存登录记录
-        saveLoginLog(
-            employee,
-            ip,
-            userAgent,
-            if (superPasswordFlag) "万能密码登录" else loginDeviceEnum.desc,
-            LoginLogResultEnum.LOGIN_SUCCESS
-        )
+//        saveLoginLog(
+//            employee,
+//            ip,
+//            userAgent,
+//            if (superPasswordFlag) "万能密码登录" else loginDeviceEnum.desc,
+//            LoginLogResultEnum.LOGIN_SUCCESS
+//        )
 
         // 设置 token
         loginResultVO.token = token
@@ -280,13 +281,12 @@ class LoginService(
         // 上次登录信息
 
 
-        val loginLogVO: LoginLogVO? = sql.createQuery(LoginLog::class) {
+        val loginLogVO: LoginLogVO? = sql.oneOrNull(LoginLog::class, LoginLogVO::class) {
             orderBy(table.loginLogId.desc())
             where(table.userId eq requestEmployee.userId)
             where(table.userType eq UserTypeEnum.ADMIN_EMPLOYEE.value)
             where(table.loginResult eq LoginLogResultEnum.LOGIN_SUCCESS.value)
-            select(table.fetch(LoginLogVO::class))
-        }.limit(1).fetchOneOrNull()
+        }
         if (loginLogVO != null) {
             loginResultVO.lastLoginIp = loginLogVO.loginIp
             loginResultVO.lastLoginIpRegion = loginLogVO.loginIpRegion

@@ -116,15 +116,10 @@ class GoodsService(
         pageBean: PageBean,
         queryForm: GoodsQueryForm
     ): ResponseDTO<PageResult<GoodsVO>> {
-        val pageResult = sql.createQuery(Goods::class) {
-
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.goodsId.desc())
-
+        val pageResult = sql.page(Goods::class, GoodsVO::class, pageBean) {
+            orderBy(pageBean, table.goodsId.desc())
             where(queryForm)
-            select(table.fetch(GoodsVO::class))
-        }.page(pageBean)
+        }
 
         if (pageResult.emptyFlag) {
             return ResponseDTO.ok(pageResult)

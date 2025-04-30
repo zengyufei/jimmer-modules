@@ -1,10 +1,12 @@
 package com.zyf.oa.service
 
+import cn.hutool.core.lang.Console.where
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.DataTracerTypeEnum
 import com.zyf.common.enums.NoticeVisibleRangeDataTypeEnum
+import com.zyf.common.jimmer.notExists
 import com.zyf.common.jimmer.orderBy
 import com.zyf.common.jimmer.page
 import com.zyf.employee.addBy
@@ -32,21 +34,17 @@ class NoticeService(
 ) {
 
     fun query(pageBean: PageBean, queryForm: NoticeQueryForm): PageResult<NoticeVO> {
-        val pageResult = sql.createQuery(Notice::class) {
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.publishTime.desc(), table.noticeId.desc())
-
+        val pageResult = sql.page(Notice::class, NoticeVO::class,pageBean) {
+            orderBy(pageBean, table.publishTime.desc(), table.noticeId.desc())
             where(queryForm)
-            select(table.fetch(NoticeVO::class))
-        }.page(pageBean)
+        }
         return pageResult
     }
 
     @Transactional(rollbackFor = [Exception::class])
     fun add(addForm: NoticeAddForm): ResponseDTO<String?> {
 
-        noticeTypeService.getByNoticeTypeId(addForm.noticeTypeId!!) ?: return ResponseDTO.userErrorParam("分类不存在")
+        sql.findById(NoticeTypeVO::class, addForm.noticeTypeId!!) ?: return ResponseDTO.userErrorParam("分类不存在")
 
         if (addForm.allVisibleFlag) {
             return ResponseDTO.ok()
@@ -86,7 +84,7 @@ class NoticeService(
         sql.findById(Notice::class, updateForm.noticeId)
             ?: return ResponseDTO.userErrorParam("通知不存在")
 
-        noticeTypeService.byId(updateForm.noticeTypeId!!) ?: return ResponseDTO.userErrorParam("分类不存在")
+        sql.findById(NoticeTypeVO::class, updateForm.noticeTypeId!!) ?: return ResponseDTO.userErrorParam("分类不存在")
 
         if (updateForm.allVisibleFlag) {
             return ResponseDTO.ok()
@@ -123,7 +121,7 @@ class NoticeService(
     }
 
     fun delete(noticeId: String): ResponseDTO<String?> {
-        if (!sql.exists(Notice::class) {
+        if (sql.notExists(Notice::class) {
                 where(table.noticeId eq noticeId)
             }
         ) {

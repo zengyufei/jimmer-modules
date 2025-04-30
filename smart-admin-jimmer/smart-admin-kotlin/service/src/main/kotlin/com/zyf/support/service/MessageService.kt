@@ -36,9 +36,7 @@ class MessageService(
     fun query(pageBean: PageBean, queryForm: MessageQueryForm): PageResult<MessageVO> {
         val pageResult = sql.createQuery(Message::class) {
 
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.messageId.desc())
+            orderBy(pageBean, table.messageId.desc())
 
             where(queryForm)
             select(table.fetch(MessageVO::class))

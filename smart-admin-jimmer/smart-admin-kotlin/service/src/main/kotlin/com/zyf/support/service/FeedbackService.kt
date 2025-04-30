@@ -41,9 +41,7 @@ class FeedbackService(
     ): ResponseDTO<PageResult<FeedbackVO>> {
         val pageResult = sql.createQuery(Feedback::class) {
 
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.createTime.desc())
+            orderBy(pageBean, table.createTime.desc())
 
             where(queryForm)
             select(table.fetch(FeedbackVO::class))

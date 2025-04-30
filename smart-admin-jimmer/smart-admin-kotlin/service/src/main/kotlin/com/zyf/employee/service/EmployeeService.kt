@@ -1,6 +1,7 @@
 package com.zyf.employee.service
 
 import cn.dev33.satoken.stp.StpUtil
+import cn.hutool.core.lang.Console.where
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.annotations.Slf4j
 import com.zyf.common.code.UserErrorCode
@@ -10,8 +11,7 @@ import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.RequestUser
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.UserTypeEnum
-import com.zyf.common.jimmer.orderBy
-import com.zyf.common.jimmer.page
+import com.zyf.common.jimmer.*
 import com.zyf.department.service.DepartmentService
 import com.zyf.employee.*
 import com.zyf.login.service.LoginService
@@ -24,6 +24,7 @@ import org.babyfish.jimmer.sql.kt.ast.expression.eq
 import org.babyfish.jimmer.sql.kt.ast.expression.`eq?`
 import org.babyfish.jimmer.sql.kt.ast.expression.ne
 import org.babyfish.jimmer.sql.kt.ast.expression.`valueIn?`
+import org.babyfish.jimmer.sql.kt.exists
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -54,18 +55,13 @@ class EmployeeService(
         }
 
 
-        val pageResult = sql.createQuery(Employee::class) {
-            orderBy(pageBean)
-            where(
-                employeeQueryForm.copy(
-                    departmentId = null
-                )
-            )
+        val pageResult = sql.page(Employee::class, EmployeeVO::class, pageBean) {
+            where(employeeQueryForm.copy(departmentId = null))
             departmentIdList.takeIf { it.isNotEmpty() }?.let {
                 where(table.departmentId `valueIn?` departmentIdList)
             }
-            select(table.fetch(EmployeeVO::class))
-        }.page(pageBean)
+            orderBy(pageBean)
+        }
         return ResponseDTO.ok(pageResult)
     }
 
@@ -116,18 +112,17 @@ class EmployeeService(
         if (employeeRepository.notExistsId(employeeId)) return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
 
         // 部门是否存在
-        if (departmentRepository.notExistsId(departmentId)) return ResponseDTO.userErrorParam("部门不存在")
+        if (sql.notExistsById(Employee::class, departmentId)) return ResponseDTO.userErrorParam("部门不存在")
 
-        val existEntity = employeeRepository.existsBy() {
-            where(table.loginName eq employeeUpdateForm.loginName)
-            where(table.employeeId ne employeeId)
-        }
-        if (existEntity) {
+        if (sql.exists(Employee::class){
+                where(table.loginName eq employeeUpdateForm.loginName)
+                where(table.employeeId ne employeeId)
+            }) {
             return ResponseDTO.userErrorParam("登录名重复")
         }
 
-        employeeUpdateForm.phone?.let { p ->
-            if (employeeRepository.existsBy() {
+        employeeUpdateForm.phone?.let {
+            if (sql.exists(Employee::class) {
                     where(table.phone eq employeeUpdateForm.phone)
                     where(table.employeeId ne employeeId)
                 }) {
@@ -138,7 +133,7 @@ class EmployeeService(
 
         // 更新数据
         // 保存员工 获得id
-        sql.update(employeeUpdateForm);
+        sql.update(employeeUpdateForm)
 
         // 清除员工缓存
         loginService.clearLoginEmployeeCache(employeeId)
@@ -150,7 +145,7 @@ class EmployeeService(
     fun updateAvatar(employeeUpdateAvatarForm: EmployeeUpdateAvatarForm): ResponseDTO<String?> {
         val inputEmployeeId = employeeUpdateAvatarForm.employeeId ?: return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
 
-        if (employeeRepository.notExistsId(inputEmployeeId)) {
+        if (sql.notExistsById(Employee::class, inputEmployeeId)) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
         }
 
@@ -304,11 +299,10 @@ class EmployeeService(
      * 获取某个部门的员工信息
      */
     fun getAllEmployeeByDepartmentId(departmentId: String, disabledFlag: Boolean?): ResponseDTO<List<EmployeeVO>> {
-        val employeeEntityList = sql.createQuery(Employee::class) {
+        val employeeEntityList = sql.list(Employee::class, EmployeeVO::class) {
             where(table.departmentId eq departmentId)
             where(table.disabledFlag `eq?` disabledFlag)
-            select(table.fetch(EmployeeVO::class))
-        }.execute()
+        }
 
         if (employeeEntityList.isEmpty()) {
             return ResponseDTO.ok(emptyList())
@@ -321,10 +315,10 @@ class EmployeeService(
      */
     fun resetPassword(employeeId: String): ResponseDTO<String?> {
         val password = securityPasswordService.randomPassword()
-        sql.createUpdate(Employee::class) {
+        sql.simpleUpdate(Employee::class) {
             set(table.loginPwd, SecurityPasswordService.getEncryptPwd(password))
             where(table.employeeId eq employeeId)
-        }.execute()
+        }
         return ResponseDTO.ok(password)
     }
 
@@ -332,10 +326,9 @@ class EmployeeService(
      * 查询全部员工
      */
     fun queryAllEmployee(disabledFlag: Boolean?): ResponseDTO<List<EmployeeVO>> {
-        val vos = sql.createQuery(Employee::class) {
+        val vos = sql.list(Employee::class, EmployeeVO::class) {
             where(table.disabledFlag `eq?` disabledFlag)
-            select(table.fetch(EmployeeVO::class))
-        }.execute()
+        }
         return ResponseDTO.ok(vos)
     }
 

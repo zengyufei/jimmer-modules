@@ -1,8 +1,13 @@
 package com.zyf.goods.service;
 
+import cn.hutool.core.lang.Console.where
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.code.UserErrorCode
 import com.zyf.common.domain.ResponseDTO
+import com.zyf.common.jimmer.exists
+import com.zyf.common.jimmer.list
+import com.zyf.common.jimmer.notExists
+import com.zyf.common.jimmer.unlimitedCount
 import com.zyf.goods.*
 import com.zyf.service.dto.*
 import org.babyfish.jimmer.kt.unload
@@ -89,13 +94,12 @@ class CategoryService(
         }
 
         // 校验同父类下 名称是否重复
-        val exists = sql.createQuery(Category::class) {
+        val exists = sql.exists(Category::class) {
             where(table.parentId eq parentId)
             where(table.categoryType eq categoryType)
             where(table.categoryId `ne?` categoryId)
             where(table.categoryName eq categoryName)
-            select(table)
-        }.exists()
+        }
 
         if (exists) {
             return ResponseDTO.userErrorParam("同级下已存在相同类目~")
@@ -118,12 +122,11 @@ class CategoryService(
             return ResponseDTO.userErrorParam("类目类型不能为空")
         }
 
-        val treeList = sql.createQuery(Category::class) {
-            orderBy(table.sort.asc())
+        val treeList = sql.list(Category::class, CategoryTreeVO::class) {
             where(table.parentId eq queryForm.parentId)
             where(table.categoryType eq queryForm.categoryType)
-            select(table.fetch(CategoryTreeVO::class))
-        }.execute()
+            orderBy(table.sort.asc())
+        }
         return ResponseDTO.ok(treeList)
     }
 
@@ -131,17 +134,15 @@ class CategoryService(
      * 删除类目
      */
     fun delete(categoryId: String): ResponseDTO<String?> {
-        if (!sql.exists(Category::class) {
+        if (sql.notExists(Category::class) {
                 where(table.categoryId eq categoryId)
             }) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST)
         }
 
-        val fetchUnlimitedCount = sql.createQuery(Category::class) {
-            where(table.parentId eq categoryId)
-            select(count(table))
-        }.fetchUnlimitedCount()
-        if (fetchUnlimitedCount > 0) {
+        if (sql.exists(Category::class) {
+                where(table.parentId eq categoryId)
+            }) {
             return ResponseDTO.userErrorParam("请先删除子级类目")
         }
 

@@ -41,15 +41,10 @@ class SerialNumberService(
      * @return 包含分页结果的响应对象，其中包含单号生成器定义表数据列表和分页信息
      */
     fun queryByPage(pageBean: PageBean, queryForm: SerialNumberQueryForm): ResponseDTO<PageResult<SerialNumberVO>> {
-        val pageResult = sql.createQuery(SerialNumber::class) {
-
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.createTime.desc())
-
+        val pageResult = sql.page(SerialNumber::class, SerialNumberVO::class, pageBean) {
+            orderBy(pageBean, table.createTime.desc())
             where(queryForm)
-            select(table.fetch(SerialNumberVO::class))
-        }.page(pageBean)
+        }
         return ResponseDTO.ok(pageResult)
     }
 

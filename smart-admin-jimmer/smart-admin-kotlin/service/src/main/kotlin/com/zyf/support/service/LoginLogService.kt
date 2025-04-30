@@ -37,9 +37,7 @@ class LoginLogService(
     ): ResponseDTO<PageResult<LoginLogVO>> {
         val pageResult = sql.createQuery(LoginLog::class) {
 
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.createTime.desc())
+            orderBy(pageBean, table.createTime.desc())
 
             where(queryForm)
             select(table.fetch(LoginLogVO::class))

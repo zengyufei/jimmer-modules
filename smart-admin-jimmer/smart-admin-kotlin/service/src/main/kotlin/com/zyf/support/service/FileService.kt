@@ -175,9 +175,7 @@ class FileService(
      */
     fun queryPage(pageBean: PageBean, queryForm: FileQueryForm?): PageResult<FileVO> {
         val pageResult = sql.createQuery(FileInfo::class) {
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.createTime.desc())
+            orderBy(pageBean, table.createTime.desc())
 
             where(queryForm)
             select(table.fetch(FileVO::class))

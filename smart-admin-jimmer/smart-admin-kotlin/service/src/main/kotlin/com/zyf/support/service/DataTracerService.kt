@@ -198,9 +198,7 @@ class DataTracerService(
     fun query(pageBean: PageBean, queryForm: DataTracerQueryForm): ResponseDTO<PageResult<DataTracerVO>> {
         val pageResult = sql.createQuery(DataTracer::class) {
 
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.dataTracerId.desc())
+            orderBy(pageBean, table.dataTracerId.desc())
 
             where(queryForm)
             select(table.fetch(DataTracerVO::class))

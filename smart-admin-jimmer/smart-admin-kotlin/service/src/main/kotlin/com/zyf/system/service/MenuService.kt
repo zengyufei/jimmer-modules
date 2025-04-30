@@ -5,6 +5,7 @@ import com.zyf.common.annotations.Slf4j
 import com.zyf.common.code.SystemErrorCode
 import com.zyf.common.domain.ResponseDTO
 import com.zyf.common.enums.MenuTypeEnum
+import com.zyf.common.jimmer.*
 import com.zyf.common.utils.SmartBeanUtil
 import com.zyf.service.dto.MenuAddForm
 import com.zyf.service.dto.MenuTreeVO
@@ -12,12 +13,10 @@ import com.zyf.service.dto.MenuUpdateForm
 import com.zyf.service.dto.MenuVO
 import com.zyf.system.*
 import com.zyf.system.domain.RequestUrlVO
-import jakarta.annotation.Resource
 import org.babyfish.jimmer.View
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.ast.expression.*
 import org.springframework.stereotype.Service
-import java.awt.SystemColor.menu
 import kotlin.reflect.KClass
 
 /**
@@ -43,8 +42,11 @@ class MenuService(
         viewType: KClass<T>,
         isRoot: Boolean = false
     ): MutableList<T> {
-        return sql.createQuery(Menu::class) {
-            orderBy(table.parentId.desc(), table.sort.asc())
+
+        val execute = sql.list(
+            Menu::class,
+            viewType
+        ) {
             where(table.disabledFlag `eq?` disabledFlag)
             menuTypes?.takeIf { it.isNotEmpty() }?.let {
                 where(table.menuType `valueIn?` menuTypes)
@@ -52,10 +54,24 @@ class MenuService(
             if (isRoot) {
                 where(table.parentId eq null)
             }
-            select(
-                table.fetch(viewType)
-            )
-        }.execute().toMutableList()
+            orderBy(table.parentId.desc(), table.sort.asc())
+        }
+
+//        val execute2 = sql.createQuery(Menu::class) {
+//            where(table.disabledFlag `eq?` disabledFlag)
+//            menuTypes?.takeIf { it.isNotEmpty() }?.let {
+//                where(table.menuType `valueIn?` menuTypes)
+//            }
+//            if (isRoot) {
+//                where(table.parentId eq null)
+//            }
+//            orderBy(table.parentId.desc(), table.sort.asc())
+//            select(
+//                table.fetch(viewType)
+//            )
+//        }.execute()
+//        print(execute2)
+        return execute.toMutableList()
     }
 
     fun listAll(disabledFlag: Boolean?, menuTypes: List<Int>?): MutableList<MenuVO> {
@@ -113,7 +129,7 @@ class MenuService(
             return ResponseDTO.userErrorParam("菜单名称已存在")
         }
         // 校验前端权限字符串
-        if (menuUpdateForm.webPerms !=null && sql.createQuery(Menu::class) {
+        if (menuUpdateForm.webPerms != null && sql.createQuery(Menu::class) {
                 where(table.webPerms eq menuUpdateForm.webPerms)
                 where(table.menuId ne menuUpdateForm.menuId)
                 select(table)

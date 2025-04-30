@@ -2,20 +2,16 @@ package com.zyf.helpDoc.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.zyf.common.domain.ResponseDTO
+import com.zyf.common.jimmer.list
 import com.zyf.helpDoc.HelpDoc
 import com.zyf.helpDoc.HelpDocCatalog
 import com.zyf.helpDoc.helpDocCatalogId
-import com.zyf.repository.helpDoc.HelpDocCatalogRepository
-import com.zyf.repository.helpDoc.HelpDocRelationRepository
-import com.zyf.repository.helpDoc.HelpDocRepository
-import com.zyf.repository.helpDoc.HelpDocViewRecordRepository
 import com.zyf.service.dto.HelpDocCatalogAddForm
 import com.zyf.service.dto.HelpDocCatalogUpdateForm
 import com.zyf.service.dto.HelpDocCatalogVO
-import com.zyf.service.dto.HelpDocVO
-import org.apache.commons.collections4.CollectionUtils
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.babyfish.jimmer.sql.kt.exists
 import org.springframework.stereotype.Service
 
 /**
@@ -31,10 +27,6 @@ import org.springframework.stereotype.Service
 class HelpDocCatalogService(
     val sql: KSqlClient,
     val objectMapper: ObjectMapper,
-    val helpDocCatalogRepository: HelpDocCatalogRepository,
-    val helpDocRepository: HelpDocRepository,
-    val helpDocRelationRepository: HelpDocRelationRepository,
-    val helpDocViewRecordRepository: HelpDocViewRecordRepository,
 ) {
 
 
@@ -44,7 +36,7 @@ class HelpDocCatalogService(
          *
          * @return
          */
-        get() = helpDocCatalogRepository.listAll(HelpDocCatalogVO::class)
+        get() = sql.list(HelpDocCatalog::class, HelpDocCatalogVO::class)
 
     /**
      * 添加目录
@@ -75,7 +67,7 @@ class HelpDocCatalogService(
     @Synchronized
     fun update(updateForm: HelpDocCatalogUpdateForm): ResponseDTO<String?> {
 
-        helpDocCatalogRepository.byId(updateForm.helpDocCatalogId) ?: return ResponseDTO.userErrorParam("目录不存在")
+        sql.findById(HelpDocCatalog::class, updateForm.helpDocCatalogId) ?: return ResponseDTO.userErrorParam("目录不存在")
 
         val helpDocCatalogs = all
 //            .filter { helpDocCatalogAddForm.parentId == it.parentId }
@@ -97,11 +89,9 @@ class HelpDocCatalogService(
      */
     @Synchronized
     fun delete(helpDocCatalogId: String?): ResponseDTO<String?> {
-        if (helpDocCatalogId == null) {
-            return ResponseDTO.ok()
-        }
+        helpDocCatalogId ?: return ResponseDTO.ok()
 
-        helpDocCatalogRepository.byId(helpDocCatalogId) ?: return ResponseDTO.userErrorParam("目录不存在")
+        sql.findById(HelpDocCatalog::class, helpDocCatalogId) ?: return ResponseDTO.userErrorParam("目录不存在")
 
         //如果有子目录，则不能删除
         val helpDocCatalogs = all.filter { helpDocCatalogId == it.parentId }
@@ -110,15 +100,13 @@ class HelpDocCatalogService(
         }
 
         //查询是否有帮助文档
-        val helpDocVOList: List<HelpDocVO?> = sql.createQuery(HelpDoc::class) {
-            where(table.helpDocCatalogId eq helpDocCatalogId)
-            select(table.fetch(HelpDocVO::class))
-        }.execute()
-        if (CollectionUtils.isNotEmpty(helpDocVOList)) {
+        if (sql.exists(HelpDoc::class) {
+                where(table.helpDocCatalogId eq helpDocCatalogId)
+            }) {
             return ResponseDTO.userErrorParam("目录下存在文档，不能删除")
         }
 
-        sql.deleteById(HelpDocCatalog::class,helpDocCatalogId)
+        sql.deleteById(HelpDocCatalog::class, helpDocCatalogId)
         return ResponseDTO.ok()
     }
 }

@@ -1,5 +1,7 @@
 package com.zyf.repository.employee
 
+import cn.hutool.core.lang.Console.where
+import com.zyf.common.jimmer.oneOrNull
 import com.zyf.employee.*
 import com.zyf.repository.BaseRepository
 import com.zyf.system.roleId
@@ -27,10 +29,9 @@ class EmployeeRepository(
      * 根据登录名获取员工
      */
     fun byLoginName(loginName: String): Employee? {
-        return sql.createQuery(Employee::class) {
+        return sql.oneOrNull(Employee::class) {
             where(table.loginName eq loginName)
-            select(table)
-        }.fetchOneOrNull()
+        }
     }
 
 

@@ -73,9 +73,7 @@ class SmartJobService(
         queryForm: SmartJobQueryForm): ResponseDTO<PageResult<SmartJobVO>> {
         val pageResult = sql.createQuery(SmartJob::class) {
 
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.sort.asc(), table.jobId.desc())
+            orderBy(pageBean, table.sort.asc(), table.jobId.desc())
 
             where(queryForm)
             select(table.fetch(SmartJobVO::class))
@@ -126,9 +124,7 @@ class SmartJobService(
     ): ResponseDTO<PageResult<SmartJobLogVO>> {
         val pageResult = sql.createQuery(SmartJobLog::class) {
 
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.logId.desc())
+            orderBy(pageBean, table.logId.desc())
 
             where(queryForm)
             select(table.fetch(SmartJobLogVO::class))

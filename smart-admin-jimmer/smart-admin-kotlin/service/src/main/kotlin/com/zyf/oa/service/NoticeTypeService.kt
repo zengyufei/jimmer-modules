@@ -33,14 +33,6 @@ class NoticeTypeService(
         return sql.findAll(NoticeTypeVO::class)
     }
 
-    fun byId(noticceTypeId: String): NoticeType? {
-        return sql.findById(NoticeType::class, noticceTypeId)
-    }
-
-    fun getByNoticeTypeId(noticceTypeId: String): NoticeTypeVO? {
-        return sql.findById(NoticeTypeVO::class, noticceTypeId)
-    }
-
     @Transactional
     fun add(name: String?): ResponseDTO<String?> {
         name?.takeIf { it.isNotBlank() } ?: return ResponseDTO.userErrorParam("类型名称不能为空")

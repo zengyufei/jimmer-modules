@@ -34,9 +34,7 @@ class HeartBeatService(
     fun pageQuery(pageBean: PageBean, queryForm: HeartBeatRecordQueryForm): ResponseDTO<PageResult<HeartBeatRecordVO>> {
         val pageResult = sql.createQuery(HeartBeatRecord::class) {
 
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.heartBeatTime.desc())
+            orderBy(pageBean, table.heartBeatTime.desc())
             where(queryForm)
             select(table.fetch(HeartBeatRecordVO::class))
         }.page(pageBean)

@@ -5,8 +5,7 @@ import com.zyf.common.annotations.Slf4j
 import com.zyf.common.domain.PageBean
 import com.zyf.common.domain.PageResult
 import com.zyf.common.domain.ResponseDTO
-import com.zyf.common.jimmer.orderBy
-import com.zyf.common.jimmer.page
+import com.zyf.common.jimmer.*
 import com.zyf.helpDoc.*
 import com.zyf.helpDoc.domain.HelpDocRelationVO
 import com.zyf.repository.helpDoc.HelpDocCatalogRepository
@@ -14,11 +13,13 @@ import com.zyf.repository.helpDoc.HelpDocRelationRepository
 import com.zyf.repository.helpDoc.HelpDocRepository
 import com.zyf.repository.helpDoc.HelpDocViewRecordRepository
 import com.zyf.service.dto.*
+import io.micrometer.core.instrument.binder.jvm.ClassLoaderMetrics
 import org.babyfish.jimmer.sql.DissociateAction
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.ast.expression.asc
 import org.babyfish.jimmer.sql.kt.ast.expression.desc
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -31,6 +32,7 @@ class HelpDocService(
     val helpDocRepository: HelpDocRepository,
     val helpDocRelationRepository: HelpDocRelationRepository,
     val helpDocViewRecordRepository: HelpDocViewRecordRepository,
+    classLoaderMetrics: ClassLoaderMetrics,
 ) {
 
 
@@ -42,16 +44,12 @@ class HelpDocService(
      */
     fun query(
         pageBean: PageBean,
-        queryForm: HelpDocQueryForm?): PageResult<HelpDocVO> {
-        val pageResult = sql.createQuery(HelpDoc::class) {
-
-            pageBean.sortCode?.let {
-                orderBy(pageBean)
-            } ?: orderBy(table.sort.asc(), table.createTime.desc())
-
+        queryForm: HelpDocQueryForm
+    ): PageResult<HelpDocVO> {
+        val pageResult = sql.page(HelpDoc::class, HelpDocVO::class, pageBean) {
+            orderBy(pageBean, table.sort.asc(), table.createTime.desc())
             where(queryForm)
-            select(table.fetch(HelpDocVO::class))
-        }.page(pageBean)
+        }
         return pageResult
     }
 
@@ -92,9 +90,9 @@ class HelpDocService(
         sql.update(updateForm)
 
         if (updateForm.relationList.isNotEmpty()) {
-            sql.createDelete(HelpDocRelation::class) {
+            sql.delete(HelpDocRelation::class) {
                 where(table.helpDocId eq updateForm.helpDocId)
-            }.execute()
+            }
             val newList = updateForm.relationList.map {
                 it.toEntity {
                     helpDocId = updateForm.helpDocId
@@ -119,6 +117,7 @@ class HelpDocService(
             return ResponseDTO.ok()
         }
         sql.entities.delete(HelpDoc::class, helpDocId) {
+            // 删除下级
             setDissociateAction(HelpDocRelation::helpDoc, DissociateAction.DELETE)
         }
 //        helpDocRepository.deleteById(helpDocId)
@@ -135,10 +134,10 @@ class HelpDocService(
      * @return
      */
     fun getDetail(helpDocId: String?): HelpDocDetailVO? {
-        if (helpDocId == null) {
-            return null
-        }
-        val detail: HelpDocDetailVO? = helpDocRepository.byId(HelpDocDetailVO::class, helpDocId)
+        helpDocId?: return null
+
+        val detail = sql.byId(HelpDocDetailVO::class, helpDocId)
+
         if (detail != null) {
             val listAll = helpDocRelationRepository.listAll(HelpDocRelationVO::class) {
                 where(table.helpDocId eq helpDocId)
@@ -159,12 +158,11 @@ class HelpDocService(
      * @return
      */
     fun queryHelpDocByRelationId(inputRelationId: String): List<HelpDocVO> {
-        return sql.createQuery(HelpDoc::class) {
+        return sql.list(HelpDoc::class, HelpDocVO::class) {
             where += table.helpDocRelations {
                 relationId eq inputRelationId
             }
-            select(table.fetch(HelpDocVO::class))
-        }.execute()
+        }
     }
 
 
